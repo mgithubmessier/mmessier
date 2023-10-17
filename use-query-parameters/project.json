@@ -1,0 +1,50 @@
+{
+  "name": "use-query-parameters",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "use-query-parameters/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["use-query-parameters/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/use-query-parameters",
+        "tsConfig": "use-query-parameters/tsconfig.lib.json",
+        "project": "use-query-parameters/package.json",
+        "entryFile": "use-query-parameters/src/index.ts",
+        "external": ["react", "react-dom", "@emotion/react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "use-query-parameters/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "use-query-parameters/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
