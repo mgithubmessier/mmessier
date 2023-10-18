@@ -1,5 +1,3 @@
-// 'use client';
-
 export default async function Index() {
   /*
    * Replace the elements below with your own.

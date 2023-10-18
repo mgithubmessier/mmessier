@@ -1,5 +1,3 @@
-'use client';
-
 import { noop } from 'lodash';
 import { createContext } from 'react';
 
