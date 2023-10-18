@@ -6,8 +6,8 @@ export type QueryParameterContextType = {
   _removeSubscriber: (subscriberID: string, subscriptionKey: string) => void;
   _clear: (subscriptionKey: string) => void;
   _remove: (subscriptionKey: string, key: string) => void;
-  _set: (subscriptionKey: string, key: string, value: any) => void;
-  _get: (subscriptionKey: string) => void;
+  _set: (subscriptionKey: string, key: string, value: object) => void;
+  _get: (subscriptionKey: string) => object;
   _isInitializing: boolean;
 };
 
@@ -17,6 +17,6 @@ export const QueryParameterContext = createContext<QueryParameterContextType>({
   _remove: noop,
   _removeSubscriber: noop,
   _set: noop,
-  _get: noop,
+  _get: () => ({}),
   _isInitializing: true,
 });

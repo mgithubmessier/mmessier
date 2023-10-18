@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 import { QueryParameterContext } from './context';
 
-export type QueryParameterHookSet = (key: string, value: any) => void;
+export type QueryParameterHookSet = (key: string, value: object) => void;
 export type QueryParameterHookRemove = (key: string) => void;
 export type QueryParameterHookClear = () => void;
 
@@ -11,7 +11,7 @@ export type QueryParameterHook = {
   set: QueryParameterHookSet;
   remove: QueryParameterHookRemove;
   clear: QueryParameterHookClear;
-  queryParameters: any;
+  queryParameters: object;
 };
 
 /*
@@ -36,7 +36,7 @@ export const useQueryParameters = (
   }, [subscriptionKey]);
 
   return {
-    set: (key: string, value: any) => {
+    set: (key: string, value: object) => {
       _set(subscriptionKey, key, value);
     },
     clear: () => {
