@@ -5,9 +5,6 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "@emotion/react": "11.11.1",
-    "@emotion/server": "11.11.0",
-    "@emotion/styled": "11.11.0",
     "@nx/next": "16.10.0",
     "flat": "^6.0.1",
     "lodash": "^4.17.21",
@@ -22,7 +19,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
-    "@emotion/babel-plugin": "11.11.0",
     "@nx/cypress": "16.10.0",
     "@nx/eslint-plugin": "16.10.0",
     "@nx/jest": "16.10.0",
@@ -33,7 +29,6 @@
     "@nx/workspace": "16.10.0",
     "@rollup/plugin-url": "^7.0.0",
     "@svgr/rollup": "^8.0.1",
-    "@swc/plugin-emotion": "^2.5.67",
     "@testing-library/react": "14.0.0",
     "@types/jest": "^29.4.0",
     "@types/lodash": "^4.14.199",
