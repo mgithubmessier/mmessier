@@ -16,3 +16,4 @@
   - MUI supposedly will not work within the scope of a server-side component because it will need the 'use client' directive
     - I'm curious if after I finish this lesson if there will be something of interest here around how to properly separate out UI vs. server side logic in an _effective_ way
     - Right now I'm wondering if there will be any treeshaking that is worth it if I am applying advanced styling from other libraries like mui often
+  - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize tthe contents on the experience
