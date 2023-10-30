@@ -8,5 +8,7 @@ export const styles: Style = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    textDecoration: 'none',
+    color: 'unset',
   },
 };

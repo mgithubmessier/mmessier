@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { Tabs, Tab } from '@mui/material';
+import { Tabs, Tab, Typography } from '@mui/material';
 import Link from 'next/link';
 
 import { styles } from './Navbar.styles';
@@ -14,7 +14,7 @@ export const Navbar = () => {
       <Tab
         label={
           <Link href="/" style={styles.link}>
-            Home
+            <Typography>Home</Typography>
           </Link>
         }
         value="/"
@@ -23,7 +23,7 @@ export const Navbar = () => {
       <Tab
         label={
           <Link href="/experience" style={styles.link}>
-            Experience
+            <Typography>Experience</Typography>
           </Link>
         }
         value="/experience"
