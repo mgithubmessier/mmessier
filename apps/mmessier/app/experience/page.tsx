@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 
 import { getExperiences } from '../../lib/getExperiences';
 
+import { ExperienceClient } from './components/Experience.client';
+
 export const metadata: Metadata = {
   title: 'Experience',
   description: 'A summary of my professional experience',
@@ -9,12 +11,7 @@ export const metadata: Metadata = {
 
 export const Experience = async () => {
   const experiences = await getExperiences();
-  return (
-    <div>
-      <h1>Experience</h1>
-      <pre>{JSON.stringify(experiences)}</pre>
-    </div>
-  );
+  return <ExperienceClient experiences={experiences} />;
 };
 
 export default Experience;
