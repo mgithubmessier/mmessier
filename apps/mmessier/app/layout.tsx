@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+import { Navbar } from './components/Navbar/Navbar.client';
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +7,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Typography variant="h1">Matthew Messier</Typography>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
