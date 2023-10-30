@@ -12,8 +12,25 @@
 - mmessier
   - Use the query parameter hook to ingest locations from which guests come and visit your website
     - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
-  - Figure out a way to host this website via Next.js, primarily doing server-side rendering
-  - MUI supposedly will not work within the scope of a server-side component because it will need the 'use client' directive
-    - I'm curious if after I finish this lesson if there will be something of interest here around how to properly separate out UI vs. server side logic in an _effective_ way
-    - Right now I'm wondering if there will be any treeshaking that is worth it if I am applying advanced styling from other libraries like mui often
   - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize tthe contents on the experience
+    - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
+
+## Next.js Limitations
+
+- API Calls
+  - Using react-query with Next.js
+    - https://tanstack.com/query/v4/docs/react/guides/ssr#using-initialdata
+    - It just looks like we'll have to use the client to make the requests and lose the benefit of server-side rendering if we make use of react-query at all
+  - You are pretty much constrained to their infrastructure for requests -- which is just a different way of thinking as I get into this a bit more
+
+## Principles
+
+### Data Components
+
+- It's very much looking like the way to pass data around here is the have the parent make the initial request and then pass that data to the child component which can then be rendered using the clent if we are using a library like MUI or something of the sort
+  - I worry about reactivity and how to properly make different requests when a form is submitted or a filter is applied from within the client-side component -- will we always be providing a callback from the parent to the child to reload the data? It may not be the end of the world if so, but ehhh, we'll see
+
+## App Deployment
+
+- Currently thinking we'll use AWS's next js deployment strategy
+  - https://aws.amazon.com/blogs/mobile/amplify-next-js-13/

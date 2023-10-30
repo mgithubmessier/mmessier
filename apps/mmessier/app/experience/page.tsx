@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { getExperience } from '../../lib/getExperience';
+import { getExperiences } from '../../lib/getExperiences';
 
 export const metadata: Metadata = {
   title: 'Experience',
@@ -8,12 +8,11 @@ export const metadata: Metadata = {
 };
 
 export const Experience = async () => {
-  const experience: Promise<any[]> = await getExperience();
-
+  const experiences = await getExperiences();
   return (
     <div>
       <h1>Experience</h1>
-      <pre>{JSON.stringify(experience)}</pre>
+      <pre>{JSON.stringify(experiences)}</pre>
     </div>
   );
 };
