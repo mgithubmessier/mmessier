@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Typography } from '@mui/material';
+import { Typography, CircularProgress } from '@mui/material';
 
 import { getExperiences } from '../../lib/getExperiences';
 

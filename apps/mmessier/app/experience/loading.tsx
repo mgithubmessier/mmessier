@@ -1,9 +1,5 @@
-export const Loading = () => {
-  return (
-    <div>
-      <h1>Loading...</h1>
-    </div>
-  );
-};
+import { CircularProgress } from '@mui/material';
+
+import { Loading } from '../components/Loading/Loading';
 
 export default Loading;
