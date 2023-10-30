@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
+import { Typography } from '@mui/material';
 
 import { getExperiences } from '../../lib/getExperiences';
-
-import { ExperienceClient } from './components/Experience.client';
 
 export const metadata: Metadata = {
   title: 'Experience',
@@ -11,7 +10,12 @@ export const metadata: Metadata = {
 
 export const Experience = async () => {
   const experiences = await getExperiences();
-  return <ExperienceClient experiences={experiences} />;
+  return (
+    <>
+      <Typography variant="h2">Experience</Typography>
+      <pre>{JSON.stringify(experiences)}</pre>
+    </>
+  );
 };
 
 export default Experience;
