@@ -11,7 +11,7 @@ type ErrorProps = {
 export const ErrorPage = ({ message, title, reset }: ErrorProps) => {
   return (
     <div style={styles.container}>
-      <Typography>{title}</Typography>
+      <Typography variant="h2">{title}</Typography>
       <Alert severity="error">{message}</Alert>
       <Button onClick={reset}>Retry</Button>
     </div>

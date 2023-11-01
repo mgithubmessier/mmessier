@@ -2,6 +2,19 @@ import { List, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { getExperience } from '../../../lib/getExperiences';
 import { ExperienceDetail } from '../../../types';
 
+type DetailProps = {
+  detail: ExperienceDetail;
+};
+
+const Detail = ({ detail }: DetailProps) => {
+  return (
+    <li key={`${detail.id}`}>
+      <Typography>{detail.detail}</Typography>
+      {detail.subDetails ? <Details details={detail.subDetails} /> : null}
+    </li>
+  );
+};
+
 type DetailsProps = {
   details?: Array<ExperienceDetail>;
 };
@@ -13,12 +26,7 @@ const Details = ({ details }: DetailsProps) => {
   return (
     <ul>
       {details.map((detail) => {
-        return (
-          <li key={`${detail.id}`}>
-            <Typography>{detail.detail}</Typography>
-            {detail.subDetails ? <Details details={detail.subDetails} /> : null}
-          </li>
-        );
+        return <Detail key={`${detail.id}`} detail={detail} />;
       })}
     </ul>
   );
