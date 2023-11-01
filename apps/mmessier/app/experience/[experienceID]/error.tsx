@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { ErrorPage } from '../components/Error/Error';
+import { ErrorPage } from '../../components/Error/Error';
 
 export const Error = ({
   error,
@@ -17,7 +17,7 @@ export const Error = ({
 
   return (
     <ErrorPage
-      title="Error loading experiences"
+      title="Error loading experience details"
       message={error.message}
       reset={reset}
     />

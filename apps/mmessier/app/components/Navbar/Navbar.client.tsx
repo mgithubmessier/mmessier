@@ -10,7 +10,7 @@ export const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <Tabs variant="fullWidth" value={pathname}>
+    <Tabs variant="fullWidth" value={pathname.split('/').slice(0, 2).join('/')}>
       <Tab
         label={
           <Link href="/" style={styles.link}>
