@@ -9,7 +9,7 @@ const styles: Style = {
     margin: 0,
   },
   container: { display: 'flex', flexDirection: 'column', height: '100%' },
-  childContainer: { flex: 1 },
+  childContainer: { flex: 1, display: 'flex' },
 };
 
 export default function RootLayout({

@@ -4,6 +4,7 @@ export const styles: Style = {
   container: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     flex: 1,
   },
