@@ -14,6 +14,8 @@
     - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
   - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize tthe contents on the experience
     - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
+  - Work out a really fun design around documenting your experiences, maybe some icons
+  - Work out a good looking color palette for the site
 
 ## Next.js Limitations
 
