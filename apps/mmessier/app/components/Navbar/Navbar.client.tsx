@@ -14,7 +14,7 @@ export const Navbar = () => {
       <Tab
         label={
           <Link href="/" style={styles.link}>
-            <Typography>Home</Typography>
+            Home
           </Link>
         }
         value="/"
@@ -23,7 +23,7 @@ export const Navbar = () => {
       <Tab
         label={
           <Link href="/experience" style={styles.link}>
-            <Typography>Experience</Typography>
+            Experience
           </Link>
         }
         value="/experience"
