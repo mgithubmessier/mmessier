@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const Experience = async () => {
   const experiences = await getExperiences();
   return (
-    <div>
+    <div style={styles.container}>
       <Typography variant="h2">Experience</Typography>
       {experiences.map((experience) => {
         return (
