@@ -1,4 +1,4 @@
-import { Checkbox, ThemeProvider, Typography } from '@mui/material';
+import { Checkbox, Paper, ThemeProvider, Typography } from '@mui/material';
 import { Navbar } from './components/Navbar/Navbar.client';
 import { Style } from '../types';
 import { theme } from './styles/theme';
@@ -12,7 +12,14 @@ const styles: Style = {
     backgroundColor: colors.background.main,
   },
   container: { display: 'flex', flexDirection: 'column', height: '100%' },
-  childContainer: { flex: 1, display: 'flex' },
+  childContainer: {
+    flex: 1,
+    display: 'flex',
+    marginLeft: 24,
+    marginRight: 24,
+    marginBottom: 24,
+    padding: 24,
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +34,7 @@ export default function RootLayout({
           <div style={styles.container}>
             <Typography variant="h1">Matthew Messier</Typography>
             <Navbar />
-            <div style={styles.childContainer}>{children}</div>
+            <Paper style={styles.childContainer}>{children}</Paper>
           </div>
         </body>
       </html>

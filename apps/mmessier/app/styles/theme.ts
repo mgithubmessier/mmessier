@@ -10,6 +10,13 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.background.secondary,
+        },
+      },
+    },
     MuiTab: {
       styleOverrides: {
         selected: {

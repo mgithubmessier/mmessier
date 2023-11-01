@@ -42,7 +42,6 @@ const ExperienceDetails = async ({
   params: { experienceID },
 }: ExperienceDetailsProps) => {
   const experience = await getExperience(experienceID);
-  console.log('is this running???', experience, experienceID);
   return (
     <div>
       <Typography variant="h2">{experience?.title}</Typography>

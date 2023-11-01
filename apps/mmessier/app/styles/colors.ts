@@ -6,5 +6,6 @@ export const colors = {
   },
   background: {
     main: '#27475b',
+    secondary: '#446e87',
   },
 };
