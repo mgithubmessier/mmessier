@@ -1,4 +1,4 @@
-import { List, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { getExperience } from '../../../lib/getExperiences';
 import { ExperienceDetail } from '../../../types';
 
