@@ -7,7 +7,7 @@ const experiences: Array<Experience> = [
     id: '0',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
-    startDate: set(new Date(), { month: 10, year: 2018 }),
+    startDate: set(new Date(), { month: 0, year: 2022 }),
     title: 'Software Engineer, Team Lead',
     details: [
       {
@@ -100,6 +100,24 @@ const experiences: Array<Experience> = [
         ],
       },
     ],
+  },
+  {
+    id: '1',
+    company: 'Dispatch Technologies',
+    location: 'Boston, MA',
+    startDate: set(new Date(), { month: 10, year: 2020 }),
+    endDate: set(new Date(), { month: 0, year: 2022 }),
+    title: 'Senior Software Engineer',
+    details: [],
+  },
+  {
+    id: '2',
+    company: 'Dispatch Technologies',
+    location: 'Boston, MA',
+    startDate: set(new Date(), { month: 10, year: 2018 }),
+    endDate: set(new Date(), { month: 10, year: 2020 }),
+    title: 'Software Engineer',
+    details: [],
   },
 ];
 
