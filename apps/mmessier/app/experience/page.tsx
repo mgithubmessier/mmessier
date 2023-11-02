@@ -5,10 +5,8 @@ import { getExperiences } from '../../lib/getExperiences';
 import Link from 'next/link';
 
 import { styles } from './styles';
-import Loading from './loading';
 import { CSSProperties } from 'react';
 import { colors } from '../styles/colors';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Experience',
