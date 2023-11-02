@@ -1,8 +1,9 @@
 export const colors = {
   text: {
     main: '#FFFFFF',
-    interactable: '#342459',
-    callToAction: '#671842',
+  },
+  components: {
+    main: '#e5917e',
   },
   background: {
     main: '#27475b',

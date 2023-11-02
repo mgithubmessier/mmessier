@@ -28,6 +28,23 @@ export const Navbar = () => {
         }
         value="/experience"
       />
+
+      <Tab
+        label={
+          <Link href="/projects" style={styles.link}>
+            Projects
+          </Link>
+        }
+        value="/projects"
+      />
+      <Tab
+        label={
+          <Link href="/contact" style={styles.link}>
+            Contact
+          </Link>
+        }
+        value="/contact"
+      />
     </Tabs>
   );
 };

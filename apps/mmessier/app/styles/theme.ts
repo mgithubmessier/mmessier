@@ -17,21 +17,11 @@ export const theme = createTheme({
         },
       },
     },
-    MuiTab: {
-      styleOverrides: {
-        selected: {
-          color: colors.text.interactable,
-        },
-      },
-    },
   },
   palette: {
     mode: 'light',
     primary: {
-      main: colors.text.main,
-    },
-    secondary: {
-      main: colors.text.main,
+      main: colors.components.main,
     },
   },
 });

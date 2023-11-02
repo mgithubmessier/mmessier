@@ -24,9 +24,13 @@ const Experience = async () => {
             href={`/experience/${experience.id}`}
             style={styles.link}
           >
-            <Button variant="text" style={styles.button}>
-              <Typography variant="h3">{experience.title}</Typography>
-              <Typography variant="h4">{experience.company}</Typography>
+            <Button variant="text" style={styles.button} color="primary">
+              <Typography variant="h4" sx={{ color: 'primary.main' }}>
+                {experience.title}
+              </Typography>
+              <Typography variant="h5" sx={{ color: 'primary.main' }}>
+                {experience.company}
+              </Typography>
             </Button>
           </Link>
         );
