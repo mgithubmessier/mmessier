@@ -1,7 +1,12 @@
 import { CSSProperties } from 'react';
 
 export type Style = {
-  [x: string]: CSSProperties;
+  dynamic?: {
+    [y: string]: (...args) => CSSProperties;
+  };
+  static?: {
+    [x: string]: CSSProperties;
+  };
 };
 
 export type ExperienceDetail = {

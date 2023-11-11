@@ -5,8 +5,6 @@ import { getExperiences } from '../../lib/getExperiences';
 import Link from 'next/link';
 
 import { styles } from './styles';
-import { CSSProperties } from 'react';
-import { colors } from '../styles/colors';
 
 export const metadata: Metadata = {
   title: 'Experience',
@@ -16,75 +14,32 @@ export const metadata: Metadata = {
 const Experience = async () => {
   const experiences = await getExperiences();
   return (
-    <div style={styles.container}>
+    <div style={styles.static?.container}>
       <Typography variant="h2">Experience</Typography>
       {experiences.map((experience, index) => {
-        const alternatingLinkStyle: CSSProperties =
-          index % 2 === 0
-            ? {}
-            : {
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-end',
-              };
-        const alternatingButtonTextContainerStyle: CSSProperties =
-          index % 2 === 0
-            ? {
-                ...alternatingLinkStyle,
-                marginLeft: 16,
-              }
-            : {
-                ...alternatingLinkStyle,
-                marginRight: 16,
-              };
-        const alternatingButtonStyle: CSSProperties =
-          index % 2 === 0
-            ? {}
-            : {
-                flexDirection: 'row-reverse',
-              };
-        const alternatingCompanyLogoContainerStyle: CSSProperties =
-          index % 2 === 0
-            ? {
-                borderTopLeftRadius: 6,
-                borderBottomLeftRadius: 6,
-              }
-            : {
-                borderTopRightRadius: 6,
-                borderBottomRightRadius: 6,
-              };
+        const isEven = index % 2 === 0;
         return (
           <Link
             key={experience.id}
             href={`/experience/${experience.id}`}
-            style={{ ...styles.link, ...alternatingLinkStyle }}
+            style={styles.dynamic?.alternatingLink(isEven)}
           >
             <Button
               variant="text"
-              style={{
-                ...styles.button,
-                ...colors.alternating[index % 5],
-                ...alternatingButtonStyle,
-              }}
+              style={styles.dynamic?.alternatingButton(isEven, index)}
               color="primary"
             >
               <div
-                style={{
-                  ...styles.companyLogoContainer,
-                  ...alternatingCompanyLogoContainerStyle,
-                }}
+                style={styles.dynamic?.alternatingCompanyLogoContainer(isEven)}
               >
                 <img
                   alt="company_logo"
                   src="https://dispatch.me/wp-content/themes/dispatch-skin/assets/img/preloader-logo.png"
-                  style={styles.companyLogo}
+                  style={styles.static?.companyLogo}
                 />
               </div>
               <div
-                style={{
-                  ...styles.buttonTextContainer,
-                  ...alternatingButtonTextContainerStyle,
-                }}
+                style={styles.dynamic?.alternatingButtonTextContainer(isEven)}
               >
                 <Typography variant="h4" sx={{ color: 'primary.main' }}>
                   {experience.title}
