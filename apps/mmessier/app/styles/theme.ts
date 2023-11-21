@@ -6,10 +6,8 @@ import { fonts } from './fonts';
 
 export const theme = createTheme({
   typography: {
-    allVariants: {
-      color: colors.text.main,
-    },
     h1: {
+      color: colors.text.main,
       ...fonts.h1Font.style,
       src: "url('/fonts/Montserrat/Montserrat-VariableFont_wght.ttf')",
       '@media (min-width:600px)': {
@@ -18,6 +16,7 @@ export const theme = createTheme({
       fontSize: '4rem',
     },
     h2: {
+      color: colors.text.main,
       ...fonts.h2Font.style,
       '@media (min-width:600px)': {
         fontSize: '4rem',
@@ -25,6 +24,7 @@ export const theme = createTheme({
       fontSize: '3rem',
     },
     h3: {
+      color: colors.text.main,
       ...fonts.h3Font.style,
       '@media (min-width:600px)': {
         fontSize: '2.5rem',
@@ -32,6 +32,7 @@ export const theme = createTheme({
       fontSize: '2rem',
     },
     h4: {
+      color: colors.text.main,
       ...fonts.h4Font.style,
       '@media (min-width:600px)': {
         fontSize: '1.5rem',

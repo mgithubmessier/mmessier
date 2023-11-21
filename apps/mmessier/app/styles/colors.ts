@@ -20,6 +20,14 @@ export const colors = {
       backgroundColor: MAIN_COLOR[600],
       color: '#FFFFFF',
     },
+    {
+      backgroundColor: MAIN_COLOR[200],
+      color: '#000000',
+    },
+    {
+      backgroundColor: MAIN_COLOR[100],
+      color: '#000000',
+    },
   ],
   text: {
     main: MAIN_COLOR[50],

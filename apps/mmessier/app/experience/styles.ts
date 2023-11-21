@@ -112,8 +112,6 @@ export const styles: Style = {
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'flex-start',
-      height: '100%',
-      margin: `0 ${spacingLevel(1)}px`,
     },
     dateRangeText,
     dateRangeSplit: {

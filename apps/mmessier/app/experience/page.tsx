@@ -59,22 +59,24 @@ const Experience = async () => {
                   <Typography variant="h4" sx={{ color: 'primary.main' }}>
                     {experience.company}
                   </Typography>
+                  <div style={styles.static?.dateRangeContainer}>
+                    <Typography style={styles.static?.dateRangeText}>
+                      {format(parseISO(experience.startDate), 'MMMM y')}
+                    </Typography>
+                    <Typography style={styles.static?.dateRangeSplit}>
+                      -
+                    </Typography>
+                    {experience.endDate ? (
+                      <Typography style={styles.static?.dateRangeText}>
+                        {format(parseISO(experience.endDate), 'MMMM y')}
+                      </Typography>
+                    ) : (
+                      <Typography style={styles.static?.dateRangeText}>
+                        Present
+                      </Typography>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div style={styles.static?.dateRangeContainer}>
-                <Typography style={styles.static?.dateRangeText}>
-                  {format(parseISO(experience.startDate), 'MMM y')}
-                </Typography>
-                <Typography style={styles.static?.dateRangeSplit}>-</Typography>
-                {experience.endDate ? (
-                  <Typography style={styles.static?.dateRangeText}>
-                    {format(parseISO(experience.endDate), 'MMM y')}
-                  </Typography>
-                ) : (
-                  <Typography style={styles.static?.dateRangeText}>
-                    Present
-                  </Typography>
-                )}
               </div>
             </Button>
           </Link>

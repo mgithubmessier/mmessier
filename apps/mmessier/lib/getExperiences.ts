@@ -135,7 +135,7 @@ const experiences: Array<Experience> = [
     location: 'Boston, MA',
     startDate: set(new Date(), { month: 10, year: 2020 }).toISOString(),
     endDate: set(new Date(), { month: 0, year: 2022 }).toISOString(),
-    title: 'Senior Software Engineer',
+    title: 'Software Engineer, Senior',
     details: [],
   },
   {
