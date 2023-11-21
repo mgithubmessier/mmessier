@@ -73,7 +73,9 @@ const ExperienceDetails = async ({
     <div style={styles.static?.container}>
       <div style={styles.static?.titleContainer}>
         <Typography variant="h2">{experience?.title}</Typography>
-        <Typography variant="h3">{experience?.company}</Typography>
+        <a target="_blank" href={experience?.companyURL}>
+          <Typography variant="h3">{experience?.company}</Typography>
+        </a>
       </div>
       <Details details={experience?.details} level={0} />
     </div>

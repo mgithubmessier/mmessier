@@ -4,6 +4,7 @@ import { Experience } from '../types';
 const experiences: Array<Experience> = [
   {
     logo: '/dispatch.webp',
+    companyURL: 'https://dispatch.me/',
     id: '0',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
@@ -128,6 +129,7 @@ const experiences: Array<Experience> = [
   },
   {
     logo: '/dispatch.webp',
+    companyURL: 'https://dispatch.me/',
     id: '1',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
@@ -138,6 +140,7 @@ const experiences: Array<Experience> = [
   },
   {
     logo: '/dispatch.webp',
+    companyURL: 'https://dispatch.me/',
     id: '2',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
@@ -148,6 +151,7 @@ const experiences: Array<Experience> = [
   },
   {
     logo: '/fidelity.jpeg',
+    companyURL: 'https://www.fidelity.com/',
     id: '3',
     company: 'Fidelity Investments',
     location: 'Boston, MA',

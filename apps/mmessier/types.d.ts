@@ -18,6 +18,7 @@ export type ExperienceDetail = {
 export type Experience = {
   id: string;
   company: string;
+  companyURL: string;
   title: string;
   details: Array<ExperienceDetail>;
   startDate: string;
