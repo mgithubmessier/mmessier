@@ -40,7 +40,6 @@ const companyLogoContainer: CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: spacingLevel(1),
 };
 
 export const styles: Style = {
@@ -60,13 +59,11 @@ export const styles: Style = {
       if (isEven) {
         return {
           ...buttonTextTitleContainer,
-          marginLeft: spacingLevel(2),
           textAlign: 'left',
         };
       }
       return {
         ...buttonTextTitleContainer,
-        marginRight: spacingLevel(2),
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
@@ -92,12 +89,14 @@ export const styles: Style = {
           ...companyLogoContainer,
           borderTopLeftRadius: 6,
           borderBottomLeftRadius: 6,
+          marginLeft: spacingLevel(1),
         };
       }
       return {
         ...companyLogoContainer,
         borderTopRightRadius: 6,
         borderBottomRightRadius: 6,
+        marginRight: spacingLevel(1),
       };
     },
   },
@@ -110,16 +109,13 @@ export const styles: Style = {
     },
     dateRangeContainer: {
       display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     dateRangeText,
     dateRangeSplit: {
       ...dateRangeText,
       margin: `0 ${spacingLevel(1)}px`,
-    },
-    heading: {
-      marginBottom: 12,
     },
     container: {
       display: 'flex',

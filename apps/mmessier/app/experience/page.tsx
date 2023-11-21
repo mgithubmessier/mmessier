@@ -18,9 +18,6 @@ const Experience = async () => {
   const experiences = await getExperiences();
   return (
     <div style={styles.static?.container}>
-      <Typography variant="h2" style={styles.static?.heading}>
-        Experience
-      </Typography>
       {experiences.map((experience, index) => {
         const isEven = index % 2 === 0;
         return (
@@ -61,14 +58,14 @@ const Experience = async () => {
                   </Typography>
                   <div style={styles.static?.dateRangeContainer}>
                     <Typography style={styles.static?.dateRangeText}>
-                      {format(parseISO(experience.startDate), 'MMMM y')}
+                      {format(parseISO(experience.startDate), 'MMM y')}
                     </Typography>
                     <Typography style={styles.static?.dateRangeSplit}>
                       -
                     </Typography>
                     {experience.endDate ? (
                       <Typography style={styles.static?.dateRangeText}>
-                        {format(parseISO(experience.endDate), 'MMMM y')}
+                        {format(parseISO(experience.endDate), 'MMM y')}
                       </Typography>
                     ) : (
                       <Typography style={styles.static?.dateRangeText}>

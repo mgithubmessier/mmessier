@@ -14,7 +14,7 @@ export const styles: Style = {
       textDecoration: 'none',
       color: 'unset',
       textTransform: 'none',
-      fontSize: '2rem',
+      fontSize: '1.5rem',
     },
   },
 };
