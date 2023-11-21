@@ -1,4 +1,4 @@
-import { Checkbox, Paper, ThemeProvider, Typography } from '@mui/material';
+import { Paper, ThemeProvider, Typography } from '@mui/material';
 import { Navbar } from './components/Navbar/Navbar.client';
 import { theme } from './styles/theme';
 import { styles } from './layoutStyles';
