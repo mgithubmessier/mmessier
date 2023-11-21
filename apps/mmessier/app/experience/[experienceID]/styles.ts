@@ -8,7 +8,7 @@ export const styles: Style = {
     accordion: (hasDetails: boolean, index: number) => {
       return {
         pointerEvents: hasDetails ? 'all' : 'none',
-        ...colors.alternating[index % colors.alternating.length],
+        ...colors.alternating[(index + 1) % colors.alternating.length],
         width: '100%',
       };
     },
