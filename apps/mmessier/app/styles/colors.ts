@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react';
 import { indigo } from '@mui/material/colors';
 
 const MAIN_COLOR = indigo;
