@@ -5,6 +5,8 @@ import { getExperiences } from '../../lib/getExperiences';
 import Link from 'next/link';
 
 import { styles } from './styles';
+import Image from 'next/image';
+import { buttonStyles } from '../styles/button';
 
 export const metadata: Metadata = {
   title: 'Experience',
@@ -15,7 +17,9 @@ const Experience = async () => {
   const experiences = await getExperiences();
   return (
     <div style={styles.static?.container}>
-      <Typography variant="h2">Experience</Typography>
+      <Typography variant="h2" style={styles.static?.heading}>
+        Experience
+      </Typography>
       {experiences.map((experience, index) => {
         const isEven = index % 2 === 0;
         return (
@@ -26,16 +30,22 @@ const Experience = async () => {
           >
             <Button
               variant="text"
-              style={styles.dynamic?.alternatingButton(isEven, index)}
+              style={styles.dynamic?.alternatingButton(
+                isEven,
+                index,
+                experiences.length
+              )}
+              sx={buttonStyles.expandHover}
               color="primary"
             >
               <div
                 style={styles.dynamic?.alternatingCompanyLogoContainer(isEven)}
               >
-                <img
-                  alt="company_logo"
-                  src="https://dispatch.me/wp-content/themes/dispatch-skin/assets/img/preloader-logo.png"
+                <Image
                   style={styles.static?.companyLogo}
+                  src="/preloader-logo.webp"
+                  alt="company_logo"
+                  fill
                 />
               </div>
               <div

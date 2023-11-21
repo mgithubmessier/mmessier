@@ -2,8 +2,6 @@ import { CSSProperties } from 'react';
 import { Style } from '../../types';
 import { colors } from '../styles/colors';
 
-const BUTTON_HEIGHT = 90;
-
 const link: CSSProperties = {
   textDecoration: 'none',
   color: 'unset',
@@ -14,6 +12,7 @@ const buttonTextContainer: CSSProperties = {
   flexDirection: 'column',
   alignItems: 'flex-start',
   flex: 1,
+  margin: 8,
 };
 
 const button: CSSProperties = {
@@ -21,17 +20,22 @@ const button: CSSProperties = {
   display: 'flex',
   width: '80%',
   padding: 0,
-  height: BUTTON_HEIGHT,
+  margin: '3px 0',
 };
 
+const IMAGE_PADDING = 8;
+const LOGO_SIDE = 70;
+
 const companyLogoContainer: CSSProperties = {
-  paddingLeft: 16,
-  paddingRight: 16,
-  backgroundColor: 'white',
-  height: BUTTON_HEIGHT,
+  position: 'relative',
+  width: LOGO_SIDE,
+  minWidth: LOGO_SIDE,
+  height: LOGO_SIDE,
+  minHeight: LOGO_SIDE,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  margin: 6,
 };
 
 export const styles: Style = {
@@ -52,6 +56,7 @@ export const styles: Style = {
         return {
           ...buttonTextContainer,
           marginLeft: 16,
+          textAlign: 'left',
         };
       }
       return {
@@ -60,9 +65,10 @@ export const styles: Style = {
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
+        textAlign: 'right',
       };
     },
-    alternatingButton: (isEven: boolean, index: number) => {
+    alternatingButton: (isEven: boolean, index: number, numItems: number) => {
       if (isEven) {
         return {
           ...colors.alternating[index % 5],
@@ -91,14 +97,21 @@ export const styles: Style = {
     },
   },
   static: {
+    heading: {
+      marginBottom: 12,
+    },
     container: {
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
     },
-
+    imageContainer: {
+      backgroundColor: 'white',
+      width: LOGO_SIDE + IMAGE_PADDING,
+      height: LOGO_SIDE + IMAGE_PADDING,
+    },
     companyLogo: {
-      height: 50,
+      objectFit: 'contain',
     },
   },
 };
