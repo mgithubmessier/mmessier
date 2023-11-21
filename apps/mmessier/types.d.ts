@@ -20,7 +20,8 @@ export type Experience = {
   company: string;
   title: string;
   details: Array<ExperienceDetail>;
-  startDate: Date;
-  endDate?: Date;
+  startDate: string;
+  endDate?: string;
   location: string;
+  logo: string;
 };

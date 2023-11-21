@@ -3,15 +3,15 @@ import { Experience } from '../types';
 
 const experiences: Array<Experience> = [
   {
+    logo: '/dispatch.webp',
     id: '0',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
-    startDate: set(new Date(), { month: 0, year: 2022 }),
+    startDate: set(new Date(), { month: 0, year: 2022 }).toISOString(),
     title: 'Software Engineer, Team Lead',
     details: [
       {
         id: '0.1',
-
         detail: 'Oversee and Execute Software Development and Releases',
         subDetails: [
           {
@@ -78,7 +78,7 @@ const experiences: Array<Experience> = [
               'Created and maintain test setup and teardown infrastructure to spawn minimal testing environments which each execution',
           },
           {
-            id: '0.4.2',
+            id: '0.4.3',
             detail:
               'Created and maintain Detox automation tests to run against our mobile applications',
           },
@@ -127,20 +127,32 @@ const experiences: Array<Experience> = [
     ],
   },
   {
+    logo: '/dispatch.webp',
     id: '1',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
-    startDate: set(new Date(), { month: 10, year: 2020 }),
-    endDate: set(new Date(), { month: 0, year: 2022 }),
+    startDate: set(new Date(), { month: 10, year: 2020 }).toISOString(),
+    endDate: set(new Date(), { month: 0, year: 2022 }).toISOString(),
     title: 'Senior Software Engineer',
     details: [],
   },
   {
+    logo: '/dispatch.webp',
     id: '2',
     company: 'Dispatch Technologies',
     location: 'Boston, MA',
-    startDate: set(new Date(), { month: 10, year: 2018 }),
-    endDate: set(new Date(), { month: 10, year: 2020 }),
+    startDate: set(new Date(), { month: 10, year: 2018 }).toISOString(),
+    endDate: set(new Date(), { month: 10, year: 2020 }).toISOString(),
+    title: 'Software Engineer',
+    details: [],
+  },
+  {
+    logo: '/fidelity.jpeg',
+    id: '3',
+    company: 'Fidelity Investments',
+    location: 'Boston, MA',
+    startDate: set(new Date(), { month: 9, year: 2016 }).toISOString(),
+    endDate: set(new Date(), { month: 10, year: 2018 }).toISOString(),
     title: 'Software Engineer',
     details: [],
   },

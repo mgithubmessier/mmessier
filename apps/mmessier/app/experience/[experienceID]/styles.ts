@@ -5,10 +5,10 @@ import { spacingLevel } from '../../styles/spacing';
 
 export const styles: Style = {
   dynamic: {
-    accordion: (hasDetails: boolean) => {
+    accordion: (hasDetails: boolean, index: number) => {
       return {
         pointerEvents: hasDetails ? 'all' : 'none',
-        backgroundColor: colors.background.tertiary,
+        ...colors.alternating[index % colors.alternating.length],
         width: '100%',
       };
     },
@@ -26,6 +26,7 @@ export const styles: Style = {
     },
     detailText: {
       ...fonts.common.style,
+      fontSize: '1.2rem',
     },
   },
 };

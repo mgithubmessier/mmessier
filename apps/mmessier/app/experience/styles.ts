@@ -2,18 +2,18 @@ import { CSSProperties } from 'react';
 import { Style } from '../../types';
 import { colors } from '../styles/colors';
 import { spacingLevel } from '../styles/spacing';
+import { fonts } from '../styles/fonts';
 
 const link: CSSProperties = {
   textDecoration: 'none',
   color: 'unset',
 };
 
-const buttonTextContainer: CSSProperties = {
+const buttonTextTitleContainer: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   flex: 1,
-  margin: spacingLevel(1),
 };
 
 const button: CSSProperties = {
@@ -22,6 +22,10 @@ const button: CSSProperties = {
   width: '80%',
   padding: 0,
   margin: '3px 0',
+};
+
+const dateRangeText = {
+  ...fonts.common.style,
 };
 
 const IMAGE_PADDING = spacingLevel(1);
@@ -55,13 +59,13 @@ export const styles: Style = {
     alternatingButtonTextContainer: (isEven: boolean) => {
       if (isEven) {
         return {
-          ...buttonTextContainer,
+          ...buttonTextTitleContainer,
           marginLeft: spacingLevel(2),
           textAlign: 'left',
         };
       }
       return {
-        ...buttonTextContainer,
+        ...buttonTextTitleContainer,
         marginRight: spacingLevel(2),
         display: 'flex',
         alignItems: 'flex-end',
@@ -72,13 +76,13 @@ export const styles: Style = {
     alternatingButton: (isEven: boolean, index: number, numItems: number) => {
       if (isEven) {
         return {
-          ...colors.alternating[index % 5],
+          ...colors.alternating[index % colors.alternating.length],
           ...button,
         };
       }
       return {
         ...button,
-        ...colors.alternating[index % 5],
+        ...colors.alternating[index % colors.alternating.length],
         flexDirection: 'row-reverse',
       };
     },
@@ -98,6 +102,24 @@ export const styles: Style = {
     },
   },
   static: {
+    buttonTextContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      flex: 1,
+      margin: spacingLevel(1),
+    },
+    dateRangeContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'flex-start',
+      height: '100%',
+      margin: `0 ${spacingLevel(1)}px`,
+    },
+    dateRangeText,
+    dateRangeSplit: {
+      ...dateRangeText,
+      margin: `0 ${spacingLevel(1)}px`,
+    },
     heading: {
       marginBottom: 12,
     },
@@ -105,6 +127,7 @@ export const styles: Style = {
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
+      maxWidth: 1000,
     },
     imageContainer: {
       backgroundColor: 'white',

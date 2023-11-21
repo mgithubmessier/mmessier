@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { styles } from './styles';
 import Image from 'next/image';
 import { buttonStyles } from '../styles/button';
+import { format, parseISO } from 'date-fns';
 
 export const metadata: Metadata = {
   title: 'Experience',
@@ -43,20 +44,37 @@ const Experience = async () => {
               >
                 <Image
                   style={styles.static?.companyLogo}
-                  src="/preloader-logo.webp"
+                  src={experience.logo}
                   alt="company_logo"
                   fill
                 />
               </div>
-              <div
-                style={styles.dynamic?.alternatingButtonTextContainer(isEven)}
-              >
-                <Typography variant="h3" sx={{ color: 'primary.main' }}>
-                  {experience.title}
+              <div style={styles.static?.buttonTextContainer}>
+                <div
+                  style={styles.dynamic?.alternatingButtonTextContainer(isEven)}
+                >
+                  <Typography variant="h3" sx={{ color: 'primary.main' }}>
+                    {experience.title}
+                  </Typography>
+                  <Typography variant="h4" sx={{ color: 'primary.main' }}>
+                    {experience.company}
+                  </Typography>
+                </div>
+              </div>
+              <div style={styles.static?.dateRangeContainer}>
+                <Typography style={styles.static?.dateRangeText}>
+                  {format(parseISO(experience.startDate), 'MMM y')}
                 </Typography>
-                <Typography variant="h4" sx={{ color: 'primary.main' }}>
-                  {experience.company}
-                </Typography>
+                <Typography style={styles.static?.dateRangeSplit}>-</Typography>
+                {experience.endDate ? (
+                  <Typography style={styles.static?.dateRangeText}>
+                    {format(parseISO(experience.endDate), 'MMM y')}
+                  </Typography>
+                ) : (
+                  <Typography style={styles.static?.dateRangeText}>
+                    Present
+                  </Typography>
+                )}
               </div>
             </Button>
           </Link>

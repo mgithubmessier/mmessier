@@ -12,13 +12,14 @@ import { styles } from './styles';
 
 type DetailProps = {
   detail: ExperienceDetail;
+  level: number;
 };
 
-const Detail = ({ detail }: DetailProps) => {
+const Detail = ({ detail, level }: DetailProps) => {
   return (
     <Accordion
       key={`${detail.id}`}
-      sx={styles.dynamic?.accordion(Boolean(detail.subDetails))}
+      sx={styles.dynamic?.accordion(Boolean(detail.subDetails), level)}
     >
       <AccordionSummary
         expandIcon={
@@ -32,7 +33,9 @@ const Detail = ({ detail }: DetailProps) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {detail.subDetails ? <Details details={detail.subDetails} /> : null}
+        {detail.subDetails ? (
+          <Details details={detail.subDetails} level={level + 1} />
+        ) : null}
       </AccordionDetails>
     </Accordion>
   );
@@ -40,16 +43,17 @@ const Detail = ({ detail }: DetailProps) => {
 
 type DetailsProps = {
   details?: Array<ExperienceDetail>;
+  level: number;
 };
 
-const Details = ({ details }: DetailsProps) => {
+const Details = ({ details, level }: DetailsProps) => {
   if (!details?.length) {
     return null;
   }
   return (
     <>
       {details.map((detail) => {
-        return <Detail key={`${detail.id}`} detail={detail} />;
+        return <Detail key={`${detail.id}`} detail={detail} level={level} />;
       })}
     </>
   );
@@ -71,7 +75,7 @@ const ExperienceDetails = async ({
         <Typography variant="h2">{experience?.title}</Typography>
         <Typography variant="h3">{experience?.company}</Typography>
       </div>
-      <Details details={experience?.details} />
+      <Details details={experience?.details} level={0} />
     </div>
   );
 };
