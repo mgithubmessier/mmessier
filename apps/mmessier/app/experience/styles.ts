@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 import { Style } from '../../types';
 import { colors } from '../styles/colors';
+import { spacingLevel } from '../styles/spacing';
 
 const link: CSSProperties = {
   textDecoration: 'none',
@@ -12,7 +13,7 @@ const buttonTextContainer: CSSProperties = {
   flexDirection: 'column',
   alignItems: 'flex-start',
   flex: 1,
-  margin: 8,
+  margin: spacingLevel(1),
 };
 
 const button: CSSProperties = {
@@ -23,7 +24,7 @@ const button: CSSProperties = {
   margin: '3px 0',
 };
 
-const IMAGE_PADDING = 8;
+const IMAGE_PADDING = spacingLevel(1);
 const LOGO_SIDE = 70;
 
 const companyLogoContainer: CSSProperties = {
@@ -35,7 +36,7 @@ const companyLogoContainer: CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: 6,
+  margin: spacingLevel(1),
 };
 
 export const styles: Style = {
@@ -55,13 +56,13 @@ export const styles: Style = {
       if (isEven) {
         return {
           ...buttonTextContainer,
-          marginLeft: 16,
+          marginLeft: spacingLevel(2),
           textAlign: 'left',
         };
       }
       return {
         ...buttonTextContainer,
-        marginRight: 16,
+        marginRight: spacingLevel(2),
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',

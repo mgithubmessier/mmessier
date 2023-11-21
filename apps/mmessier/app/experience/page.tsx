@@ -51,10 +51,10 @@ const Experience = async () => {
               <div
                 style={styles.dynamic?.alternatingButtonTextContainer(isEven)}
               >
-                <Typography variant="h4" sx={{ color: 'primary.main' }}>
+                <Typography variant="h3" sx={{ color: 'primary.main' }}>
                   {experience.title}
                 </Typography>
-                <Typography variant="h5" sx={{ color: 'primary.main' }}>
+                <Typography variant="h4" sx={{ color: 'primary.main' }}>
                   {experience.company}
                 </Typography>
               </div>

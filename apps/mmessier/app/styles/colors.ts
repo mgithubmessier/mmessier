@@ -1,32 +1,36 @@
 import { CSSProperties } from 'react';
+import { indigo } from '@mui/material/colors';
+
+const MAIN_COLOR = indigo;
 
 export const colors = {
   alternating: {
     0: {
-      backgroundColor: '#3F0D12',
+      backgroundColor: MAIN_COLOR[900],
       color: '#FFFFFF',
     },
     1: {
-      backgroundColor: '#A7CAB1',
-      color: '#000000',
+      backgroundColor: MAIN_COLOR[800],
+      color: '#FFFFFF',
     },
     2: {
-      backgroundColor: '#F55D3E',
-      color: '#000000',
+      backgroundColor: MAIN_COLOR[700],
+      color: '#FFFFFF',
     },
     3: {
-      backgroundColor: '#41521F',
+      backgroundColor: MAIN_COLOR[600],
       color: '#FFFFFF',
     },
   } as { [x: number]: CSSProperties },
   text: {
-    main: '#FFFFFF',
+    main: MAIN_COLOR[50],
   },
   components: {
-    main: '#FFFFFF',
+    main: MAIN_COLOR[50],
   },
   background: {
-    main: '#27475b',
-    secondary: '#446e87',
+    main: MAIN_COLOR[500],
+    secondary: MAIN_COLOR[400],
+    tertiary: MAIN_COLOR[300],
   },
 };

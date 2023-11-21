@@ -1,6 +1,5 @@
 import { set } from 'date-fns';
 import { Experience } from '../types';
-import { v4 } from 'uuid';
 
 const experiences: Array<Experience> = [
   {
@@ -13,60 +12,81 @@ const experiences: Array<Experience> = [
       {
         id: '0.1',
 
-        detail:
-          'Develop workforce management software on a React, React-Native, Typescript, Golang, and Postgres stack',
+        detail: 'Oversee and Execute Software Development and Releases',
+        subDetails: [
+          {
+            id: '0.1.1',
+            detail:
+              'React Native mobile application to both Android and iOS devices',
+          },
+          {
+            id: '0.1.2',
+            detail: 'React web applications across multiple web browsers',
+          },
+          {
+            id: '0.1.3',
+            detail:
+              'Golang microservices on a Kubernetes implementation on AWS EC2 Instances',
+          },
+        ],
       },
       {
         id: '0.2',
-
-        detail:
-          'Troubleshoot and release on an AWS and Kubernetes implementation ',
+        detail: 'Created and currently Lead Internal Frontend Developers Guild',
+        subDetails: [
+          {
+            id: '0.2.1',
+            detail:
+              'Share development patterns and preferences to create consistent software solutions',
+          },
+          {
+            id: '0.2.2',
+            detail:
+              'Research and share new development patterns to keep up with quickly advancing frontend technologies',
+          },
+        ],
       },
       {
         id: '0.3',
-
         detail:
-          'Lead internal frontend developers guild to advance skills and modernize software',
+          'Perform vital roles in Acquiring and Developing Engineering Talent',
+        subDetails: [
+          {
+            id: '0.3.1',
+            detail:
+              'Manage and onboard Senior, Mid-Level, and Northeastern Co-op Software Engineers',
+          },
+          {
+            id: '0.3.2',
+            detail:
+              'Interview and determine hiring of Senior, Mid-Level, and Entry-Level candidates',
+          },
+        ],
       },
       {
         id: '0.4',
-
-        detail:
-          'Oversee and execute releases of mobile application to both Android and iOS devices',
-      },
-      {
-        id: '0.5',
-
-        detail:
-          'Manage and onboard Senior, Mid-Level, and Northeastern Co-op Software Engineers',
-      },
-      {
-        id: '0.6',
-        detail:
-          'Incepted, developed, and lead creation of a new internal administration dashboard ',
-      },
-      {
-        id: '0.7',
-
-        detail:
-          'Maintained intricate CI/CD pipeline in Travis + Docker to complement advanced git flows',
-      },
-      {
-        id: '0.8',
-
-        detail:
-          'Created and maintaining testing infrastructure for React, React-Native, Golang, and RoR repositories',
-      },
-      {
-        id: '0.9',
-
-        detail:
-          'Matured Apps to pass PCI audits and development processes to pass SOC2 audits',
+        detail: 'Maintain intricate CI/CD Testing Pipeline',
+        subDetails: [
+          {
+            id: '0.4.1',
+            detail:
+              'Created and maintain Cypress automation tests to run against our web applications in parallel quickly and stably in Travis-CI',
+          },
+          {
+            id: '0.4.2',
+            detail:
+              'Created and maintain test setup and teardown infrastructure to spawn minimal testing environments which each execution',
+          },
+          {
+            id: '0.4.2',
+            detail:
+              'Created and maintain Detox automation tests to run against our mobile applications',
+          },
+        ],
       },
       {
         id: '0.10',
-
-        detail: 'Notable Development Projects Led and Developed:',
+        detail: 'Notable Development Projects Led and Developed',
         subDetails: [
           {
             id: '0.10.0',
@@ -96,6 +116,11 @@ const experiences: Array<Experience> = [
 
             detail:
               'Offline support for React-Native, making local changes and deferred server syncing',
+          },
+          {
+            id: '0.10.5',
+            detail:
+              'Entirely new internal React + MUI administration dashboard to pass SOC2 Compliance',
           },
         ],
       },

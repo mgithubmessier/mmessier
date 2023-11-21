@@ -11,11 +11,11 @@ export default function RootLayout({
   return (
     <ThemeProvider theme={theme}>
       <html lang="en">
-        <body style={styles.body}>
-          <div style={styles.container}>
+        <body style={styles.static?.body}>
+          <div style={styles.static?.container}>
             <Typography variant="h1">Matthew Messier</Typography>
             <Navbar />
-            <Paper style={styles.childContainer}>{children}</Paper>
+            <Paper style={styles.static?.childContainer}>{children}</Paper>
           </div>
         </body>
       </html>

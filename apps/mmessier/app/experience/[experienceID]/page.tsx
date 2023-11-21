@@ -1,6 +1,14 @@
-import { Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from '@mui/material';
 import { getExperience } from '../../../lib/getExperiences';
 import { ExperienceDetail } from '../../../types';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+
+import { styles } from './styles';
 
 type DetailProps = {
   detail: ExperienceDetail;
@@ -8,10 +16,25 @@ type DetailProps = {
 
 const Detail = ({ detail }: DetailProps) => {
   return (
-    <li key={`${detail.id}`}>
-      <Typography>{detail.detail}</Typography>
-      {detail.subDetails ? <Details details={detail.subDetails} /> : null}
-    </li>
+    <Accordion
+      key={`${detail.id}`}
+      sx={styles.dynamic?.accordion(Boolean(detail.subDetails))}
+    >
+      <AccordionSummary
+        expandIcon={
+          detail.subDetails ? (
+            <ExpandMore sx={{ color: 'primary.main' }} />
+          ) : null
+        }
+      >
+        <Typography style={styles.static?.detailText}>
+          {detail.detail}
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        {detail.subDetails ? <Details details={detail.subDetails} /> : null}
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
@@ -24,11 +47,11 @@ const Details = ({ details }: DetailsProps) => {
     return null;
   }
   return (
-    <ul>
+    <>
       {details.map((detail) => {
         return <Detail key={`${detail.id}`} detail={detail} />;
       })}
-    </ul>
+    </>
   );
 };
 
@@ -43,9 +66,11 @@ const ExperienceDetails = async ({
 }: ExperienceDetailsProps) => {
   const experience = await getExperience(experienceID);
   return (
-    <div>
-      <Typography variant="h2">{experience?.title}</Typography>
-      <Typography variant="h3">{experience?.company}</Typography>
+    <div style={styles.static?.container}>
+      <div style={styles.static?.titleContainer}>
+        <Typography variant="h2">{experience?.title}</Typography>
+        <Typography variant="h3">{experience?.company}</Typography>
+      </div>
       <Details details={experience?.details} />
     </div>
   );
