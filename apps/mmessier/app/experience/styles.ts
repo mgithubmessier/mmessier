@@ -26,6 +26,7 @@ const button: CSSProperties = {
 
 const dateRangeText = {
   ...fonts.common.style,
+  lineHeight: 0.8,
 };
 
 const IMAGE_PADDING = spacingLevel(1);
@@ -119,9 +120,14 @@ export const styles: Style = {
     },
     container: {
       display: 'flex',
+      justifyContent: 'center',
+      flex: 1,
+    },
+    widgetContainer: {
+      maxWidth: 1000,
+      display: 'flex',
       flexDirection: 'column',
       flex: 1,
-      maxWidth: 1000,
     },
     imageContainer: {
       backgroundColor: 'white',

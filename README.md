@@ -13,7 +13,10 @@
 
   - Add a search widget to the experience details page where you pre-fill some common keywords to search for (a plug for your existing talents) or allow the user to type in and actively do a case-insensitive search across any details with that text within it
     - force the accordions to stay open while text is being entered
-  - For the contact page
+  - For the Home page
+
+    - We should explain that this site is written in NextJS
+    - We should explain that we are hosting it ourselves along with the services involved
 
     - we should provide an email form and not our email itself, we can have a lambda hit us with an email of some kind via a sendgrid integration which we can throttle to a very low amount, whichever keeps us in the free range
     - we should provide the linkedin and github
@@ -21,11 +24,6 @@
   - For projects
 
     - We should provide details about abstractserver, maybe we can make it its own site as well, we just don't want to provide the whole damn codebase
-
-  - For home
-
-    - We should explain that this site is written in NextJS
-    - We should explain that we are hosting it ourselves along with the services involved
 
   - For the API we use
     - We can start with some serverless lambda infrastructure that serves up the same mock JSON objects we made inside of the app itself

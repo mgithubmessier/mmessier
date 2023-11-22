@@ -37,14 +37,6 @@ export const Navbar = () => {
         }
         value="/projects"
       />
-      <Tab
-        label={
-          <Link href="/contact" style={styles.static?.link}>
-            Contact
-          </Link>
-        }
-        value="/contact"
-      />
     </Tabs>
   );
 };
