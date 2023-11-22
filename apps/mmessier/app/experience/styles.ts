@@ -21,27 +21,27 @@ const button: CSSProperties = {
   display: 'flex',
   width: '80%',
   padding: 0,
-  margin: '3px 0',
+  margin: `3px 0`,
 };
 
 const dateRangeText = {
   ...fonts.common.style,
-  lineHeight: 0.8,
+  lineHeight: 0.9,
 };
 
-const IMAGE_PADDING = spacingLevel(1);
-const LOGO_SIDE = 70;
+// const IMAGE_PADDING = spacingLevel(1);
+// const LOGO_SIDE = 70;
 
-const companyLogoContainer: CSSProperties = {
-  position: 'relative',
-  width: LOGO_SIDE,
-  minWidth: LOGO_SIDE,
-  height: LOGO_SIDE,
-  minHeight: LOGO_SIDE,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
+// const companyLogoContainer: CSSProperties = {
+//   position: 'relative',
+//   width: LOGO_SIDE,
+//   minWidth: LOGO_SIDE,
+//   height: LOGO_SIDE,
+//   minHeight: LOGO_SIDE,
+//   display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+// };
 
 export const styles: Style = {
   dynamic: {
@@ -84,29 +84,29 @@ export const styles: Style = {
         flexDirection: 'row-reverse',
       };
     },
-    alternatingCompanyLogoContainer: (isEven: boolean) => {
-      if (isEven) {
-        return {
-          ...companyLogoContainer,
-          borderTopLeftRadius: 6,
-          borderBottomLeftRadius: 6,
-          marginLeft: spacingLevel(1),
-        };
-      }
-      return {
-        ...companyLogoContainer,
-        borderTopRightRadius: 6,
-        borderBottomRightRadius: 6,
-        marginRight: spacingLevel(1),
-      };
-    },
+    // alternatingCompanyLogoContainer: (isEven: boolean) => {
+    //   if (isEven) {
+    //     return {
+    //       ...companyLogoContainer,
+    //       borderTopLeftRadius: 6,
+    //       borderBottomLeftRadius: 6,
+    //       marginLeft: spacingLevel(1),
+    //     };
+    //   }
+    //   return {
+    //     ...companyLogoContainer,
+    //     borderTopRightRadius: 6,
+    //     borderBottomRightRadius: 6,
+    //     marginRight: spacingLevel(1),
+    //   };
+    // },
   },
   static: {
     buttonTextContainer: {
       display: 'flex',
       justifyContent: 'center',
       flex: 1,
-      margin: spacingLevel(1),
+      margin: spacingLevel(2),
     },
     dateRangeContainer: {
       display: 'flex',
@@ -129,11 +129,11 @@ export const styles: Style = {
       flexDirection: 'column',
       flex: 1,
     },
-    imageContainer: {
-      backgroundColor: 'white',
-      width: LOGO_SIDE + IMAGE_PADDING,
-      height: LOGO_SIDE + IMAGE_PADDING,
-    },
+    // imageContainer: {
+    //   backgroundColor: 'white',
+    //   width: LOGO_SIDE + IMAGE_PADDING,
+    //   height: LOGO_SIDE + IMAGE_PADDING,
+    // },
     companyLogo: {
       objectFit: 'contain',
     },
