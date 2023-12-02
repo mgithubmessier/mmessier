@@ -18,12 +18,14 @@ const link: CSSProperties = {
   color: 'unset',
 };
 
-const buttonTextTitleContainer: CSSProperties = {
+const buttonTextTitleContainer = (breakpoint: Breakpoint): CSSProperties => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   flex: 1,
-};
+  padding: `${spacingLevel(3, breakpoint)}px ${spacingLevel(2, breakpoint)}px`,
+  overflow: 'hidden',
+});
 
 const button: CSSProperties = {
   textTransform: 'none',
@@ -35,7 +37,7 @@ const button: CSSProperties = {
 
 const dateRangeText = {
   ...fonts.common.style,
-  lineHeight: 0.9,
+  lineHeight: 1,
 };
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
@@ -54,12 +56,12 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     alternatingButtonTextContainer: (isEven: boolean) => {
       if (isEven) {
         return {
-          ...buttonTextTitleContainer,
+          ...buttonTextTitleContainer(breakpoint),
           textAlign: 'left',
         };
       }
       return {
-        ...buttonTextTitleContainer,
+        ...buttonTextTitleContainer(breakpoint),
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
@@ -81,11 +83,8 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     },
   },
   static: {
-    buttonTextContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      flex: 1,
-      margin: spacingLevel(2, breakpoint),
+    titleContainer: {
+      width: '100%',
     },
     dateRangeContainer: {
       display: 'flex',
@@ -95,7 +94,7 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     dateRangeText,
     dateRangeSplit: {
       ...dateRangeText,
-      margin: `0 ${spacingLevel(1, breakpoint)}px`,
+      padding: `0 ${spacingLevel(1, breakpoint)}px`,
     },
     container: {
       display: 'flex',

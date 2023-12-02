@@ -31,7 +31,7 @@ export const theme = createTheme({
     h3: {
       color: colors.text.main,
       ...fonts.h3Font.style,
-      fontSize: '1rem',
+      fontSize: '1.5rem',
       '@media (min-width:400px)': {
         fontSize: '2rem',
       },
@@ -42,9 +42,9 @@ export const theme = createTheme({
     h4: {
       color: colors.text.main,
       ...fonts.h4Font.style,
-      fontSize: '0.5rem',
+      fontSize: '1rem',
       '@media (min-width:400px)': {
-        fontSize: '1rem',
+        fontSize: '1.25rem',
       },
       '@media (min-width:600px)': {
         fontSize: '1.5rem',

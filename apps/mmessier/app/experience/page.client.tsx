@@ -34,33 +34,33 @@ export const ExperienceClient = ({ experiences }: ExperienceClientProps) => {
                 sx={buttonSX}
                 color="primary"
               >
-                <div style={styles.static?.buttonTextContainer}>
-                  <div
-                    style={styles.dynamic?.alternatingButtonTextContainer(
-                      isEven
-                    )}
-                  >
-                    <Typography variant="h3" sx={{ color: 'primary.main' }}>
+                <div
+                  style={styles.dynamic?.alternatingButtonTextContainer(isEven)}
+                >
+                  <div style={styles.static?.titleContainer}>
+                    <Typography
+                      variant="h3"
+                      sx={{ color: 'primary.main' }}
+                      noWrap
+                    >
                       {experience.title}
                     </Typography>
-                    <Typography variant="h4" sx={{ color: 'primary.main' }}>
-                      {experience.company}
-                    </Typography>
-                    <div style={styles.static?.dateRangeContainer}>
+                  </div>
+                  <Typography variant="h4" sx={{ color: 'primary.main' }}>
+                    {experience.company}
+                  </Typography>
+                  <div style={styles.static?.dateRangeContainer}>
+                    <span style={styles.static?.dateRangeText}>
+                      {format(parseISO(experience.startDate), 'MMM y')}
+                    </span>
+                    <span style={styles.static?.dateRangeSplit}>-</span>
+                    {experience.endDate ? (
                       <span style={styles.static?.dateRangeText}>
-                        {format(parseISO(experience.startDate), 'MMM y')}
+                        {format(parseISO(experience.endDate), 'MMM y')}
                       </span>
-                      <span style={styles.static?.dateRangeSplit}>-</span>
-                      {experience.endDate ? (
-                        <span style={styles.static?.dateRangeText}>
-                          {format(parseISO(experience.endDate), 'MMM y')}
-                        </span>
-                      ) : (
-                        <span style={styles.static?.dateRangeText}>
-                          Present
-                        </span>
-                      )}
-                    </div>
+                    ) : (
+                      <span style={styles.static?.dateRangeText}>Present</span>
+                    )}
                   </div>
                 </div>
               </Button>
