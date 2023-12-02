@@ -1,8 +1,4 @@
-import {
-  Experience,
-  ExperienceGetByIdResponse,
-  ExperienceGetResponse,
-} from '../types';
+import { ExperienceGetByIdResponse, ExperienceGetResponse } from '../types';
 
 export const getExperiences = async (): Promise<
   ExperienceGetResponse | undefined
