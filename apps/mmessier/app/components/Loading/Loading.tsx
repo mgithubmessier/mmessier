@@ -1,13 +1,7 @@
-import { CircularProgress } from '@mui/material';
-
-import { styles } from './Loading.styles';
+import { LoadingContainer } from './Loading.client';
 
 export const Loading = () => {
-  return (
-    <div style={styles.container}>
-      <CircularProgress style={styles.circularProgress} />
-    </div>
-  );
+  return <LoadingContainer />;
 };
 
 export default Loading;

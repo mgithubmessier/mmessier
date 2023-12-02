@@ -1,6 +1,6 @@
 import { Alert, Button, Typography } from '@mui/material';
 
-import { styles } from './Error.styles';
+import { ErrorContainer } from './Error.client';
 
 type ErrorProps = {
   title: string;
@@ -10,10 +10,10 @@ type ErrorProps = {
 
 export const ErrorPage = ({ message, title, reset }: ErrorProps) => {
   return (
-    <div style={styles.container}>
+    <ErrorContainer>
       <Typography variant="h2">{title}</Typography>
       <Alert severity="error">{message}</Alert>
       <Button onClick={reset}>Retry</Button>
-    </div>
+    </ErrorContainer>
   );
 };

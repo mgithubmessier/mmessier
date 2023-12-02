@@ -1,0 +1,568 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.1.3",
+  "deps": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.15",
+    "@nx/next": "17.1.3",
+    "date-fns": "^2.30.0",
+    "flat": "^6.0.1",
+    "lodash": "^4.17.21",
+    "next": "14.0.3",
+    "query-string": "^8.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sass": "^1.69.5",
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.1",
+    "zustand": "^4.4.7",
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@nx/cypress": "17.1.3",
+    "@nx/eslint-plugin": "17.1.3",
+    "@nx/jest": "17.1.3",
+    "@nx/js": "17.1.3",
+    "@nx/linter": "17.1.3",
+    "@nx/react": "17.1.3",
+    "@nx/rollup": "17.1.3",
+    "@nx/workspace": "17.1.3",
+    "@rollup/plugin-url": "^7.0.0",
+    "@svgr/rollup": "^8.0.1",
+    "@testing-library/react": "14.0.0",
+    "@types/jest": "^29.4.0",
+    "@types/lodash": "^4.14.199",
+    "@types/node": "18.14.2",
+    "@types/react": "18.2.24",
+    "@types/react-dom": "18.2.9",
+    "@types/uuid": "^9.0.5",
+    "@typescript-eslint/eslint-plugin": "6.13.1",
+    "@typescript-eslint/parser": "6.13.1",
+    "babel-jest": "^29.4.1",
+    "cypress": "^13.0.0",
+    "eslint": "~8.46.0",
+    "eslint-config-next": "13.4.1",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-cypress": "^2.13.4",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jest": "^29.4.1",
+    "jest-environment-jsdom": "^29.4.1",
+    "nx": "17.1.3",
+    "nx-cloud": "16.5.2",
+    "prettier": "^2.6.2",
+    "ts-jest": "^29.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.2.2"
+  },
+  "pathMappings": {
+    "@mmessier/use-query-parameters": [
+      "use-query-parameters/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
+      },
+      {
+        "file": ".eslintignore",
+        "hash": "7663861978715868291"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "17866138117546000433"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "4037654227863647172"
+      },
+      {
+        "file": ".nx/cache/cloud/2312.01.6/index.js",
+        "hash": "17807890174160981006"
+      },
+      {
+        "file": ".nx/cache/cloud/2312.01.6/lib/daemon/process-run-end.js",
+        "hash": "9178465496593350990"
+      },
+      {
+        "file": ".nx/cache/cloud/2312.01.6/lib/heartbeat/heartbeat-process.js",
+        "hash": "12195602358968166578"
+      },
+      {
+        "file": ".nx/cache/cloud/2312.01.6/package.json",
+        "hash": "11687418979936424737"
+      },
+      {
+        "file": ".nx/cache/cloud/verify.lock",
+        "hash": "5149858332338513235"
+      },
+      {
+        "file": ".nx/cache/d/daemon.log",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": ".nx/cache/d/server-process.json",
+        "hash": "15646730310186796475"
+      },
+      {
+        "file": ".nx/cache/file-map.json",
+        "hash": "7609609972542873360"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "3287808258694824372"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "11216073658694450918"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "9963138204660455637"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "8865097869854018350"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "235626400633494639"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "6235093232211166085"
+      },
+      {
+        "file": ".yarn/releases/yarn-1.22.10.cjs",
+        "hash": "18237021081911609829"
+      },
+      {
+        "file": ".yarnrc",
+        "hash": "5942921502230608753"
+      },
+      {
+        "file": "README.md",
+        "hash": "16248474055940334586"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "12333515226966617182"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740"
+      },
+      {
+        "file": "migrations.json",
+        "hash": "6351922356809138221"
+      },
+      {
+        "file": "nx.json",
+        "hash": "18002063218077180805"
+      },
+      {
+        "file": "package.json",
+        "hash": "5024463190349525709"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "4117076160851408017"
+      },
+      {
+        "file": "yarn.lock",
+        "hash": "13592755332290070860"
+      }
+    ],
+    "projectFileMap": {
+      "use-query-parameters": [
+        {
+          "file": "use-query-parameters/.babelrc",
+          "hash": "17595877548105968951"
+        },
+        {
+          "file": "use-query-parameters/.eslintrc.json",
+          "hash": "7388911630545237055"
+        },
+        {
+          "file": "use-query-parameters/README.md",
+          "hash": "1196663023978267573"
+        },
+        {
+          "file": "use-query-parameters/jest.config.ts",
+          "hash": "6779664929112388533"
+        },
+        {
+          "file": "use-query-parameters/package.json",
+          "hash": "4511240561123929656"
+        },
+        {
+          "file": "use-query-parameters/project.json",
+          "hash": "9116270099517053877"
+        },
+        {
+          "file": "use-query-parameters/src/index.ts",
+          "hash": "14428353282588746736"
+        },
+        {
+          "file": "use-query-parameters/src/lib/context.ts",
+          "hash": "14413277566481175529",
+          "deps": [
+            "npm:lodash",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "use-query-parameters/src/lib/hook.tsx",
+          "hash": "12654991444001965116",
+          "deps": [
+            "npm:react",
+            "npm:uuid"
+          ]
+        },
+        {
+          "file": "use-query-parameters/src/lib/index.ts",
+          "hash": "17603437549730158036"
+        },
+        {
+          "file": "use-query-parameters/src/lib/provider/index.ts",
+          "hash": "15728396994524015782"
+        },
+        {
+          "file": "use-query-parameters/src/lib/provider/provider.tsx",
+          "hash": "11169119234137857016",
+          "deps": [
+            "npm:next/navigation",
+            "npm:flat",
+            "npm:lodash",
+            "npm:query-string",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "use-query-parameters/src/lib/provider/reducer.ts",
+          "hash": "13082420770597275272",
+          "deps": [
+            "npm:lodash"
+          ]
+        },
+        {
+          "file": "use-query-parameters/tsconfig.json",
+          "hash": "13932239958567437108"
+        },
+        {
+          "file": "use-query-parameters/tsconfig.lib.json",
+          "hash": "16536883993834092355"
+        },
+        {
+          "file": "use-query-parameters/tsconfig.spec.json",
+          "hash": "13369031804221838106"
+        }
+      ],
+      "mmessier-e2e": [
+        {
+          "file": "apps/mmessier-e2e/.eslintrc.json",
+          "hash": "14060216369337943343"
+        },
+        {
+          "file": "apps/mmessier-e2e/cypress.config.ts",
+          "hash": "15414076024138857470",
+          "deps": [
+            "npm:cypress",
+            "npm:@nx/cypress/plugins/cypress-preset"
+          ]
+        },
+        {
+          "file": "apps/mmessier-e2e/project.json",
+          "hash": "903458023835546460"
+        },
+        {
+          "file": "apps/mmessier-e2e/src/e2e/app.cy.ts",
+          "hash": "2472134178589971608"
+        },
+        {
+          "file": "apps/mmessier-e2e/src/fixtures/example.json",
+          "hash": "11614668686582597233"
+        },
+        {
+          "file": "apps/mmessier-e2e/src/support/app.po.ts",
+          "hash": "11157016311132186162"
+        },
+        {
+          "file": "apps/mmessier-e2e/src/support/commands.ts",
+          "hash": "7314691991044890572"
+        },
+        {
+          "file": "apps/mmessier-e2e/src/support/e2e.ts",
+          "hash": "3666078656922506009"
+        },
+        {
+          "file": "apps/mmessier-e2e/tsconfig.json",
+          "hash": "1788248097864730386"
+        }
+      ],
+      "mmessier": [
+        {
+          "file": "apps/mmessier/.eslintrc.json",
+          "hash": "17447583432875864673"
+        },
+        {
+          "file": "apps/mmessier/app/api/hello/route.ts",
+          "hash": "495073956729887886"
+        },
+        {
+          "file": "apps/mmessier/app/components/BreakpointListener/BreakpointListener.tsx",
+          "hash": "7178615048070540423",
+          "deps": [
+            "npm:react",
+            "npm:lodash"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/components/Error/Error.styles.ts",
+          "hash": "6364863261168960665"
+        },
+        {
+          "file": "apps/mmessier/app/components/Error/Error.tsx",
+          "hash": "8723051493357926775",
+          "deps": [
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/components/Loading/Loading.styles.ts",
+          "hash": "12839066784508494847"
+        },
+        {
+          "file": "apps/mmessier/app/components/Loading/Loading.tsx",
+          "hash": "13542439408651613895"
+        },
+        {
+          "file": "apps/mmessier/app/components/Navbar/Navbar.client.tsx",
+          "hash": "18033445716979625770",
+          "deps": [
+            "npm:next",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/components/Navbar/Navbar.styles.ts",
+          "hash": "12145143593524157235"
+        },
+        {
+          "file": "apps/mmessier/app/experience/[experienceID]/error.tsx",
+          "hash": "4089432471172014760"
+        },
+        {
+          "file": "apps/mmessier/app/experience/[experienceID]/loading.tsx",
+          "hash": "6839665555620767997"
+        },
+        {
+          "file": "apps/mmessier/app/experience/[experienceID]/page.tsx",
+          "hash": "15308671959104591205"
+        },
+        {
+          "file": "apps/mmessier/app/experience/[experienceID]/styles.ts",
+          "hash": "13565482048336289460"
+        },
+        {
+          "file": "apps/mmessier/app/experience/error.tsx",
+          "hash": "13071528463471225209"
+        },
+        {
+          "file": "apps/mmessier/app/experience/loading.tsx",
+          "hash": "17210565898698456618"
+        },
+        {
+          "file": "apps/mmessier/app/experience/page.tsx",
+          "hash": "18150713015467979206",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/experience/styles.ts",
+          "hash": "12357818442867115374",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/hooks/useStyles.ts",
+          "hash": "905108247292819482"
+        },
+        {
+          "file": "apps/mmessier/app/layout.tsx",
+          "hash": "2703270547429283354",
+          "deps": [
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/layoutStyles.ts",
+          "hash": "12257341361850888148"
+        },
+        {
+          "file": "apps/mmessier/app/page.tsx",
+          "hash": "5520726633840852332",
+          "deps": [
+            "npm:next",
+            "npm:next/head"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/styles/breakpoints.module.scss",
+          "hash": "564192326090637770"
+        },
+        {
+          "file": "apps/mmessier/app/styles/colors.module.scss",
+          "hash": "6864020367325548336"
+        },
+        {
+          "file": "apps/mmessier/app/styles/colors.ts",
+          "hash": "17757019564688423979"
+        },
+        {
+          "file": "apps/mmessier/app/styles/fonts.ts",
+          "hash": "7169795402379718186",
+          "deps": [
+            "npm:next/font/google"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/styles/spacing.module.scss",
+          "hash": "4864122357456484281"
+        },
+        {
+          "file": "apps/mmessier/app/styles/spacing.ts",
+          "hash": "7217060418659051846"
+        },
+        {
+          "file": "apps/mmessier/app/styles/theme.ts",
+          "hash": "15358999549826304057",
+          "deps": [
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/zustand/BreakpointState/BreakpointState.ts",
+          "hash": "14061511572932888434",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/mmessier/index.d.ts",
+          "hash": "5498222895072842432"
+        },
+        {
+          "file": "apps/mmessier/jest.config.ts",
+          "hash": "18204516033445422220"
+        },
+        {
+          "file": "apps/mmessier/lib/getExperiences.ts",
+          "hash": "1577893126816836687",
+          "deps": [
+            "npm:date-fns"
+          ]
+        },
+        {
+          "file": "apps/mmessier/next-env.d.ts",
+          "hash": "5909181270615354023"
+        },
+        {
+          "file": "apps/mmessier/next.config.js",
+          "hash": "4640182932892698362",
+          "deps": [
+            "npm:@nx/next"
+          ]
+        },
+        {
+          "file": "apps/mmessier/project.json",
+          "hash": "5854560473134970960"
+        },
+        {
+          "file": "apps/mmessier/public/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/mmessier/public/dispatch.webp",
+          "hash": "16737030714042152524"
+        },
+        {
+          "file": "apps/mmessier/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/mmessier/public/fidelity.jpeg",
+          "hash": "14874424196888295410"
+        },
+        {
+          "file": "apps/mmessier/tsconfig.json",
+          "hash": "13555624890647972974"
+        },
+        {
+          "file": "apps/mmessier/tsconfig.spec.json",
+          "hash": "6922413205408300107"
+        },
+        {
+          "file": "apps/mmessier/types.d.ts",
+          "hash": "3422587963916960375",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/layout.client.tsx",
+          "hash": "10879506923071653402",
+          "deps": [
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/components/Error/Error.client.tsx",
+          "hash": "15586074196239048436"
+        },
+        {
+          "file": "apps/mmessier/app/components/Loading/Loading.client.tsx",
+          "hash": "17570756553637216611",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/experience/[experienceID]/page.client.tsx",
+          "hash": "17559295224188900002",
+          "deps": [
+            "npm:@mui/icons-material",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/mmessier/app/components/Navbar/Navbar.tsx",
+          "hash": "16568607316221480178"
+        },
+        {
+          "file": "apps/mmessier/app/experience/page.client.tsx",
+          "hash": "6314974549132413008",
+          "deps": [
+            "npm:next",
+            "npm:@mui/material",
+            "npm:date-fns"
+          ]
+        }
+      ]
+    }
+  }
+}

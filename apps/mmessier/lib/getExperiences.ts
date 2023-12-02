@@ -163,9 +163,10 @@ const experiences: Array<Experience> = [
 ];
 
 export const getExperiences = async (): Promise<Array<Experience>> => {
-  // const response = await fetch('https://jsonplaceholder.typicode.com/users');
+  // const response = await fetch('https://jsonplaceholder.typicode.com/users', { next: { revalidate: 60 } });
   // if (!response.ok) {
-  //   throw new Error('encountered error while retrieved experiences');
+  // // recommended by nextjs so that your component does not have to handle an error
+  //   return undefined;
   // }
   return experiences;
 };

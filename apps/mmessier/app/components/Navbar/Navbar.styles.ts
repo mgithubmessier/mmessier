@@ -1,7 +1,7 @@
 import { Style } from '../../../types';
 import { fonts } from '../../styles/fonts';
 
-export const styles: Style = {
+export const styles: Style = () => ({
   static: {
     link: {
       ...fonts.h2Font.style,
@@ -17,4 +17,4 @@ export const styles: Style = {
       fontSize: '1.5rem',
     },
   },
-};
+});

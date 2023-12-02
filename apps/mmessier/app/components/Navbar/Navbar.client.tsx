@@ -4,10 +4,12 @@ import { usePathname } from 'next/navigation';
 import { Tabs, Tab } from '@mui/material';
 import Link from 'next/link';
 
-import { styles } from './Navbar.styles';
+import { styles as navbarStyles } from './Navbar.styles';
+import { useStyles } from '../../hooks/useStyles';
 
-export const Navbar = () => {
+export const NavbarClient = () => {
   const pathname = usePathname();
+  const styles = useStyles(navbarStyles);
 
   return (
     <Tabs variant="fullWidth" value={pathname.split('/').slice(0, 2).join('/')}>

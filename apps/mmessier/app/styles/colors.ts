@@ -1,43 +1,41 @@
-import { indigo } from '@mui/material/colors';
-
-const MAIN_COLOR = indigo;
+import scssColors from './colors.module.scss';
 
 export const colors = {
   alternating: [
     {
-      backgroundColor: MAIN_COLOR[900],
+      backgroundColor: scssColors.indigo900,
       color: '#FFFFFF',
     },
     {
-      backgroundColor: MAIN_COLOR[800],
+      backgroundColor: scssColors.indigo800,
       color: '#FFFFFF',
     },
     {
-      backgroundColor: MAIN_COLOR[700],
+      backgroundColor: scssColors.indigo700,
       color: '#FFFFFF',
     },
     {
-      backgroundColor: MAIN_COLOR[600],
+      backgroundColor: scssColors.indigo600,
       color: '#FFFFFF',
     },
     {
-      backgroundColor: MAIN_COLOR[200],
+      backgroundColor: scssColors.indigo200,
       color: '#000000',
     },
     {
-      backgroundColor: MAIN_COLOR[100],
+      backgroundColor: scssColors.indigo100,
       color: '#000000',
     },
   ],
   text: {
-    main: MAIN_COLOR[50],
+    main: scssColors.indigo50,
   },
   components: {
-    main: MAIN_COLOR[50],
+    main: scssColors.indigo50,
   },
   background: {
-    main: MAIN_COLOR[500],
-    secondary: MAIN_COLOR[400],
-    tertiary: MAIN_COLOR[300],
+    main: scssColors.indigo500,
+    secondary: scssColors.indigo400,
+    tertiary: scssColors.indigo300,
   },
 };

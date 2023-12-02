@@ -1,8 +1,17 @@
 import { CSSProperties } from 'react';
-import { Style } from '../../types';
+import { Breakpoint, Style } from '../../types';
 import { colors } from '../styles/colors';
 import { spacingLevel } from '../styles/spacing';
 import { fonts } from '../styles/fonts';
+import { SxProps } from '@mui/material';
+
+export const buttonSX: SxProps = {
+  transition: 'transform 0.2s',
+  '&:hover': {
+    zIndex: 1,
+    transform: 'scale(1.05)',
+  },
+};
 
 const link: CSSProperties = {
   textDecoration: 'none',
@@ -29,21 +38,7 @@ const dateRangeText = {
   lineHeight: 0.9,
 };
 
-// const IMAGE_PADDING = spacingLevel(1);
-// const LOGO_SIDE = 70;
-
-// const companyLogoContainer: CSSProperties = {
-//   position: 'relative',
-//   width: LOGO_SIDE,
-//   minWidth: LOGO_SIDE,
-//   height: LOGO_SIDE,
-//   minHeight: LOGO_SIDE,
-//   display: 'flex',
-//   justifyContent: 'center',
-//   alignItems: 'center',
-// };
-
-export const styles: Style = {
+export const styles: Style = (breakpoint: Breakpoint) => ({
   dynamic: {
     alternatingLink: (isEven: boolean) => {
       if (isEven) {
@@ -84,29 +79,13 @@ export const styles: Style = {
         flexDirection: 'row-reverse',
       };
     },
-    // alternatingCompanyLogoContainer: (isEven: boolean) => {
-    //   if (isEven) {
-    //     return {
-    //       ...companyLogoContainer,
-    //       borderTopLeftRadius: 6,
-    //       borderBottomLeftRadius: 6,
-    //       marginLeft: spacingLevel(1),
-    //     };
-    //   }
-    //   return {
-    //     ...companyLogoContainer,
-    //     borderTopRightRadius: 6,
-    //     borderBottomRightRadius: 6,
-    //     marginRight: spacingLevel(1),
-    //   };
-    // },
   },
   static: {
     buttonTextContainer: {
       display: 'flex',
       justifyContent: 'center',
       flex: 1,
-      margin: spacingLevel(2),
+      margin: spacingLevel(2, breakpoint),
     },
     dateRangeContainer: {
       display: 'flex',
@@ -116,7 +95,7 @@ export const styles: Style = {
     dateRangeText,
     dateRangeSplit: {
       ...dateRangeText,
-      margin: `0 ${spacingLevel(1)}px`,
+      margin: `0 ${spacingLevel(1, breakpoint)}px`,
     },
     container: {
       display: 'flex',
@@ -129,13 +108,8 @@ export const styles: Style = {
       flexDirection: 'column',
       flex: 1,
     },
-    // imageContainer: {
-    //   backgroundColor: 'white',
-    //   width: LOGO_SIDE + IMAGE_PADDING,
-    //   height: LOGO_SIDE + IMAGE_PADDING,
-    // },
     companyLogo: {
       objectFit: 'contain',
     },
   },
-};
+});

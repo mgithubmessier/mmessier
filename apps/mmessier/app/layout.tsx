@@ -1,7 +1,7 @@
-import { Paper, ThemeProvider, Typography } from '@mui/material';
-import { Navbar } from './components/Navbar/Navbar.client';
+import { ThemeProvider } from '@mui/material';
 import { theme } from './styles/theme';
-import { styles } from './layoutStyles';
+import { BreakpointListener } from './components/BreakpointListener/BreakpointListener';
+import { LayoutClient } from './layout.client';
 
 export default function RootLayout({
   children,
@@ -10,14 +10,9 @@ export default function RootLayout({
 }) {
   return (
     <ThemeProvider theme={theme}>
+      <BreakpointListener />
       <html lang="en">
-        <body style={styles.static?.body}>
-          <div style={styles.static?.container}>
-            <Typography variant="h1">Matthew Messier</Typography>
-            <Navbar />
-            <Paper style={styles.static?.childContainer}>{children}</Paper>
-          </div>
-        </body>
+        <LayoutClient>{children}</LayoutClient>
       </html>
     </ThemeProvider>
   );

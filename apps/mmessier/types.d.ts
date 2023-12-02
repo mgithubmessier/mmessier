@@ -1,12 +1,22 @@
 import { CSSProperties } from 'react';
 
-export type Style = {
-  dynamic?: {
-    [y: string]: (...args) => CSSProperties;
-  };
-  static?: {
-    [x: string]: CSSProperties;
-  };
+export enum Breakpoint {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  DEFAULT = 'default',
+}
+
+type StaticStyle = {
+  [x: string]: CSSProperties;
+};
+
+type DynamicStyle = {
+  [y: string]: (...args) => CSSProperties;
+};
+
+export type Style = (breakpoint: Breakpoint) => {
+  dynamic?: DynamicStyle;
+  static?: StaticStyle;
 };
 
 export type ExperienceDetail = {
@@ -26,3 +36,9 @@ export type Experience = {
   location: string;
   logo: string;
 };
+
+const defaultExport = {
+  Breakpoint,
+};
+
+export default defaultExport;
