@@ -14,6 +14,9 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     },
   },
   static: {
+    companyURL: {
+      textDecorationColor: colors.alternating[2].backgroundColor,
+    },
     container: {
       display: 'flex',
       flexDirection: 'column',

@@ -73,7 +73,11 @@ export const ExperienceDetailsClient = ({
     <div style={styles.static?.container}>
       <div style={styles.static?.titleContainer}>
         <Typography variant="h2">{experience?.title}</Typography>
-        <a target="_blank" href={experience?.companyURL}>
+        <a
+          target="_blank"
+          href={experience?.companyURL}
+          style={styles.static?.companyURL}
+        >
           <Typography variant="h3">{experience?.company}</Typography>
         </a>
       </div>

@@ -37,6 +37,18 @@ export type Experience = {
   logo: string;
 };
 
+type BaseResponse = {
+  errors: Array<string>;
+};
+
+export type ExperienceGetByIdResponse = BaseResponse & {
+  experience: Experience;
+};
+
+export type ExperienceGetResponse = BaseResponse & {
+  experiences: Array<Experience>;
+};
+
 const defaultExport = {
   Breakpoint,
 };

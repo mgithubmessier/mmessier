@@ -9,8 +9,11 @@ export const metadata: Metadata = {
 };
 
 const Experience = async () => {
-  const experiences = await getExperiences();
-  return <ExperienceClient experiences={experiences} />;
+  const experiencesResponse = await getExperiences();
+  if (experiencesResponse?.experiences) {
+    return <ExperienceClient experiences={experiencesResponse.experiences} />;
+  }
+  return null;
 };
 
 export default Experience;
