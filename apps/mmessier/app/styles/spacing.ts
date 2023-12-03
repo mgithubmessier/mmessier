@@ -1,5 +1,4 @@
 import spacingSCSS from './spacing.module.scss';
-// import { Breakpoint } from '../../types';
 
 enum Breakpoint {
   SMALL = 'small',

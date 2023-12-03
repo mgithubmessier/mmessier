@@ -20,6 +20,13 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       marginBottom: spacingLevel(3, breakpoint),
       padding: spacingLevel(3, breakpoint),
     },
-    container: { display: 'flex', flexDirection: 'column', height: '100%' },
+    container: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+      flex: 1,
+      zIndex: 2,
+    },
   },
 });
