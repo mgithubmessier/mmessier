@@ -54,14 +54,16 @@ const Detail = ({ detail, level, searchTerms }: DetailProps) => {
     >
       <AccordionSummary
         expandIcon={
-          subDetails ? <ExpandMore sx={{ color: 'primary.main' }} /> : null
+          subDetails.length ? (
+            <ExpandMore sx={{ color: 'primary.main' }} />
+          ) : null
         }
         onClick={() => setExpanded((e) => !e)}
       >
         <DetailHighlight detail={detail.detail} searchTerms={searchTerms} />
       </AccordionSummary>
       <AccordionDetails>
-        {subDetails ? (
+        {subDetails.length ? (
           <Details
             details={compact(subDetails)}
             level={level + 1}
