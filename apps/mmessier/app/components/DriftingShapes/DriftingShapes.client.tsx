@@ -21,35 +21,42 @@ type RandomShapeSpreadProps = {
 };
 
 const RandomShapeSpread = ({ startingPercentage }: RandomShapeSpreadProps) => {
-  const minShapes = 5;
-  const maxShapes =
-    Math.floor(Math.random() * (window?.innerWidth / MAX_SHAPE_SIDE)) +
-    minShapes;
+  const [shapes, setShapes] = useState<Array<React.ReactNode>>([]);
+  useEffect(() => {
+    const minShapes = 5;
+    const maxShapes =
+      Math.floor(Math.random() * (window.innerWidth / MAX_SHAPE_SIDE)) +
+      minShapes;
 
-  const numShapes = Math.floor(Math.random() * maxShapes) + 1;
+    const numShapes = Math.floor(Math.random() * maxShapes) + 1;
 
-  const maxSpaceBetweenShapes = Math.floor(window?.innerWidth / numShapes);
+    const maxSpaceBetweenShapes = Math.floor(window.innerWidth / numShapes);
+    const initialShapes: Array<React.ReactNode> = [];
 
-  const shapes = [];
+    for (let i = 0; i < numShapes; i++) {
+      const shapeOptions = [RandomTriangleShape];
+      const ShapeOption =
+        shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
+      const style: CSSProperties = {
+        height: MAX_SHAPE_SIDE,
+        width: MAX_SHAPE_SIDE,
+        position: 'absolute',
+        bottom: Math.floor(Math.random() * VERTICAL_SPREAD) - MAX_SHAPE_SIDE,
+        left:
+          Math.floor(Math.random() * maxSpaceBetweenShapes) +
+          maxSpaceBetweenShapes * i,
+      };
+      initialShapes.push(
+        <div key={i} style={style}>
+          <ShapeOption />
+        </div>
+      );
+    }
+    setShapes(initialShapes);
+  }, []);
 
-  for (let i = 0; i < numShapes; i++) {
-    const shapeOptions = [RandomTriangleShape];
-    const ShapeOption =
-      shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
-    const style: CSSProperties = {
-      height: MAX_SHAPE_SIDE,
-      width: MAX_SHAPE_SIDE,
-      position: 'absolute',
-      bottom: Math.floor(Math.random() * VERTICAL_SPREAD) - MAX_SHAPE_SIDE,
-      left:
-        Math.floor(Math.random() * maxSpaceBetweenShapes) +
-        maxSpaceBetweenShapes * i,
-    };
-    shapes.push(
-      <div key={i} style={style}>
-        <ShapeOption />
-      </div>
-    );
+  if (!shapes.length) {
+    return null;
   }
 
   return (
@@ -61,21 +68,23 @@ const RandomShapeSpread = ({ startingPercentage }: RandomShapeSpreadProps) => {
 
 export const DriftingShapesClient = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const initialShapes: Array<React.ReactNode> = [];
-  const numInitialShapes = window?.innerHeight / VERTICAL_SPREAD;
-  for (let i = 0; i < numInitialShapes; i++) {
-    initialShapes.push(
-      <RandomShapeSpread
-        key={v4()}
-        startingPercentage={Math.floor(((i + 1) / numInitialShapes) * 100)}
-      />
-    );
-  }
-  const [shapes, setShapes] = useState<Array<React.ReactNode>>(initialShapes);
+  const [shapes, setShapes] = useState<Array<React.ReactNode>>([]);
 
   useEffect(() => {
+    const initialShapes: Array<React.ReactNode> = [];
+    const numInitialShapes = window.innerHeight / VERTICAL_SPREAD;
+    for (let i = 0; i < numInitialShapes; i++) {
+      initialShapes.push(
+        <RandomShapeSpread
+          key={v4()}
+          startingPercentage={Math.floor(((i + 1) / numInitialShapes) * 100)}
+        />
+      );
+    }
+    setShapes(initialShapes);
     const addShapeSpread = () => {
       setTimeout(() => {
+        console.log('IS THIS EXECUTING MORE THAN ONCE?');
         setShapes((s) => {
           return [...s.slice(1), <RandomShapeSpread key={v4()} />];
         });
@@ -84,6 +93,10 @@ export const DriftingShapesClient = () => {
     };
     addShapeSpread();
   }, []);
+
+  if (!shapes.length) {
+    return null;
+  }
 
   return (
     <div
