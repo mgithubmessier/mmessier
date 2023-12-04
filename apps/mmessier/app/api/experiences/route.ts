@@ -110,7 +110,7 @@ export const experiences: Array<Experience> = [
             id: '0.10.3',
 
             detail:
-              'GeoJSON/Geometry infrastructure for US Census Tracts and Postal Codes',
+              'GeoJSON/ Geometry infrastructure for US Census Tracts and Postal Codes',
           },
           {
             id: '0.10.4',
@@ -136,7 +136,89 @@ export const experiences: Array<Experience> = [
     startDate: set(new Date(), { month: 10, year: 2020 }).toISOString(),
     endDate: set(new Date(), { month: 0, year: 2022 }).toISOString(),
     title: 'Software Engineer, Senior',
-    details: [],
+    details: [
+      {
+        id: '1.0',
+        detail:
+          'Supported Team Lead in development of frontend and backend features',
+        subDetails: [
+          {
+            id: '1.0.0',
+            detail:
+              'Implemented a configurable infrastructure to provide a custom flow of screens/ forms in response to user interactions within React Native mobile application',
+          },
+          {
+            id: '1.0.1',
+            detail:
+              'Implemented frontend Websocket infrastructure in pure javascript that is used commonly across React and React Native applications to ingest entity updates and chat',
+          },
+        ],
+      },
+      {
+        id: '1.1',
+        detail:
+          'Led and released upgrades to React and React Native frameworks',
+        subDetails: [
+          {
+            id: '1.1.0',
+            detail: 'React 14 to 16 upgrade',
+            subDetails: [
+              {
+                id: '1.1.0.0',
+                detail: 'Migrated class components top functional components',
+              },
+              {
+                id: '1.1.0.1',
+                detail: 'Migrated lifecycle events to hooks',
+              },
+              {
+                id: '1.1.0.2',
+                detail:
+                  'Upgraded and replaced deprecated dependencies and across all React web applications',
+              },
+            ],
+          },
+          {
+            id: '1.1.1',
+            detail: 'Conducted React Native 0.42 to 0.72 upgrade',
+            subDetails: [
+              {
+                id: '1.1.1.0',
+                detail:
+                  'Upgraded and replaced deprecated dependencies and overhauled the installation scripts on a React Native mobile application',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: '1.2',
+        detail:
+          'Led and conducted large-scale e2e testing of the React and React Native applications',
+        subDetails: [
+          {
+            id: '1.2.0',
+            detail:
+              'Collaborated with product to document most important features and user stories',
+          },
+          {
+            id: '1.2.1',
+            detail:
+              'Createed e2e tests in both Cypress and Detox to support documented, important features and user stories',
+          },
+        ],
+      },
+      {
+        id: '1.3',
+        detail:
+          'Overhauled project planning documentation standards in Confluence to create a common format',
+      },
+      {
+        id: '1.4',
+        detail:
+          'Created automation that took commits of a specific format and spawned human-readable documentation to reduce release complexity',
+      },
+    ],
   },
   {
     logo: '/dispatch.webp',
@@ -147,7 +229,20 @@ export const experiences: Array<Experience> = [
     startDate: set(new Date(), { month: 10, year: 2018 }).toISOString(),
     endDate: set(new Date(), { month: 10, year: 2020 }).toISOString(),
     title: 'Software Engineer',
-    details: [],
+    details: [
+      {
+        id: '2.0',
+        detail:
+          'Supported product team in bugfixes, migrations, and testing infrastructure',
+        subDetails: [
+          {
+            id: '2.0.1',
+            detail:
+              'Migrated entirety of a deprecated common react component repository into the modern syntax, standards, and reposirory',
+          },
+        ],
+      },
+    ],
   },
   {
     logo: '/fidelity.jpeg',
@@ -158,7 +253,30 @@ export const experiences: Array<Experience> = [
     startDate: set(new Date(), { month: 9, year: 2016 }).toISOString(),
     endDate: set(new Date(), { month: 10, year: 2018 }).toISOString(),
     title: 'Software Engineer',
-    details: [],
+    details: [
+      {
+        id: '3.0',
+        detail:
+          'Developed Angular web components, modules, and services for client facing applications',
+        subDetails: [
+          {
+            id: '3.0.1',
+            detail:
+              'Created several portions of a fully configurable web framework to have no-code solutions to lay out different components',
+          },
+        ],
+      },
+      {
+        id: '3.1',
+        detail:
+          'Worked as a part of an Agile team to deliver software on a bi-weekly sprint basis',
+      },
+      {
+        id: '3.2',
+        detail:
+          'Collaborated with service teams to integrate endpoints with frontend component requirements',
+      },
+    ],
   },
 ];
 

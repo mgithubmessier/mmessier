@@ -19,6 +19,18 @@ export const colors = {
       color: '#FFFFFF',
     },
     {
+      backgroundColor: scssColors.indigo500,
+      color: '#FFFFFF',
+    },
+    {
+      backgroundColor: scssColors.indigo400,
+      color: '#000000',
+    },
+    {
+      backgroundColor: scssColors.indigo300,
+      color: '#000000',
+    },
+    {
       backgroundColor: scssColors.indigo200,
       color: '#000000',
     },
