@@ -75,10 +75,7 @@ export const DriftingShapesClient = () => {
     const addShapeSpread = () => {
       setTimeout(() => {
         setShapes((s) => {
-          if (s.length > 30) {
-            s.splice(0, 1);
-          }
-          return [...s, <RandomShapeSpread key={v4()} />];
+          return [...s.slice(1), <RandomShapeSpread key={v4()} />];
         });
         addShapeSpread();
       }, ADDITION_RATE);

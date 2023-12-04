@@ -34,9 +34,10 @@ export const RandomTriangleShape = () => {
   }
 
   const clockwise = (Math.floor(Math.random() * 2) + 1) % 2;
+  const animationName = `roll-${clockwise}`;
   const animation: SxProps<Theme> = {
     boxSizing: 'border-box',
-    '@keyframes roll': {
+    [`@keyframes ${animationName}`]: {
       '0%': {
         transform: 'rotate(0)',
       },
@@ -44,7 +45,7 @@ export const RandomTriangleShape = () => {
         transform: `rotate(${clockwise ? '-' : ''}360deg)`,
       },
     },
-    animation: `roll ${
+    animation: `${animationName} ${
       Math.floor(Math.random() * 50) + getSlideAnimationDuration() / 1000
     }s linear infinite`,
     position: 'absolute',
