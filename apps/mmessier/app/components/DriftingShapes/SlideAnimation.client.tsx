@@ -17,7 +17,6 @@ export const SlideAnimation = ({
     : `100vh`;
   const animationName = `slide-${startingPercentage}`;
   const durationMultiplier = startingPercentage ? startingPercentage / 100 : 1;
-  console.log({ durationMultiplier, startingPercentage });
   const containerStyle: SxProps<Theme> = {
     position: 'absolute',
     height: VERTICAL_SPREAD,
