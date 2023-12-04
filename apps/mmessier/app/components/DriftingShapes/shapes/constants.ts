@@ -6,5 +6,5 @@ export const VERTICAL_SPREAD =
 export const ADDITION_RATE = 25000;
 
 export const getSlideAnimationDuration = () => {
-  return Math.ceil((window.innerHeight / VERTICAL_SPREAD + 1) * ADDITION_RATE);
+  return Math.ceil((window.innerHeight / VERTICAL_SPREAD) * ADDITION_RATE);
 };

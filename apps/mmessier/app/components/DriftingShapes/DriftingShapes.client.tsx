@@ -84,7 +84,6 @@ export const DriftingShapesClient = () => {
     setShapes(initialShapes);
     const addShapeSpread = () => {
       setTimeout(() => {
-        console.log('IS THIS EXECUTING MORE THAN ONCE?');
         setShapes((s) => {
           return [...s.slice(1), <RandomShapeSpread key={v4()} />];
         });
