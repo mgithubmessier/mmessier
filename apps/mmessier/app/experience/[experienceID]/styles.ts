@@ -1,6 +1,5 @@
 import { Breakpoint, Style } from '../../../types';
 import { colors } from '../../styles/colors';
-import { fonts } from '../../styles/fonts';
 import { spacingLevel } from '../../styles/spacing';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
@@ -14,6 +13,10 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     },
   },
   static: {
+    autocompleteField: {
+      marginBottom: spacingLevel(2, breakpoint),
+      paddingRight: 9,
+    },
     companyURL: {
       textDecorationColor: colors.alternating[2].backgroundColor,
     },
@@ -28,7 +31,6 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       paddingBottom: spacingLevel(2, breakpoint),
     },
     detailText: {
-      ...fonts.common.style,
       fontSize: '1.2rem',
     },
   },

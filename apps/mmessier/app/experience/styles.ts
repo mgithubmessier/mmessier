@@ -36,7 +36,6 @@ const button: CSSProperties = {
 };
 
 const dateRangeText = {
-  ...fonts.common.style,
   lineHeight: 1,
 };
 

@@ -6,6 +6,9 @@ import { fonts } from './fonts';
 
 export const theme = createTheme({
   typography: {
+    allVariants: {
+      ...fonts.common.style,
+    },
     h1: {
       color: colors.text.main,
       ...fonts.h1Font.style,

@@ -23,12 +23,12 @@ type RandomShapeSpreadProps = {
 const RandomShapeSpread = ({ startingPercentage }: RandomShapeSpreadProps) => {
   const minShapes = 5;
   const maxShapes =
-    Math.floor(Math.random() * (window.innerWidth / MAX_SHAPE_SIDE)) +
+    Math.floor(Math.random() * (window?.innerWidth / MAX_SHAPE_SIDE)) +
     minShapes;
 
   const numShapes = Math.floor(Math.random() * maxShapes) + 1;
 
-  const maxSpaceBetweenShapes = Math.floor(window.innerWidth / numShapes);
+  const maxSpaceBetweenShapes = Math.floor(window?.innerWidth / numShapes);
 
   const shapes = [];
 
@@ -62,7 +62,7 @@ const RandomShapeSpread = ({ startingPercentage }: RandomShapeSpreadProps) => {
 export const DriftingShapesClient = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const initialShapes: Array<React.ReactNode> = [];
-  const numInitialShapes = window.innerHeight / VERTICAL_SPREAD;
+  const numInitialShapes = window?.innerHeight / VERTICAL_SPREAD;
   for (let i = 0; i < numInitialShapes; i++) {
     initialShapes.push(
       <RandomShapeSpread
