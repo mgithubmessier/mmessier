@@ -42,6 +42,12 @@
   - DataAccess
     - /lib/entity.ts
 
+## Next.js Gotchas
+
+- In dev mode only, there is a double render that occurs due to a React 18 feature
+  - https://github.com/vercel/next.js/issues/35822
+  - https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-strict-mode
+
 ## App Deployment
 
 - Currently thinking we'll use AWS's next js deployment strategy

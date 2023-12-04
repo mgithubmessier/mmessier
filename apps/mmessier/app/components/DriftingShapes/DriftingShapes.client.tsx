@@ -2,8 +2,13 @@
 
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
-import { colors } from '../../styles/colors';
-import { Container, SxProps } from '@mui/material';
+import {
+  ADDITION_RATE,
+  MAX_SHAPE_SIDE,
+  VERTICAL_SPREAD,
+} from './shapes/constants';
+import { RandomTriangleShape } from './shapes/RandomTriangle.client';
+import { SlideAnimation } from './SlideAnimation.client';
 
 export enum Breakpoint {
   SMALL = 'small',
@@ -11,88 +16,13 @@ export enum Breakpoint {
   DEFAULT = 'default',
 }
 
-const MAX_SHAPE_SIDE = 100;
-const VERTICAL_SHAPE_SPREAD_MULTIPLIER = 3;
-const INITIAL_OFFSET = MAX_SHAPE_SIDE * VERTICAL_SHAPE_SPREAD_MULTIPLIER;
-const SLIDE_ANIMATION_DURATION = 50000;
-const ADDITION_RATE = 4000;
-
-const RandomTriangleShape = () => {
-  const depth = Math.floor(Math.random() * 3) + 2;
-  const randomRotation = Math.floor(Math.random() * 360);
-  const triangleStyle = (currentDepth: number): CSSProperties => {
-    const multiple = MAX_SHAPE_SIDE / depth;
-
-    const shortSide = (MAX_SHAPE_SIDE - (currentDepth + 1) * multiple) / 2;
-    const longSide = shortSide * 2;
-
-    return {
-      position: 'absolute',
-      width: 0,
-      height: 0,
-      borderLeft: `${shortSide}px solid transparent`,
-      borderRight: `${shortSide}px solid transparent`,
-      borderBottom: `${longSide}px solid ${colors.alternating[currentDepth].backgroundColor}`,
-      bottom: (multiple * currentDepth) / 2,
-      left: (multiple * currentDepth) / 2,
-      transform: `rotate(${randomRotation}deg)`,
-    };
-  };
-
-  const triangles = [];
-  for (let i = 0; i < depth; i++) {
-    triangles.push(<div key={i} style={triangleStyle(i)} />);
-  }
-
-  const clockwise = (Math.floor(Math.random() * 2) + 1) % 2;
-  const animation: SxProps<any> = {
-    '@keyframes roll': {
-      '0%': {
-        transform: 'rotate(0)',
-      },
-      '100%': {
-        transform: `rotate(${clockwise ? '-' : ''}360deg)`,
-      },
-    },
-    animation: `roll ${
-      Math.floor(Math.random() * 50) + SLIDE_ANIMATION_DURATION / 1000
-    }s linear infinite`,
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-  };
-
-  return <Container sx={animation}>{triangles}</Container>;
+type RandomShapeSpreadProps = {
+  startingPercentage?: number;
 };
 
-type AnimationProps = {
-  children: React.ReactNode;
-};
-
-const Animation = ({ children }: AnimationProps) => {
-  const containerStyle: SxProps<any> = {
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    '@keyframes slide': {
-      '0%': {
-        transform: `translate(0, ${INITIAL_OFFSET}px)`,
-      },
-      '100%': {
-        transform: `translate(0, calc(-100vh - ${INITIAL_OFFSET}px))`,
-      },
-    },
-
-    animation: `slide ${SLIDE_ANIMATION_DURATION / 1000}s linear infinite`,
-  };
-
-  return <Container sx={containerStyle}>{children}</Container>;
-};
-
-const RandomShapeSpread = () => {
-  console.log('why the fuck is this rerendering');
+const RandomShapeSpread = ({ startingPercentage }: RandomShapeSpreadProps) => {
   const maxShapes =
-    Math.floor(Math.random() * (window.innerWidth / MAX_SHAPE_SIDE)) + 1;
+    Math.floor(Math.random() * (window.innerWidth / MAX_SHAPE_SIDE)) + 3;
 
   const numShapes = Math.floor(Math.random() * maxShapes) + 1;
 
@@ -101,49 +31,59 @@ const RandomShapeSpread = () => {
   const shapes = [];
 
   for (let i = 0; i < numShapes; i++) {
+    const shapeOptions = [RandomTriangleShape];
+    const ShapeOption =
+      shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
     const style: CSSProperties = {
       height: MAX_SHAPE_SIDE,
       width: MAX_SHAPE_SIDE,
       position: 'absolute',
-      bottom: -Math.floor(Math.random() * INITIAL_OFFSET),
+      bottom: Math.floor(Math.random() * VERTICAL_SPREAD) - MAX_SHAPE_SIDE,
       left:
         Math.floor(Math.random() * maxSpaceBetweenShapes) +
         maxSpaceBetweenShapes * i,
     };
     shapes.push(
       <div key={i} style={style}>
-        <RandomTriangleShape />
+        <ShapeOption />
       </div>
     );
   }
 
-  return <Animation>{shapes}</Animation>;
+  return (
+    <SlideAnimation startingPercentage={startingPercentage}>
+      {shapes}
+    </SlideAnimation>
+  );
 };
 
 export const DriftingShapesClient = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [shapes, setShapes] = useState<Array<React.ReactNode>>([]);
+  const initialShapes: Array<React.ReactNode> = [];
+  const numInitialShapes = window.innerHeight / VERTICAL_SPREAD;
+  for (let i = 0; i < numInitialShapes; i++) {
+    initialShapes.push(
+      <RandomShapeSpread
+        key={v4()}
+        startingPercentage={Math.floor(((i + 1) / numInitialShapes) * 100)}
+      />
+    );
+  }
+  const [shapes, setShapes] = useState<Array<React.ReactNode>>(initialShapes);
 
   useEffect(() => {
-    const removeShapes = () => {
+    const addShapeSpread = () => {
       setTimeout(() => {
         setShapes((s) => {
-          s.shift();
-          return s;
-        });
-        removeShapes();
-      }, ADDITION_RATE);
-    };
-    const addShapes = () => {
-      setTimeout(() => {
-        setShapes((s) => {
+          if (s.length > 30) {
+            s.splice(0, 1);
+          }
           return [...s, <RandomShapeSpread key={v4()} />];
         });
-        addShapes();
+        addShapeSpread();
       }, ADDITION_RATE);
     };
-    addShapes();
-    setTimeout(removeShapes, SLIDE_ANIMATION_DURATION);
+    addShapeSpread();
   }, []);
 
   return (
@@ -156,6 +96,7 @@ export const DriftingShapesClient = () => {
         top: 0,
         left: 0,
         zIndex: 1,
+        overflow: 'hidden',
       }}
       className="Drifting-Shapes-Client"
     >
