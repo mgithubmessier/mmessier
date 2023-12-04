@@ -2,8 +2,8 @@ import {
   Bebas_Neue,
   Yellowtail,
   Barlow_Condensed,
-  Hind,
   Cantarell,
+  Rajdhani,
 } from 'next/font/google';
 
 export const h1Font = Yellowtail({
@@ -21,7 +21,7 @@ export const h3Font = Barlow_Condensed({
   weight: '400',
 });
 
-export const h4Font = Hind({
+export const h4Font = Rajdhani({
   subsets: ['latin'],
   weight: '400',
 });

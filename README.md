@@ -23,6 +23,7 @@
   - For projects
 
     - We should provide details about abstractserver, maybe we can make it its own site as well, we just don't want to provide the whole damn codebase
+    - We could add the drifting shapes animation in the background, maybe separate it out into its own library
 
   - For the API we use
     - We can start with some serverless lambda infrastructure that serves up the same mock JSON objects we made inside of the app itself

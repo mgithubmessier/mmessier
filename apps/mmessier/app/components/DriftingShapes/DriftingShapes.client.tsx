@@ -21,8 +21,10 @@ type RandomShapeSpreadProps = {
 };
 
 const RandomShapeSpread = ({ startingPercentage }: RandomShapeSpreadProps) => {
+  const minShapes = 5;
   const maxShapes =
-    Math.floor(Math.random() * (window.innerWidth / MAX_SHAPE_SIDE)) + 3;
+    Math.floor(Math.random() * (window.innerWidth / MAX_SHAPE_SIDE)) +
+    minShapes;
 
   const numShapes = Math.floor(Math.random() * maxShapes) + 1;
 
