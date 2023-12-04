@@ -3,20 +3,7 @@ import { colors } from '../../styles/colors';
 import { spacingLevel } from '../../styles/spacing';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
-  dynamic: {
-    accordion: (hasDetails: boolean, index: number) => {
-      return {
-        pointerEvents: hasDetails ? 'all' : 'none',
-        ...colors.alternating[(index + 2) % colors.alternating.length],
-        width: '100%',
-      };
-    },
-  },
   static: {
-    autocompleteField: {
-      marginBottom: spacingLevel(2, breakpoint),
-      paddingRight: 9,
-    },
     companyURL: {
       textDecorationColor: colors.alternating[2].backgroundColor,
     },
