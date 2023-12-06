@@ -8,7 +8,7 @@ import { styles as detailsSearchStyles } from './styles';
 
 type DetailsSearchProps = {
   searchTerms: Array<string>;
-  onAddSearchTerm: (searchTerm: string) => void;
+  onAddSearchTerm: (searchTerms: Array<string>) => void;
   onRemoveSearchTerm: (searchTerm: string) => void;
   onClearSearchTerms: () => void;
 };
@@ -26,7 +26,7 @@ export const DetailsSearch = ({
       value={searchTerms}
       onClose={(event: any, reason) => {
         if (reason.includes('createOption') && event.target.value) {
-          onAddSearchTerm(event.target.value);
+          onAddSearchTerm(event.target.value.split(' '));
         }
       }}
       // add "common search terms" to the api, wherever the storage of the experiences themselves are being held
@@ -61,7 +61,7 @@ export const DetailsSearch = ({
           }}
           variant="outlined"
           label="Search"
-          placeholder="Type a search term and hit enter"
+          placeholder="Type a single search term and hit enter"
           style={styles.static?.autocompleteField}
           sx={{
             input: {

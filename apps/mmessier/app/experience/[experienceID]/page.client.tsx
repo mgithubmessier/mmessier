@@ -69,8 +69,8 @@ export const ExperienceDetailsClient = ({
       </div>
       <DetailsSearch
         searchTerms={searchTerms}
-        onAddSearchTerm={(searchTerm) =>
-          setSearchTerms((t) => [...t, searchTerm])
+        onAddSearchTerm={(searchTerms) =>
+          setSearchTerms((t) => [...t, ...searchTerms])
         }
         onClearSearchTerms={() => setSearchTerms([])}
         onRemoveSearchTerm={(searchTerm) => {
