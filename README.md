@@ -11,8 +11,7 @@
 
 - mmessier
 
-  - Add a search widget to the experience details page where you pre-fill some common keywords to search for (a plug for your existing talents) or allow the user to type in and actively do a case-insensitive search across any details with that text within it
-    - force the accordions to stay open while text is being entered
+  - Add an array of common search terms to an experience that will auto populate as options on the autocomplete dropdown
   - For the Home page
 
     - We should explain that this site is written in NextJS

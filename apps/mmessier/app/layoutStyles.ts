@@ -2,6 +2,7 @@
 import { Breakpoint, Style } from '../types';
 import { colors } from './styles/colors';
 import { spacingLevel } from './styles/spacing';
+import { h1MedeiaQueries } from './styles/theme';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
@@ -27,6 +28,15 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       height: '100%',
       flex: 1,
       zIndex: 2,
+    },
+    platformIconContainer: {
+      display: 'flex',
+    },
+  },
+  sx: {
+    platformIcon: {
+      color: colors.text.main,
+      ...h1MedeiaQueries,
     },
   },
 });

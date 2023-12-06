@@ -1,3 +1,4 @@
+import { SxProps, Theme } from '@mui/material';
 import { CSSProperties } from 'react';
 
 export enum Breakpoint {
@@ -14,10 +15,17 @@ type DynamicStyle = {
   [y: string]: (...args) => CSSProperties;
 };
 
-export type Style = (breakpoint: Breakpoint) => {
+type SXStyle = {
+  [z: string]: SxProps<Theme>;
+};
+
+export type BasicStyle = {
   dynamic?: DynamicStyle;
   static?: StaticStyle;
+  sx?: SXStyle;
 };
+
+export type Style = (breakpoint: Breakpoint) => BasicStyle;
 
 export type ExperienceDetail = {
   id: string;

@@ -4,6 +4,16 @@ import { createTheme } from '@mui/material';
 import { colors } from './colors';
 import { fonts } from './fonts';
 
+export const h1MedeiaQueries = {
+  fontSize: '3rem',
+  '@media (min-width:400px)': {
+    fontSize: '4rem',
+  },
+  '@media (min-width:600px)': {
+    fontSize: '6rem',
+  },
+};
+
 export const theme = createTheme({
   typography: {
     allVariants: {
@@ -12,13 +22,7 @@ export const theme = createTheme({
     h1: {
       color: colors.text.main,
       ...fonts.h1Font.style,
-      fontSize: '3rem',
-      '@media (min-width:400px)': {
-        fontSize: '4rem',
-      },
-      '@media (min-width:600px)': {
-        fontSize: '6rem',
-      },
+      ...h1MedeiaQueries,
     },
     h2: {
       color: colors.text.main,
@@ -67,6 +71,9 @@ export const theme = createTheme({
     mode: 'light',
     primary: {
       main: colors.components.main,
+    },
+    error: {
+      main: colors.error,
     },
   },
 });

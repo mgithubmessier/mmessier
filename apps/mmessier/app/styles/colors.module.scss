@@ -9,6 +9,8 @@ $indigo700: #303f9f;
 $indigo800: #283593;
 $indigo900: #1a237e;
 
+$error: #F56038;
+
 :export {
   indigo50: $indigo50;
   indigo100: $indigo100;
@@ -20,6 +22,7 @@ $indigo900: #1a237e;
   indigo700: $indigo700;
   indigo800: $indigo800;
   indigo900: $indigo900;
+  error: $error;
 }
   
   

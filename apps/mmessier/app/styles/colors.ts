@@ -50,4 +50,5 @@ export const colors = {
     secondary: scssColors.indigo400,
     tertiary: scssColors.indigo300,
   },
+  error: scssColors.error,
 };
