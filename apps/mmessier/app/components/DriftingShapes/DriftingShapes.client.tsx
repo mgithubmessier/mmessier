@@ -82,15 +82,14 @@ export const DriftingShapesClient = () => {
       );
     }
     setShapes(initialShapes);
-    const addShapeSpread = () => {
-      setTimeout(() => {
-        setShapes((s) => {
-          return [...s.slice(1), <RandomShapeSpread key={v4()} />];
-        });
-        addShapeSpread();
-      }, ADDITION_RATE);
+    const interval = setInterval(() => {
+      setShapes((s) => {
+        return [...s.slice(1), <RandomShapeSpread key={v4()} />];
+      });
+    }, ADDITION_RATE);
+    return () => {
+      clearInterval(interval);
     };
-    addShapeSpread();
   }, []);
 
   if (!shapes.length) {
