@@ -13,7 +13,9 @@
 
   - APIs to enable
 
-    - DynamoDB containing resume information, anything under 25GB is free!
+    - Create DynamoDB table, anything under 25GB is free!
+      - resume information
+      - project information
     - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
       - Throttle that lambda
     - Standup the website inside of AWS via some sort of server and see if that server can then reach other to other endpoints internally without having to leave the VPC it is running on

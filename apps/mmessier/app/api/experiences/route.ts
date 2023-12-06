@@ -121,7 +121,7 @@ export const experiences: Array<Experience> = [
           {
             id: '0.10.5',
             detail:
-              'Entirely new internal React + MUI administration dashboard to pass SOC2 Compliance',
+              'Entirely new internal React and MUI administrative dashboard to pass SOC2 Compliance',
           },
         ],
       },
