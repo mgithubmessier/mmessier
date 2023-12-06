@@ -11,26 +11,31 @@
 
 - mmessier
 
-  - Add an array of common search terms to an experience that will auto populate as options on the autocomplete dropdown
-  - For the Home page
+  - APIs to enable
 
-    - We should explain that this site is written in NextJS
-    - We should explain that we are hosting it ourselves along with the services involved
-    - we should provide an email form and not our email itself, we can have a lambda hit us with an email of some kind via a sendgrid integration which we can throttle to a very low amount, whichever keeps us in the free range
-    - we should provide the linkedin and github
+    - DynamoDB containing resume information, anything under 25GB is free!
+    - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
+      - Throttle that lambda
+    - Standup the website inside of AWS via some sort of server and see if that server can then reach other to other endpoints internally without having to leave the VPC it is running on
+    - ChatGPT Lambda
+      - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
+      - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
+
+  - Add an array of common search terms to an experience that will auto populate as options on the autocomplete dropdown
+
+  - For experience
+
+    - make use of the query parameter hook to maintain the search terms on the details page
 
   - For projects
 
     - We should provide details about abstractserver, maybe we can make it its own site as well, we just don't want to provide the whole damn codebase
     - We could add the drifting shapes animation in the background, maybe separate it out into its own library
+    - Talk about the query parameter hook
 
-  - For the API we use
-    - We can start with some serverless lambda infrastructure that serves up the same mock JSON objects we made inside of the app itself
-    - Then we can use AWS DynamoDB, since anything under 25GB is always free!
-  - Use the query parameter hook to ingest locations from which guests come and visit your website
+  - Other tasks:
+    - Use the query parameter hook to ingest locations from which guests come and visit your website
     - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
-  - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize tthe contents on the experience
-    - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
 
 ## Principles
 
