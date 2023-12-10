@@ -62,7 +62,7 @@ export const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgba(92, 107, 192, 0.7)',
+          backgroundColor: 'rgba(92, 107, 192, 0.8)',
         },
       },
     },

@@ -1,13 +1,13 @@
 'use client';
 
 import { Button, IconButton, Typography } from '@mui/material';
-import { useStyles } from '../../hooks/useStyles';
+import { useStyles } from '../../../hooks/useStyles';
 import { styles as contactFormStyles } from './styles.client';
-import { useYupResolver } from '../../hooks/useYupResolver';
+import { useYupResolver } from '../../../hooks/useYupResolver';
 import * as yup from 'yup';
-import { phoneNumberValidator } from '../../utilities/yup';
+import { phoneNumberValidator } from '../../../utilities/yup';
 import { useForm } from 'react-hook-form';
-import { RHFTextField } from '../../components/fields/TextField/TextField';
+import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { Send } from '@mui/icons-material';
 
 type FormData = {

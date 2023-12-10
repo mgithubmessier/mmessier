@@ -7,12 +7,5 @@ export const basicStyles: BasicStyle = {
       width: '100%',
       height: '100%',
     },
-    text: {
-      color: colors.text.main,
-    },
-    link: {
-      color: colors.text.main,
-      textDecorationColor: colors.alternating[2].backgroundColor,
-    },
   },
 };

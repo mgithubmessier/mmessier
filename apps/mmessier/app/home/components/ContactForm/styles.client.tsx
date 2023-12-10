@@ -1,7 +1,7 @@
 'use client';
 
-import { Breakpoint, Style } from '../../../types';
-import { spacingLevel } from '../../styles/spacing';
+import { Breakpoint, Style } from '../../../../types';
+import { spacingLevel } from '../../../styles/spacing';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   dynamic: {},
