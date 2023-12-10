@@ -43,6 +43,7 @@ export type Experience = {
   endDate?: string;
   location: string;
   logo: string;
+  keyTerms: Array<string>;
 };
 
 type BaseResponse = {

@@ -68,6 +68,10 @@ export const ExperienceDetailsClient = ({
         </a>
       </div>
       <DetailsSearch
+        options={experience.keyTerms.map((term) => ({
+          label: term,
+          value: term,
+        }))}
         searchTerms={searchTerms}
         onAddSearchTerm={(searchTerms) =>
           setSearchTerms((t) => [...t, ...searchTerms])

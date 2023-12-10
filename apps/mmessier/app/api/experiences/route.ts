@@ -3,6 +3,22 @@ import { Experience } from '../../../types';
 
 export const experiences: Array<Experience> = [
   {
+    keyTerms: [
+      'React',
+      'React Native',
+      'Golang',
+      'Cypress',
+      'GeoJSON',
+      'Detox',
+      'Stax',
+      'AWS',
+      'Websocket',
+      'CI/CD',
+      'Manage',
+      'Guild',
+      'Lead',
+      'Microservice',
+    ],
     logo: '/dispatch.webp',
     companyURL: 'https://dispatch.me/',
     id: '0',
@@ -128,6 +144,15 @@ export const experiences: Array<Experience> = [
     ],
   },
   {
+    keyTerms: [
+      'React',
+      'React Native',
+      'Cypress',
+      'Detox',
+      'Upgrade',
+      'Migrate',
+      'Documentation',
+    ],
     logo: '/dispatch.webp',
     companyURL: 'https://dispatch.me/',
     id: '1',
@@ -204,7 +229,7 @@ export const experiences: Array<Experience> = [
           {
             id: '1.2.1',
             detail:
-              'Createed e2e tests in both Cypress and Detox to support documented, important features and user stories',
+              'Created e2e tests in both Cypress and Detox to support documented, important features and user stories',
           },
         ],
       },
@@ -221,6 +246,7 @@ export const experiences: Array<Experience> = [
     ],
   },
   {
+    keyTerms: ['Migrate'],
     logo: '/dispatch.webp',
     companyURL: 'https://dispatch.me/',
     id: '2',
@@ -245,6 +271,7 @@ export const experiences: Array<Experience> = [
     ],
   },
   {
+    keyTerms: ['Angular', 'Configurable', 'Agile'],
     logo: '/fidelity.jpeg',
     companyURL: 'https://www.fidelity.com/',
     id: '3',
