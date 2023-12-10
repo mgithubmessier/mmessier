@@ -23,8 +23,6 @@
       - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
       - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
 
-  - Add an array of common search terms to an experience that will auto populate as options on the autocomplete dropdown
-
   - For experience
 
     - make use of the query parameter hook to maintain the search terms on the details page
