@@ -25,6 +25,7 @@
 
   - For projects
 
+    - musiq.page
     - We should provide details about abstractserver, maybe we can make it its own site as well, we just don't want to provide the whole damn codebase
     - We could add the drifting shapes animation in the background, maybe separate it out into its own library
     - Talk about the query parameter hook
