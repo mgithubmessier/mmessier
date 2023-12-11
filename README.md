@@ -23,10 +23,6 @@
       - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
       - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
 
-  - For experience
-
-    - make use of the query parameter hook to maintain the search terms on the details page
-
   - For projects
 
     - We should provide details about abstractserver, maybe we can make it its own site as well, we just don't want to provide the whole damn codebase
