@@ -28,6 +28,9 @@
     - We should provide details about abstractserver, maybe we can make it its own site as well, we just don't want to provide the whole damn codebase
     - We could add the drifting shapes animation in the background, maybe separate it out into its own library
     - Talk about the query parameter hook
+    - If I get these project partially functional as well, I could add pages in here where people can try them out
+      - At the very least the query parameter one is usable, allowing someone to navigate between pages and get a new set of query parameters with just a simple hook subscription
+      - The drifting shapes one might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors they want to use in a sub-view
 
   - Other tasks:
     - Use the query parameter hook to ingest locations from which guests come and visit your website
