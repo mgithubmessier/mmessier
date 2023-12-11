@@ -1,14 +1,16 @@
 'use client';
 import { Typography } from '@mui/material';
+import { useQueryParameters } from '@mmessier/use-query-parameters';
 
 import { Experience, ExperienceDetail } from '../../../types';
 import { Details } from './components/Details/Details.client';
 
 import { styles as experienceIDStyles } from './styles';
 import { useStyles } from '../../hooks/useStyles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { pick } from 'lodash';
 import { DetailsSearch } from './components/DetailsSearch/DetailsSearch';
+import { usePathname } from 'next/navigation';
 
 export type SearchMap = {
   // search word to flattened lodash syntax of all occurences
@@ -34,6 +36,10 @@ const filterExperienceDetails = (
   return details;
 };
 
+type ExperienceDetailQueryParameters = {
+  terms?: Array<string>;
+};
+
 export type ExperienceDetailsClientProps = {
   experience: Experience;
   searchMap: SearchMap;
@@ -44,7 +50,16 @@ export const ExperienceDetailsClient = ({
   searchMap,
 }: ExperienceDetailsClientProps) => {
   const styles = useStyles(experienceIDStyles);
-  const [searchTerms, setSearchTerms] = useState<Array<string>>([]);
+  const pathname = usePathname();
+  const { queryParameters, set } =
+    useQueryParameters<ExperienceDetailQueryParameters>(pathname);
+  const [searchTerms, setSearchTerms] = useState<Array<string>>(
+    queryParameters?.terms || []
+  );
+
+  useEffect(() => {
+    set('terms', searchTerms);
+  }, [searchTerms]);
 
   const experience: Experience = {
     ...experienceParam,

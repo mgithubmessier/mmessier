@@ -5,7 +5,6 @@ import { colors } from '../../../../styles/colors';
 import { Clear } from '@mui/icons-material';
 import { useStyles } from '../../../../hooks/useStyles';
 import { styles as detailsSearchStyles } from './styles';
-import { isNumber } from 'lodash';
 
 type Option = {
   label: string;
