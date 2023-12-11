@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 import { QueryParameterContext } from './context';
 
-export type QueryParameterHookSet = (key: string, value: object) => void;
+export type QueryParameterHookSet = (key: string, value: any) => void;
 export type QueryParameterHookRemove = (key: string) => void;
 export type QueryParameterHookClear = () => void;
 
