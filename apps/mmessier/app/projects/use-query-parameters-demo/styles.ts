@@ -14,6 +14,9 @@ export const basicStyles: BasicStyle = {
       textDecorationColor: colors.alternating[2].backgroundColor,
       width: '100%',
     },
+    backButton: {
+      marginBottom: 12,
+    },
   },
   sx: {
     select: {

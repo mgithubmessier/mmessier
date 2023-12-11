@@ -25,7 +25,12 @@ export const UseQueryParametersDemo = ({
   return (
     <div style={basicStyles.static?.container}>
       <Link href="/projects">
-        <Button startIcon={<ArrowLeft />}>Back to Projects</Button>
+        <Button
+          startIcon={<ArrowLeft />}
+          style={basicStyles.static?.backButton}
+        >
+          Back to Projects
+        </Button>
       </Link>
       <FormControl>
         <InputLabel style={{ color: 'white' }}>
