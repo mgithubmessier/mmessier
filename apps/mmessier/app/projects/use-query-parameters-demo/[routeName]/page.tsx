@@ -42,11 +42,13 @@ export const UseQueryParameterDemoRoute = ({
         onChange={(event) => {
           set('param1', event.target.value);
         }}
-        label="Write any string"
+        label="[param1] - Write any string"
       />
 
       <FormControl style={basicStyles.static?.selectContainer}>
-        <InputLabel style={{ color: 'white' }}>Select some options</InputLabel>
+        <InputLabel style={{ color: 'white' }}>
+          [param2] - Select some options
+        </InputLabel>
         <Select
           multiple
           variant="filled"
