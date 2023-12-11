@@ -25,6 +25,7 @@ export const ProjectsClient = () => {
         component at any time
       </Typography>
       <Typography variant="h2">Abstract Server</Typography>
+      <Typography variant="h3">Demo - Coming Soon</Typography>
       <div>
         <Typography style={basicStyles.static?.text}>
           A work-in-progress private repository I built out to quickly support
