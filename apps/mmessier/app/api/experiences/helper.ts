@@ -316,5 +316,3 @@ export const experiences: Array<Experience> = [
     ],
   },
 ];
-
-console.log(experiences);

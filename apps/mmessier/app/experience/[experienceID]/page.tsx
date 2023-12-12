@@ -19,7 +19,6 @@ const createSearchMap = (
           searchMap
         );
       }
-      console.log(searchMap);
       const searchableWords = detail.detail.split(' ');
       for (let searchableWord of searchableWords) {
         searchableWord = searchableWord
