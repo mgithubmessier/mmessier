@@ -21,7 +21,7 @@ export const ProjectsClient = () => {
         A react hook that is meant to make query parameter management an
         extremely simple endeavor. You supply a &quot;subscription&quot; key and
         then are able to set that key to any JSON serializable value and get
-        updates on changes to it across your entire applicaation from any
+        updates on changes to it across your entire application from any
         component at any time
       </Typography>
       <Typography variant="h2">Abstract Server</Typography>
