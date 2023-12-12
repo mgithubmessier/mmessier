@@ -21,6 +21,9 @@ export const styles: Style = (breakpoint: Breakpoint) => {
 
   return {
     static: {
+      commitHash: {
+        opacity: 0.5,
+      },
       headingContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -66,6 +69,7 @@ export const styles: Style = (breakpoint: Breakpoint) => {
       },
       platformIconContainer: {
         display: 'flex',
+        alignItems: 'center',
       },
     },
     sx: {

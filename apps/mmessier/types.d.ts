@@ -4,6 +4,7 @@ import { CSSProperties } from 'react';
 export type Configuration = {
   mmessierAPIHost?: string;
   mmessierAPIToken?: string;
+  commitHash?: string;
 };
 
 export enum Breakpoint {

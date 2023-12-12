@@ -10,7 +10,12 @@ import { DriftingShapesClient } from './components/DriftingShapes/DriftingShapes
 import { GitHub, LinkedIn } from '@mui/icons-material';
 import Image from 'next/image';
 
-export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
+type LayoutClientProps = {
+  children: React.ReactNode;
+  commitHash?: string;
+};
+
+export const LayoutClient = ({ children, commitHash }: LayoutClientProps) => {
   const styles = useStyles(layoutStyles);
 
   return (
@@ -45,6 +50,9 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
                 <GitHub sx={styles.sx?.platformIcon} />
               </IconButton>
             </a>
+            <Typography style={styles.static?.commitHash}>
+              {commitHash}
+            </Typography>
           </div>
         </div>
       </QueryParameterProvider>

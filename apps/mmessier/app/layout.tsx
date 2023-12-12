@@ -2,6 +2,7 @@ import { ThemeProvider } from '@mui/material';
 import { theme } from './styles/theme';
 import { BreakpointListener } from './components/BreakpointListener/BreakpointListener';
 import { LayoutClient } from './layout.client';
+import { configuration } from '../configuration/configuration';
 
 export default function RootLayout({
   children,
@@ -12,7 +13,9 @@ export default function RootLayout({
     <ThemeProvider theme={theme}>
       <BreakpointListener />
       <html lang="en">
-        <LayoutClient>{children}</LayoutClient>
+        <LayoutClient commitHash={configuration.commitHash}>
+          {children}
+        </LayoutClient>
       </html>
     </ThemeProvider>
   );
