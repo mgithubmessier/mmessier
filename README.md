@@ -57,3 +57,5 @@
 
 - Currently thinking we'll use AWS's next js deployment strategy
   - https://aws.amazon.com/blogs/mobile/amplify-next-js-13/
+- This diagram/ article is what I'll be going with
+  - https://aws.amazon.com/blogs/mobile/accessing-resources-in-a-amazon-virtual-private-cloud-amazon-vpc-from-next-js-api-routes/

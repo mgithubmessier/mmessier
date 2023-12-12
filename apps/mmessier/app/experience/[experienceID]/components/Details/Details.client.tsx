@@ -25,7 +25,7 @@ export const Details = ({ details, level, searchTerms }: DetailsProps) => {
       {compact(details).map((detail) => {
         return (
           <Detail
-            key={`${detail.id}`}
+            key={`${detail.detail}`}
             detail={detail}
             level={level}
             searchTerms={searchTerms}
@@ -48,7 +48,7 @@ const Detail = ({ detail, level, searchTerms }: DetailProps) => {
   const [expanded, setExpanded] = useState(false);
   return (
     <Accordion
-      key={`${detail.id}`}
+      key={`${detail.detail}`}
       sx={styles.dynamic?.accordion(Boolean(subDetails.length), level)}
       expanded={expanded || Boolean(searchTerms?.length)}
     >

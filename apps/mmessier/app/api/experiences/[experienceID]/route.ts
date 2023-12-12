@@ -7,8 +7,7 @@ type RouteParameters = {
 };
 
 export async function GET(_: Request, routeParameters: RouteParameters) {
-  // const experienceID = routeParameters.params.experienceID;
-  const experienceID = '';
+  const experienceID = routeParameters.params.experienceID;
 
   if (experienceID) {
     const experience = await getExperience(experienceID);

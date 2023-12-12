@@ -28,7 +28,6 @@ export type BasicStyle = {
 export type Style = (breakpoint: Breakpoint) => BasicStyle;
 
 export type ExperienceDetail = {
-  id: string;
   detail: string;
   subDetails?: Array<ExperienceDetail>;
 };
