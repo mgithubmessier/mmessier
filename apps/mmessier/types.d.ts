@@ -1,6 +1,11 @@
 import { SxProps, Theme } from '@mui/material';
 import { CSSProperties } from 'react';
 
+export type Configuration = {
+  mmessierAPIHost?: string;
+  mmessierAPIToken?: string;
+};
+
 export enum Breakpoint {
   SMALL = 'small',
   MEDIUM = 'medium',
