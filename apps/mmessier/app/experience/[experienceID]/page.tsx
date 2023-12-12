@@ -86,5 +86,5 @@ export const generateStaticParams = async () => {
       experienceID: experience.id,
     }));
   }
-  return null;
+  return [];
 };

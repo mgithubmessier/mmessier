@@ -18,9 +18,7 @@ type UseQueryParametersDemoProps = {
   children: React.ReactNode;
 };
 
-export const UseQueryParametersDemo = ({
-  children,
-}: UseQueryParametersDemoProps) => {
+const UseQueryParametersDemo = ({ children }: UseQueryParametersDemoProps) => {
   const pathname = usePathname();
   return (
     <div style={basicStyles.static?.container}>

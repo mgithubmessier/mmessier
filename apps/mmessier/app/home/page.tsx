@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'I hope this site can help you to get to know me a bit better!',
 };
 
-export const Home = () => {
+const Home = () => {
   return (
     <div style={basicStyles.static?.container}>
       <About />

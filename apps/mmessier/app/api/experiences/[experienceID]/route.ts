@@ -1,11 +1,4 @@
-import { Experience } from '../../../../types';
-import { experiences } from '../route';
-
-export const getExperience = async (
-  experienceID: string
-): Promise<Experience | undefined> => {
-  return experiences.find(({ id }) => id === experienceID);
-};
+import { getExperience } from './helper';
 
 type RouteParameters = {
   params: {
@@ -14,7 +7,8 @@ type RouteParameters = {
 };
 
 export async function GET(_: Request, routeParameters: RouteParameters) {
-  const experienceID = routeParameters.params.experienceID;
+  // const experienceID = routeParameters.params.experienceID;
+  const experienceID = '';
 
   if (experienceID) {
     const experience = await getExperience(experienceID);

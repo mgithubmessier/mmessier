@@ -1,6 +1,6 @@
 import { ProjectsClient } from './page.client';
 
-export const Projects = () => {
+const Projects = () => {
   return <ProjectsClient />;
 };
 

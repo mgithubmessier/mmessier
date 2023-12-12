@@ -22,7 +22,7 @@ type QueryParams = {
   param2: Array<string>;
 };
 
-export const UseQueryParameterDemoRoute = ({
+const UseQueryParameterDemoRoute = ({
   params,
 }: UseQueryParametersDemoRouteProps) => {
   const { queryParameters, set } = useQueryParameters<QueryParams>(
