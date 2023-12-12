@@ -4,6 +4,9 @@ import { spacingLevel } from '../../styles/spacing';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
+    backButton: {
+      marginBottom: spacingLevel(1, breakpoint),
+    },
     companyURL: {
       textDecorationColor: colors.alternating[2].backgroundColor,
     },

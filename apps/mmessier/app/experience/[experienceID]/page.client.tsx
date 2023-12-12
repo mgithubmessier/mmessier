@@ -1,5 +1,5 @@
 'use client';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useQueryParameters } from '@mmessier/use-query-parameters';
 
 import { Experience, ExperienceDetail } from '../../../types';
@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react';
 import { pick } from 'lodash';
 import { DetailsSearch } from './components/DetailsSearch/DetailsSearch';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft } from '@mui/icons-material';
 
 export type SearchMap = {
   // search word to flattened lodash syntax of all occurences
@@ -73,6 +75,11 @@ export const ExperienceDetailsClient = ({
   return (
     <div style={styles.static?.container}>
       <div style={styles.static?.titleContainer}>
+        <Link href="/experience">
+          <Button startIcon={<ArrowLeft />} style={styles.static?.backButton}>
+            Back to Experiences
+          </Button>
+        </Link>
         <Typography variant="h2">{experience?.title}</Typography>
         <a
           target="_blank"
