@@ -30,10 +30,8 @@ const UseQueryParametersDemo = ({ children }: UseQueryParametersDemoProps) => {
           Back to Projects
         </Button>
       </Link>
-      <FormControl>
-        <InputLabel style={{ color: 'white' }}>
-          Navigate to different route
-        </InputLabel>
+      <FormControl variant="filled">
+        <InputLabel>Navigate to different route</InputLabel>
         <Select
           variant="filled"
           style={basicStyles.static?.select}

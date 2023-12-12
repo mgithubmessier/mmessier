@@ -97,7 +97,7 @@ export const DetailsSearch = ({
           }}
           variant="outlined"
           label="Search"
-          placeholder="Type a single search term and hit enter"
+          placeholder="Add a whole word search term and hit enter"
           style={styles.static?.autocompleteField}
           sx={{
             input: {

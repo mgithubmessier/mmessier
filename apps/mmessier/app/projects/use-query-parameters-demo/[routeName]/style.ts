@@ -1,3 +1,4 @@
+import { colors } from '../../../styles/colors';
 import { BasicStyle } from '../../../../types';
 export const basicStyles: BasicStyle = {
   static: {
@@ -6,10 +7,14 @@ export const basicStyles: BasicStyle = {
       flexDirection: 'column',
     },
     select: {
-      minWidth: 300,
+      width: '100%',
     },
     selectContainer: {
       marginTop: 12,
+      width: '100%',
+    },
+    text: {
+      color: colors.text.main,
     },
   },
 };
