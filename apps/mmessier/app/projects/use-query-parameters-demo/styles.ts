@@ -13,6 +13,9 @@ export const basicStyles: BasicStyle = {
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
+    text: {
+      color: colors.text.main,
+    },
     select: {
       minWidth: 300,
     },

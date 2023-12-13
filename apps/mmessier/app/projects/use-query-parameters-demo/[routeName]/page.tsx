@@ -36,13 +36,14 @@ const UseQueryParameterDemoRoute = ({
 
   return (
     <div style={styles.static?.container}>
-      <Typography variant="h3">Current route: {params.routeName}</Typography>
       <Typography style={styles.static?.text}>
-        Change these fields and observe the url dynamically adding and removing
-        the data you entered. Then feel free to navigate away from this page/
-        form or hit refresh, and then observe that your data has been preserved!
+        Change the following fields and watch the url keep up with the new data
+        you entered. Then feel free to navigate away from this page and come
+        back or even hit refresh while on this page, and then see that your data
+        has been preserved!
       </Typography>
       <TextField
+        style={styles.static?.inputContainer}
         variant="filled"
         value={param1}
         onChange={(event) => {
@@ -51,7 +52,7 @@ const UseQueryParameterDemoRoute = ({
         label="[param1] - Write any string"
       />
 
-      <FormControl variant="filled" style={styles.static?.selectContainer}>
+      <FormControl variant="filled" style={styles.static?.inputContainer}>
         <InputLabel>[param2] - Select some options</InputLabel>
         <Select
           multiple

@@ -26,8 +26,12 @@ export const UseQueryParametersDemoClient = ({
   return (
     <>
       <Typography variant="h2">Demo Form</Typography>
+      <Typography style={styles.static?.text}>
+        Change the URL route to erase the current form&apos;s query parameters
+        and come back to see that they have been preserved
+      </Typography>
       <FormControl variant="filled" style={styles.static?.selectContainer}>
-        <InputLabel>Navigate to different route</InputLabel>
+        <InputLabel>Change the URL route</InputLabel>
         <Select variant="filled" style={styles.static?.select} value={pathname}>
           <MenuItem value="/projects/use-query-parameters-demo/form1">
             <Link
@@ -46,10 +50,6 @@ export const UseQueryParametersDemoClient = ({
             </Link>
           </MenuItem>
         </Select>
-        <FormHelperText style={{ color: 'white' }}>
-          Change the route to erase the current form&apos;s query parameters and
-          come back to see that they have been preserved
-        </FormHelperText>
       </FormControl>
       {children}
     </>

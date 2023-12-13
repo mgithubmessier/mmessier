@@ -7,12 +7,13 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     container: {
       display: 'flex',
       flexDirection: 'column',
+      marginTop: spacingLevel(2, breakpoint),
     },
     select: {
       width: '100%',
     },
-    selectContainer: {
-      marginTop: spacingLevel(1, breakpoint),
+    inputContainer: {
+      marginTop: spacingLevel(2, breakpoint),
       width: '100%',
     },
     text: {
