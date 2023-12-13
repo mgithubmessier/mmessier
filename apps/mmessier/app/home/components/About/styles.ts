@@ -1,4 +1,4 @@
-import { BasicStyle } from '../../../../types';
+import { BasicStyle } from '@mmessier/types';
 import { colors } from '../../../styles/colors';
 
 export const basicStyles: BasicStyle = {

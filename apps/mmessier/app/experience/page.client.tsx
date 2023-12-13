@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Experience } from '../../types';
+import { Experience } from '@mmessier/types';
 import { useStyles } from '../hooks/useStyles';
 import { buttonSX, styles as experienceStyles } from './styles';
 import { Button, Typography } from '@mui/material';

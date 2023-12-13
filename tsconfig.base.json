@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mmessier/types": ["types/src/index.ts"],
       "@mmessier/use-query-parameters": ["use-query-parameters/src/index.ts"]
     }
   },

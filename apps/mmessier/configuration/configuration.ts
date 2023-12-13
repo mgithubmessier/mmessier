@@ -1,4 +1,8 @@
-import { Configuration } from '../types';
+export type Configuration = {
+  mmessierAPIHost?: string;
+  mmessierAPIToken?: string;
+  commitHash?: string;
+};
 
 export const configuration: Configuration = {
   mmessierAPIHost: process.env.MMESSIER_API_HOST,

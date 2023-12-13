@@ -1,10 +1,6 @@
+import { Breakpoint } from '@mmessier/types';
 import spacingSCSS from './spacing.module.scss';
 
-enum Breakpoint {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  DEFAULT = 'default',
-}
 export const spacingLevel = (level: number, breakpoint: Breakpoint) => {
   let baseSpacing = Number(spacingSCSS.defaultSpacing);
   if (breakpoint === Breakpoint.SMALL) {

@@ -1,4 +1,4 @@
-import { ExperienceDetail } from '../../../types';
+import { ExperienceDetail } from '@mmessier/types';
 import { getExperience, getExperiences } from '../../../lib/getExperiences';
 
 import { ExperienceDetailsClient, SearchMap } from './page.client';

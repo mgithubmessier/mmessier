@@ -1,6 +1,6 @@
 'use client';
 
-import { Style } from '../../types';
+import { Style } from '@mmessier/types';
 import { useBreakpointState } from '../zustand/BreakpointState/BreakpointState';
 
 export const useStyles = (style: Style) => {

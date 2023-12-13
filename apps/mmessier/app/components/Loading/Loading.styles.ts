@@ -1,4 +1,4 @@
-import { Style } from '../../../types';
+import { Style } from '@mmessier/types';
 
 export const styles: Style = () => ({
   static: {

@@ -10,12 +10,6 @@ import {
 import { RandomTriangleShape } from './shapes/RandomTriangle.client';
 import { SlideAnimation } from './SlideAnimation.client';
 
-export enum Breakpoint {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  DEFAULT = 'default',
-}
-
 type RandomShapeSpreadProps = {
   startingPercentage?: number;
 };

@@ -52,11 +52,17 @@
 
 ## App Deployment
 
-- Currently thinking we'll use AWS's next js deployment strategy
-  - https://aws.amazon.com/blogs/mobile/amplify-next-js-13/
+- We currently deploy using AWS Amplify, tied to a specific github branch, `application/mmessier`
+
+  - AWS has permissions to get updates on commits to that branch and then will run the pipeline to deploy it
+  - In the future, I may want to take that CI/CD pipeline back and run it in github actions, and then just do an amplify deploy via terraform
+  - I could probably target a new branch `production/mmessier` after this, so that I can deploy to different environments potentially
+
 - This diagram/ article is ideally what would be set up
+
   - https://aws.amazon.com/blogs/mobile/accessing-resources-in-a-amazon-virtual-private-cloud-amazon-vpc-from-next-js-api-routes/
     - Could be great for a future idea, but I think the VPC would cost too much
+
 - Instead the infrastructure will be:
   1. API Gateway
   - We'll want to take a look at rate limiting here, to some kind of really low number -- like one request every second or something

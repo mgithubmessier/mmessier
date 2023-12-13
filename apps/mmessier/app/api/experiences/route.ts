@@ -1,4 +1,4 @@
-import { Experience } from '../../../types';
+import { Experience } from '@mmessier/types';
 import { experiences } from './helper';
 
 const getExperiencesHandler = async (): Promise<Array<Experience>> => {

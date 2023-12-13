@@ -1,5 +1,4 @@
-import { BasicStyle } from '../../types';
-import { colors } from '../styles/colors';
+import { BasicStyle } from '@mmessier/types';
 
 export const basicStyles: BasicStyle = {
   static: {

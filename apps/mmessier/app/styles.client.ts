@@ -1,14 +1,7 @@
-'use client';
-import { Style } from '../types';
+import { Style, Breakpoint } from '@mmessier/types';
 import { colors } from './styles/colors';
 import { spacingLevel } from './styles/spacing';
 import { h1MedeiaQueries } from './styles/theme';
-
-enum Breakpoint {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  DEFAULT = 'default',
-}
 
 const ImageSizing = {
   [Breakpoint.SMALL]: 50,

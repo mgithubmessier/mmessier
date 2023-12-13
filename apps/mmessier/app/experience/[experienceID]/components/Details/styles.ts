@@ -1,6 +1,4 @@
-'use client';
-
-import { Breakpoint, Style } from '../../../../../types';
+import { Breakpoint, Style } from '@mmessier/types';
 import { colors } from '../../../../styles/colors';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({

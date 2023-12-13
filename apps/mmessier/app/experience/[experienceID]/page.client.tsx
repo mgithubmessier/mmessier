@@ -2,7 +2,7 @@
 import { Button, Typography } from '@mui/material';
 import { useQueryParameters } from '@mmessier/use-query-parameters';
 
-import { Experience, ExperienceDetail } from '../../../types';
+import { Experience, ExperienceDetail } from '@mmessier/types';
 import { Details } from './components/Details/Details.client';
 
 import { styles as experienceIDStyles } from './styles';

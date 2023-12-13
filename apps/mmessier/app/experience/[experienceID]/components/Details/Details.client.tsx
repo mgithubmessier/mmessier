@@ -1,7 +1,7 @@
 'use client';
 
 import { useStyles } from '../../../../hooks/useStyles';
-import { ExperienceDetail } from '../../../../../types';
+import { ExperienceDetail } from '@mmessier/types';
 import { compact } from 'lodash';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';

@@ -1,8 +1,7 @@
 import { CSSProperties } from 'react';
-import { Breakpoint, Style } from '../../types';
+import { Breakpoint, Style } from '@mmessier/types';
 import { colors } from '../styles/colors';
 import { spacingLevel } from '../styles/spacing';
-import { fonts } from '../styles/fonts';
 import { SxProps } from '@mui/material';
 
 export const buttonSX: SxProps = {

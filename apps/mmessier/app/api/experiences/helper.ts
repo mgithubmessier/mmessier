@@ -1,5 +1,5 @@
 import { set } from 'date-fns';
-import { Experience } from '../../../types';
+import { Experience } from '@mmessier/types';
 
 export const experiences: Array<Experience> = [
   {

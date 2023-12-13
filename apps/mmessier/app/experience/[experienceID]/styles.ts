@@ -1,4 +1,4 @@
-import { Breakpoint, Style } from '../../../types';
+import { Breakpoint, Style } from '@mmessier/types';
 import { colors } from '../../styles/colors';
 import { spacingLevel } from '../../styles/spacing';
 

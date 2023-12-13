@@ -1,6 +1,4 @@
-'use client';
-
-import { Breakpoint, Style } from '../../../../types';
+import { Breakpoint, Style } from '@mmessier/types';
 import { spacingLevel } from '../../../styles/spacing';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({

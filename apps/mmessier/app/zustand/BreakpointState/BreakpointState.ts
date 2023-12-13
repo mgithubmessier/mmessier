@@ -1,15 +1,8 @@
-'use client';
-
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 import breakpoints from '../../styles/breakpoints.module.scss';
-
-enum Breakpoint {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  DEFAULT = 'default',
-}
+import { Breakpoint } from '@mmessier/types';
 
 const small = Number(breakpoints[Breakpoint.SMALL]);
 const medium = Number(breakpoints[Breakpoint.MEDIUM]);
