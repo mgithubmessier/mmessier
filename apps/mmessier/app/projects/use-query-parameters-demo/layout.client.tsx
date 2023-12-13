@@ -9,8 +9,9 @@ import {
 import Link from 'next/link';
 import React from 'react';
 
-import { basicStyles } from './styles';
+import { styles as uqpdStyles } from './styles';
 import { usePathname } from 'next/navigation';
+import { useStyles } from '../../hooks/useStyles';
 
 type UseQueryParametersDemoProps = {
   children: React.ReactNode;
@@ -20,19 +21,16 @@ export const UseQueryParametersDemoClient = ({
   children,
 }: UseQueryParametersDemoProps) => {
   const pathname = usePathname();
+  const styles = useStyles(uqpdStyles);
   return (
     <>
-      <FormControl variant="filled">
+      <FormControl variant="filled" style={styles.static?.selectContainer}>
         <InputLabel>Navigate to different route</InputLabel>
-        <Select
-          variant="filled"
-          style={basicStyles.static?.select}
-          value={pathname}
-        >
+        <Select variant="filled" style={styles.static?.select} value={pathname}>
           <MenuItem value="/projects/use-query-parameters-demo/form1">
             <Link
               href="/projects/use-query-parameters-demo/form1"
-              style={basicStyles.static?.link}
+              style={styles.static?.link}
             >
               Form 1
             </Link>
@@ -40,7 +38,7 @@ export const UseQueryParametersDemoClient = ({
           <MenuItem value="/projects/use-query-parameters-demo/form2">
             <Link
               href="/projects/use-query-parameters-demo/form2"
-              style={basicStyles.static?.link}
+              style={styles.static?.link}
             >
               Form 2
             </Link>

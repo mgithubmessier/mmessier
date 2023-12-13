@@ -1,6 +1,7 @@
 import { colors } from '../../../styles/colors';
-import { BasicStyle } from '../../../../types';
-export const basicStyles: BasicStyle = {
+import { Breakpoint, Style } from '../../../../types';
+import { spacingLevel } from '../../../styles/spacing';
+export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
     container: {
       display: 'flex',
@@ -10,11 +11,11 @@ export const basicStyles: BasicStyle = {
       width: '100%',
     },
     selectContainer: {
-      marginTop: 12,
+      marginTop: spacingLevel(1, breakpoint),
       width: '100%',
     },
     text: {
       color: colors.text.main,
     },
   },
-};
+});

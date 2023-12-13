@@ -9,7 +9,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import { basicStyles } from './style';
+import { styles as uqpdStyles } from './style';
+import { useStyles } from '../../../hooks/useStyles';
 
 type UseQueryParametersDemoRouteProps = {
   params: {
@@ -25,6 +26,7 @@ type QueryParams = {
 const UseQueryParameterDemoRoute = ({
   params,
 }: UseQueryParametersDemoRouteProps) => {
+  const styles = useStyles(uqpdStyles);
   const { queryParameters, set } = useQueryParameters<QueryParams>(
     params.routeName
   );
@@ -33,10 +35,10 @@ const UseQueryParameterDemoRoute = ({
   const param2 = queryParameters?.param2 || [];
 
   return (
-    <div style={basicStyles.static?.container}>
+    <div style={styles.static?.container}>
       <Typography variant="h2">Demo Form</Typography>
       <Typography variant="h3">Current route: {params.routeName}</Typography>
-      <Typography style={basicStyles.static?.text}>
+      <Typography style={styles.static?.text}>
         Change these fields and observe the url dynamically adding and removing
         the data you entered. Then feel free to navigate away from this page/
         form or hit refresh, and then observe that your data has been preserved!
@@ -50,13 +52,13 @@ const UseQueryParameterDemoRoute = ({
         label="[param1] - Write any string"
       />
 
-      <FormControl variant="filled" style={basicStyles.static?.selectContainer}>
+      <FormControl variant="filled" style={styles.static?.selectContainer}>
         <InputLabel>[param2] - Select some options</InputLabel>
         <Select
           multiple
           label="[param2] - Select some options"
           variant="filled"
-          style={basicStyles.static?.select}
+          style={styles.static?.select}
           value={queryParameters?.param2 || []}
           onChange={(_, arg2: any) => {
             const value: string = arg2.props.value;

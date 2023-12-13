@@ -1,11 +1,18 @@
-import { BasicStyle } from '../../../types';
+import { BasicStyle, Breakpoint, Style } from '../../../types';
 import { colors } from '../../styles/colors';
+import { spacingLevel } from '../../styles/spacing';
+
 export const basicStyles: BasicStyle = {
   static: {
     container: {
       display: 'flex',
       flexDirection: 'column',
     },
+  },
+};
+
+export const styles: Style = (breakpoint: Breakpoint) => ({
+  static: {
     select: {
       minWidth: 300,
     },
@@ -14,8 +21,8 @@ export const basicStyles: BasicStyle = {
       textDecorationColor: colors.alternating[2].backgroundColor,
       width: '100%',
     },
-    backButton: {
-      marginBottom: 12,
+    selectContainer: {
+      marginTop: spacingLevel(2, breakpoint),
     },
   },
   sx: {
@@ -23,4 +30,4 @@ export const basicStyles: BasicStyle = {
       color: colors.text.main,
     },
   },
-};
+});

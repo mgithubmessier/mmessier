@@ -14,12 +14,7 @@ const UseQueryParametersDemo = ({ children }: UseQueryParametersDemoProps) => {
   return (
     <div style={basicStyles.static?.container}>
       <Link href="/projects">
-        <Button
-          startIcon={<ArrowLeft />}
-          style={basicStyles.static?.backButton}
-        >
-          Back to Projects
-        </Button>
+        <Button startIcon={<ArrowLeft />}>Back to Projects</Button>
       </Link>
       <UseQueryParametersDemoClient>{children}</UseQueryParametersDemoClient>
     </div>
