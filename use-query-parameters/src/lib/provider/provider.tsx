@@ -114,10 +114,14 @@ export const QueryParameterProvider = ({ children }: any) => {
         _mapSubscriptionsToQueryParams(activeSubscriptions)
       ) as object;
 
+      const searchParams = new URLSearchParams();
+      Object.entries(flattened).forEach(([key, value]: [string, string]) => {
+        searchParams.set(key, value);
+      });
+      const newQueryParameters = searchParams.toString();
+
       router.replace(
-        `${pathname}?${queryString.stringify(flattened, {
-          encode: true,
-        })}`
+        `${pathname}${newQueryParameters ? `?${searchParams.toString()}` : ''}`
       );
       dispatch({ type: QueryParameterActionTypes.FINISHED_MUTATING });
     }
