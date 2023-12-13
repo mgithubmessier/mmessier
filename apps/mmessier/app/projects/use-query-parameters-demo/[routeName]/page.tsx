@@ -36,7 +36,6 @@ const UseQueryParameterDemoRoute = ({
 
   return (
     <div style={styles.static?.container}>
-      <Typography variant="h2">Demo Form</Typography>
       <Typography variant="h3">Current route: {params.routeName}</Typography>
       <Typography style={styles.static?.text}>
         Change these fields and observe the url dynamically adding and removing

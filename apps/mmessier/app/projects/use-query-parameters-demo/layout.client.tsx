@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
@@ -24,6 +25,7 @@ export const UseQueryParametersDemoClient = ({
   const styles = useStyles(uqpdStyles);
   return (
     <>
+      <Typography variant="h2">Demo Form</Typography>
       <FormControl variant="filled" style={styles.static?.selectContainer}>
         <InputLabel>Navigate to different route</InputLabel>
         <Select variant="filled" style={styles.static?.select} value={pathname}>
