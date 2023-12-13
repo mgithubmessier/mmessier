@@ -47,6 +47,10 @@ export type ExperienceDetailsClientProps = {
   searchMap: SearchMap;
 };
 
+type SearchTerms = {
+  [searchTerm: string]: boolean;
+};
+
 export const ExperienceDetailsClient = ({
   experience: experienceParam,
   searchMap,
@@ -55,12 +59,17 @@ export const ExperienceDetailsClient = ({
   const pathname = usePathname();
   const { queryParameters, set } =
     useQueryParameters<ExperienceDetailQueryParameters>(pathname);
-  const [searchTerms, setSearchTerms] = useState<Array<string>>(
-    queryParameters?.terms || []
+  const [searchTerms, setSearchTerms] = useState<SearchTerms>(
+    queryParameters?.terms?.reduce<SearchTerms>((acc, term) => {
+      return {
+        ...acc,
+        [term]: true,
+      };
+    }, {}) || {}
   );
 
   useEffect(() => {
-    set('terms', searchTerms);
+    set('terms', Object.keys(searchTerms));
   }, [searchTerms]);
 
   const experience: Experience = {
@@ -68,7 +77,7 @@ export const ExperienceDetailsClient = ({
     details: filterExperienceDetails(
       experienceParam?.details,
       searchMap,
-      searchTerms
+      Object.keys(searchTerms)
     ),
   };
 
@@ -90,19 +99,22 @@ export const ExperienceDetailsClient = ({
         </a>
       </div>
       <DetailsSearch
-        options={experience.keyTerms.map((term) => ({
-          label: term,
-          value: term,
-        }))}
-        searchTerms={searchTerms}
-        onAddSearchTerm={(searchTerms) =>
-          setSearchTerms((t) => [...t, ...searchTerms])
-        }
-        onClearSearchTerms={() => setSearchTerms([])}
+        options={experience.keyTerms}
+        searchTerms={Object.keys(searchTerms)}
+        onAddSearchTerm={(searchTermsToAdd) => {
+          const tempSearchTerms: SearchTerms = {};
+          searchTermsToAdd.forEach((searchTermToAdd) => {
+            tempSearchTerms[searchTermToAdd] = true;
+          });
+          setSearchTerms((t) => ({ ...t, ...tempSearchTerms }));
+        }}
+        onClearSearchTerms={() => setSearchTerms({})}
         onRemoveSearchTerm={(searchTerm) => {
           setSearchTerms((t) => {
-            const temp = [...t];
-            temp.splice(t.indexOf(searchTerm), 1);
+            const temp = { ...t };
+            if (temp[searchTerm]) {
+              delete temp[searchTerm];
+            }
             return temp;
           });
         }}
@@ -110,7 +122,7 @@ export const ExperienceDetailsClient = ({
       <Details
         details={experience?.details}
         level={0}
-        searchTerms={searchTerms}
+        searchTerms={Object.keys(searchTerms)}
       />
     </div>
   );

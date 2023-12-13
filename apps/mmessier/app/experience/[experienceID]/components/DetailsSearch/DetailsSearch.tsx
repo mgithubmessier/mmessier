@@ -6,13 +6,8 @@ import { Clear } from '@mui/icons-material';
 import { useStyles } from '../../../../hooks/useStyles';
 import { styles as detailsSearchStyles } from './styles';
 
-type Option = {
-  label: string;
-  value: string;
-};
-
 type DetailsSearchProps = {
-  options: Array<Option>;
+  options: Array<string>;
   searchTerms: Array<string>;
   onAddSearchTerm: (searchTerms: Array<string>) => void;
   onRemoveSearchTerm: (searchTerm: string) => void;
@@ -33,52 +28,30 @@ export const DetailsSearch = ({
       value={searchTerms}
       renderOption={(props, option) => {
         return (
-          <li
-            {...props}
-            key={typeof option === 'string' ? option : option.label}
-          >
-            {option.label}
+          <li {...props} key={option}>
+            {option}
           </li>
         );
       }}
-      onClose={(event: any, reason) => {
-        if (
-          reason.includes('createOption') &&
-          typeof event.target.value === 'string'
-        ) {
-          onAddSearchTerm(event.target.value.split(' '));
-        } else if (
-          reason === 'selectOption' &&
-          typeof event.target.innerText === 'string'
-        ) {
-          onAddSearchTerm(event.target.innerText.split(' '));
-        }
+      onChange={(_, value: Array<string>) => {
+        onAddSearchTerm(value);
       }}
       // add "common search terms" to the api, wherever the storage of the experiences themselves are being held
       options={options}
-      getOptionLabel={(option) => {
-        if (typeof option === 'string') {
-          return option;
-        }
-        return option.label;
-      }}
       freeSolo
-      renderTags={(value: Array<string | Option>, getTagProps) =>
-        value.map((option: string | Option, index: number) => {
-          const label = typeof option === 'string' ? option : option.label;
-          const value = typeof option === 'string' ? option : option.value;
-
+      renderTags={(value: Array<string>, getTagProps) =>
+        value.map((option: string, index: number) => {
           return (
             <Chip
               variant="outlined"
-              label={label}
+              label={option}
               {...getTagProps({ index })}
-              key={label}
+              key={option}
               sx={{
                 color: colors.text.main,
               }}
               onDelete={() => {
-                onRemoveSearchTerm(value);
+                onRemoveSearchTerm(option);
               }}
             />
           );

@@ -57,5 +57,15 @@
 
 - Currently thinking we'll use AWS's next js deployment strategy
   - https://aws.amazon.com/blogs/mobile/amplify-next-js-13/
-- This diagram/ article is what I'll be going with
+- This diagram/ article is ideally what would be set up
   - https://aws.amazon.com/blogs/mobile/accessing-resources-in-a-amazon-virtual-private-cloud-amazon-vpc-from-next-js-api-routes/
+    - Could be great for a future idea, but I think the VPC would cost too much
+- Instead the infrastructure will be:
+  1. API Gateway
+  - We'll want to take a look at rate limiting here, to some kind of really low number -- like one request every second or something
+  - We'll also want to allowlist only the arn of my amplify resource, if that's possible for the API Gateway
+  2. Lambda
+  - This lambda will be pretty straightforward, just a simple DynamoDB lookup to start with
+  - Then, I'll add an endpoint to add items to it that has an api_token that locks it -- one that I'll store in an env variable in AWS and that I'll hit
+  - It'd be cool if the lambda code could live on this repository along with a terraform script that deploys it
+  3. DynamoDB

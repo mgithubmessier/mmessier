@@ -54,7 +54,7 @@ const Detail = ({ detail, level, searchTerms }: DetailProps) => {
     >
       <AccordionSummary
         expandIcon={
-          subDetails.length ? (
+          subDetails.length && !searchTerms?.length ? (
             <ExpandMore sx={{ color: 'primary.main' }} />
           ) : null
         }
