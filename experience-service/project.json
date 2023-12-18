@@ -14,6 +14,24 @@
       "options": {
         "jestConfig": "experience-service/jest.config.ts"
       }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/experience-service",
+        "main": "experience-service/src/index.ts",
+        "tsConfig": "experience-service/tsconfig.lib.json",
+        "assets": ["experience-service/*.md"]
+      }
+    },
+    "deploy": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "./experience-service",
+        "command": "terraform apply"
+      }
     }
   },
   "tags": []
