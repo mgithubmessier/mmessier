@@ -119,13 +119,11 @@ export const reducer = (
         {}
       );
       if (isEmpty(action.payload.value)) {
-        return {
-          ...omit(
-            stateCopy,
-            `subscriptions[${action.payload.subscriptionKey}]`
-          ),
-          hasMutated: true,
-        };
+        set(
+          stateCopy,
+          `subscriptions[${action.payload.subscriptionKey}].queryParameters`,
+          omit(queryParametersToAddTo, action.payload.key)
+        );
       } else {
         set(
           stateCopy,
@@ -137,6 +135,20 @@ export const reducer = (
         );
       }
 
+      const newQueryParameters = get(
+        stateCopy,
+        `subscriptions[${action.payload.subscriptionKey}].queryParameters`,
+        {}
+      );
+      if (isEmpty(newQueryParameters)) {
+        return {
+          ...omit(
+            stateCopy,
+            `subscriptions[${action.payload.subscriptionKey}]`
+          ),
+          hasMutated: true,
+        };
+      }
       return {
         ...stateCopy,
         hasMutated: true,
