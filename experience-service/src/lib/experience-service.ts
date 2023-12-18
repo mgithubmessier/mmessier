@@ -13,7 +13,7 @@ export const handler: Handler = async (
 
   const tableName = 'matthewmessier.com-experiences';
   const dyanmodb = new DynamoDB({ apiVersion: '2012-08-10' });
-  const nextPageKey = '';
+  let nextPageKey: DynamoDB.Key;
   try {
     const getPromise = new Promise<Array<Experience>>((resolve, reject) => {
       if (event.pathParameters['experienceID']) {
@@ -33,12 +33,23 @@ export const handler: Handler = async (
               console.log(
                 `Successful get item data: ${JSON.stringify(data, null, 2)}`
               );
-              // nextPageKey = data.LastEvaluatedKey
               resolve([]);
             }
           }
         );
       } else {
+        const base64PageKey = event.queryStringParameters['pageKey'];
+        let pageKey: DynamoDB.Key;
+        try {
+          pageKey = JSON.parse(
+            Buffer.from(base64PageKey, 'base64').toString('utf-8')
+          );
+        } catch (e) {
+          return reject(
+            new Error('Could not parse pageKey from query parameters')
+          );
+        }
+
         const stringLimit = event.queryStringParameters['limit'];
         let numberLimit = 5;
         if (isNumber(stringLimit)) {
@@ -52,6 +63,7 @@ export const handler: Handler = async (
           {
             TableName: tableName,
             Limit: numberLimit,
+            ExclusiveStartKey: pageKey,
           },
           (error, data) => {
             if (error) {
@@ -64,7 +76,7 @@ export const handler: Handler = async (
                 // console.log(`Next item in table: ${element}`);
                 // experiences.push()
               });
-              // nextPageKey = data.LastEvaluatedKey
+              nextPageKey = data.LastEvaluatedKey;
               resolve([]);
             }
           }
@@ -76,7 +88,9 @@ export const handler: Handler = async (
       statusCode: 200,
       body: JSON.stringify({
         experiences,
-        next_page_key: nextPageKey,
+        next_page_key: Buffer.from(JSON.stringify(nextPageKey)).toString(
+          'base64'
+        ),
       }),
     });
   } catch (e) {
