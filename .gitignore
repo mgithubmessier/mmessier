@@ -45,4 +45,4 @@ Thumbs.db
 .nx
 
 *.terraform
-*.tfstate
+*.tfstate*
