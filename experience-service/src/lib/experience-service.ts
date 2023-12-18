@@ -13,10 +13,10 @@ export const handler: Handler = async (
 
   const tableName = 'matthewmessier.com-experiences';
   const dyanmodb = new DynamoDB({ apiVersion: '2012-08-10' });
-  let nextPageKey: DynamoDB.Key;
+  let nextPageKey: DynamoDB.Key | undefined;
   try {
     const getPromise = new Promise<Array<Experience>>((resolve, reject) => {
-      if (event.pathParameters['experienceID']) {
+      if (event.pathParameters?.['experienceID']) {
         dyanmodb.getItem(
           {
             TableName: tableName,
@@ -38,19 +38,21 @@ export const handler: Handler = async (
           }
         );
       } else {
-        const base64PageKey = event.queryStringParameters['pageKey'];
-        let pageKey: DynamoDB.Key;
-        try {
-          pageKey = JSON.parse(
-            Buffer.from(base64PageKey, 'base64').toString('utf-8')
-          );
-        } catch (e) {
-          return reject(
-            new Error('Could not parse pageKey from query parameters')
-          );
+        const base64PageKey = event.queryStringParameters?.['pageKey'];
+        let pageKey: DynamoDB.Key | undefined = undefined;
+        if (base64PageKey) {
+          try {
+            pageKey = JSON.parse(
+              Buffer.from(base64PageKey, 'base64').toString('utf-8')
+            );
+          } catch (e) {
+            return reject(
+              new Error('Could not parse pageKey from query parameters')
+            );
+          }
         }
 
-        const stringLimit = event.queryStringParameters['limit'];
+        const stringLimit = event.queryStringParameters?.['limit'];
         let numberLimit = 5;
         if (isNumber(stringLimit)) {
           numberLimit = Number(stringLimit);
@@ -72,7 +74,7 @@ export const handler: Handler = async (
               console.log(
                 `Successful get item data: ${JSON.stringify(data, null, 2)}`
               );
-              data.Items.forEach(function () {
+              data.Items?.forEach(function () {
                 // console.log(`Next item in table: ${element}`);
                 // experiences.push()
               });
@@ -94,7 +96,7 @@ export const handler: Handler = async (
       }),
     });
   } catch (e) {
-    const error: Error = e;
+    const error: Error = e as Error;
     callback(null, {
       statusCode: 500,
       body: JSON.stringify({
