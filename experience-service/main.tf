@@ -78,9 +78,31 @@ resource "aws_iam_role" "lambda_exec" {
   })
 }
 
+resource "aws_iam_policy" "dynamodb_policy" {
+  name        = "dynamodb-matthewmessier.com-experiences"
+  path        = "/"
+  description = "Giving this lambda access to read from the experiences table in dynamodb"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = ["dynamodb:Scan", "dynamodb:GetItem"]
+        Effect = "Allow"
+        Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com-experiences"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_dynamoroles" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+}
+
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
   role       = aws_iam_role.lambda_exec.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  policy_arn = aws_iam_policy.dynamodb_policy.arn
 }
 
 # sets up API Gateway 

@@ -12,12 +12,12 @@ export const handler: Handler = async (
   console.log(`Context: ${JSON.stringify(context, null, 2)}`);
 
   const tableName = 'matthewmessier.com-experiences';
-  const dyanmodb = new DynamoDB({ apiVersion: '2012-08-10' });
+  const dynamodb = new DynamoDB({ apiVersion: '2012-08-10' });
   let nextPageKey: DynamoDB.Key | undefined;
   try {
     const getPromise = new Promise<Array<Experience>>((resolve, reject) => {
       if (event.pathParameters?.['experienceID']) {
-        dyanmodb.getItem(
+        dynamodb.getItem(
           {
             TableName: tableName,
             Key: {
@@ -61,7 +61,7 @@ export const handler: Handler = async (
           }
         }
         // const experiences: Array<Experience> = [];
-        dyanmodb.scan(
+        dynamodb.scan(
           {
             TableName: tableName,
             Limit: numberLimit,
