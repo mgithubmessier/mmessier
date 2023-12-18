@@ -3,6 +3,12 @@ import { Handler, APIGatewayEvent, APIGatewayProxyCallback } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 import { isNumber } from 'lodash';
 
+type ExperienceServiceResponse = {
+  error?: string;
+  experiences?: Array<Experience>;
+  next_page_key?: string;
+};
+
 export const handler: Handler = async (
   event: APIGatewayEvent,
   context,
@@ -85,15 +91,19 @@ export const handler: Handler = async (
         );
       }
     });
-    const experiences = await getPromise;
+    const response: ExperienceServiceResponse = {
+      experiences: await getPromise,
+      next_page_key: null,
+      error: null,
+    };
+    if (nextPageKey) {
+      response.next_page_key = Buffer.from(
+        JSON.stringify(nextPageKey)
+      ).toString('base64');
+    }
     callback(null, {
       statusCode: 200,
-      body: JSON.stringify({
-        experiences,
-        next_page_key: Buffer.from(JSON.stringify(nextPageKey)).toString(
-          'base64'
-        ),
-      }),
+      body: JSON.stringify(response),
     });
   } catch (e) {
     const error: Error = e as Error;
