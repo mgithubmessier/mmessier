@@ -39,6 +39,13 @@
         "cwd": "experience-service/terraform",
         "command": "terraform apply -auto-approve"
       }
+    },
+    "tf-init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "experience-service/terraform",
+        "command": "terraform init -auto-approve"
+      }
     }
   },
   "tags": []
