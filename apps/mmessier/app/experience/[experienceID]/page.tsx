@@ -57,13 +57,12 @@ const ExperienceDetails = async ({
   params: { experienceID },
 }: ExperienceDetailsProps) => {
   const experienceResponse = await getExperience(experienceID);
-  if (experienceResponse?.experience) {
-    const searchMap = createSearchMap(experienceResponse?.experience.details);
+  const experience = experienceResponse?.experiences?.[0];
+  console.log('experience???', experience);
+  if (experience) {
+    const searchMap = createSearchMap(experience.details);
     return (
-      <ExperienceDetailsClient
-        experience={experienceResponse?.experience}
-        searchMap={searchMap}
-      />
+      <ExperienceDetailsClient experience={experience} searchMap={searchMap} />
     );
   }
   return null;
@@ -76,7 +75,7 @@ export const generateStaticParams = async () => {
   const experiencesResponse = await getExperiences();
   if (experiencesResponse?.experiences) {
     return experiencesResponse.experiences.map((experience) => ({
-      experienceID: experience.id,
+      experienceID: experience.uuid,
     }));
   }
   return [];

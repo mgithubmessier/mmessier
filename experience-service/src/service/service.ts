@@ -35,10 +35,10 @@ export const handler: Handler = async (
             if (error) {
               reject(error);
             } else {
-              console.log(
-                `Successful get item data: ${JSON.stringify(data, null, 2)}`
-              );
-              resolve([]);
+              const experience = DynamoDB.Converter.unmarshall(
+                data.Item
+              ) as Experience;
+              resolve([experience]);
             }
           }
         );
@@ -65,7 +65,7 @@ export const handler: Handler = async (
             numberLimit = 20;
           }
         }
-        // const experiences: Array<Experience> = [];
+        const experiences: Array<Experience> = [];
         dynamodb.scan(
           {
             TableName: tableName,
@@ -76,15 +76,14 @@ export const handler: Handler = async (
             if (error) {
               reject(error);
             } else {
-              console.log(
-                `Successful get item data: ${JSON.stringify(data, null, 2)}`
-              );
-              data.Items?.forEach(function () {
-                // console.log(`Next item in table: ${element}`);
-                // experiences.push()
+              data.Items?.forEach(function (item) {
+                const experience = DynamoDB.Converter.unmarshall(
+                  item
+                ) as Experience;
+                experiences.push(experience);
               });
               nextPageKey = data.LastEvaluatedKey;
-              resolve([]);
+              resolve(experiences);
             }
           }
         );

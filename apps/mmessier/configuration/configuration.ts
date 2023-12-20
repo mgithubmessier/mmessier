@@ -1,11 +1,11 @@
 export type Configuration = {
   mmessierAPIHost?: string;
-  mmessierAPIKey?: string;
+  experienceAPIKey?: string;
   commitHash?: string;
 };
 
 export const configuration: Configuration = {
   mmessierAPIHost: process.env.MMESSIER_API_HOST,
-  mmessierAPIKey: process.env.MMESSIER_API_KEY,
+  experienceAPIKey: process.env.EXPERIENCE_API_KEY,
   commitHash: process.env.COMMIT_HASH,
 };
