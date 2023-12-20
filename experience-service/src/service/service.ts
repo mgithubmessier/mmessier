@@ -11,11 +11,10 @@ type ExperienceServiceResponse = {
 
 export const handler: Handler = async (
   event: APIGatewayEvent,
-  context,
+  _,
   callback: APIGatewayProxyCallback
 ) => {
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
-  console.log(`Context: ${JSON.stringify(context, null, 2)}`);
 
   const tableName = 'matthewmessier.com-experiences';
   const dynamodb = new DynamoDB({ apiVersion: '2012-08-10' });

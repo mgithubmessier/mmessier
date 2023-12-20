@@ -1,5 +1,5 @@
 # sets up the s3 bucket that will receive the archive of the lambda function archive and its dependencies
-resource "aws_s3_bucket" "lambda_bucket" {
+resource "aws_s3_bucket" "experience_service_lambda_bucket" {
   bucket = "experience-service-bucket"
   force_destroy = true
 }
@@ -9,10 +9,11 @@ data "archive_file" "experience_service" {
 
   source_dir  = "${path.module}/../../dist/experience-service"
   output_path = "${path.module}/../../dist/experience-service.zip"
+  excludes    = ["authorizer"] 
 }
 
 resource "aws_s3_object" "experience_service" {
-  bucket = aws_s3_bucket.lambda_bucket.id
+  bucket = aws_s3_bucket.experience_service_lambda_bucket.id
 
   key    = "experience-service.zip"
   source = data.archive_file.experience_service.output_path
@@ -24,15 +25,15 @@ resource "aws_s3_object" "experience_service" {
 resource "aws_lambda_function" "experience_service" {
   function_name = "ExperienceService"
 
-  s3_bucket = aws_s3_bucket.lambda_bucket.id
+  s3_bucket = aws_s3_bucket.experience_service_lambda_bucket.id
   s3_key    = aws_s3_object.experience_service.key
 
   runtime = "nodejs20.x"
-  handler = "src/index.handler"
+  handler = "src/service/index.handler"
 
   source_code_hash = data.archive_file.experience_service.output_base64sha256
 
-  role = aws_iam_role.lambda_exec.arn
+  role = aws_iam_role.experience_service_lambda_exec.arn
 }
 
 resource "aws_cloudwatch_log_group" "experience_service" {
@@ -41,8 +42,8 @@ resource "aws_cloudwatch_log_group" "experience_service" {
   retention_in_days = 1
 }
 
-resource "aws_iam_role" "lambda_exec" {
-  name = "serverless_lambda"
+resource "aws_iam_role" "experience_service_lambda_exec" {
+  name = "experience_service_lambda"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -58,6 +59,7 @@ resource "aws_iam_role" "lambda_exec" {
   })
 }
 
+# provides the experience service lambda with dynamo access
 resource "aws_iam_policy" "dynamodb_policy" {
   name        = "dynamodb-matthewmessier.com-experiences"
   path        = "/"
@@ -76,11 +78,11 @@ resource "aws_iam_policy" "dynamodb_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_dynamoroles" {
-  role       = aws_iam_role.lambda_exec.name
+  role       = aws_iam_role.experience_service_lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
-  role       = aws_iam_role.lambda_exec.name
+  role       = aws_iam_role.experience_service_lambda_exec.name
   policy_arn = aws_iam_policy.dynamodb_policy.arn
 }

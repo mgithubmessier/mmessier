@@ -4,8 +4,8 @@ output "function_name" {
   value = aws_lambda_function.experience_service.function_name
 }
 
-output "base_url" {
+output "stage_url" {
   description = "Base URL for API Gateway stage."
 
-  value = aws_apigatewayv2_stage.lambda.invoke_url
+  value = aws_apigatewayv2_stage.experience_service_api_gateway.invoke_url
 }
