@@ -7,8 +7,8 @@ resource "aws_s3_bucket" "lambda_bucket" {
 data "archive_file" "experience_service" {
   type = "zip"
 
-  source_dir  = "${path.module}/../dist/experience-service"
-  output_path = "${path.module}/../dist/experience-service.zip"
+  source_dir  = "${path.module}/../../dist/experience-service"
+  output_path = "${path.module}/../../dist/experience-service.zip"
 }
 
 resource "aws_s3_object" "experience_service" {

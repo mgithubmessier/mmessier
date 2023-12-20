@@ -36,7 +36,7 @@
       "dependsOn": ["dist-install"],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "experience-service",
+        "cwd": "experience-service/terraform",
         "command": "terraform apply -auto-approve"
       }
     }
