@@ -48,7 +48,7 @@
 
 ## Servic Layer
 
-- Currently we are using an API Gateway with a customer lambda authorizer which authenticates the requests to our experience service lambda, the experience service lambda then access dynamodb and return the contents of the requested experiences
+- Currently we are using an API Gateway with a custom lambda authorizer which authenticates the requests to our experience service lambda, the experience service lambda then access dynamodb and return the contents of the requested experiences
 - The following AWS diagram generally depicts the patter
   - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
 
@@ -66,3 +66,5 @@
 
 - AWS has permissions to get updates on commits to that branch and then will run the pipeline to deploy it
 - In the future, I may want to take that CI/CD pipeline back and run it in github actions, and then just do an amplify deploy via terraform
+  - I also learned that terraform has a cloud, which I created a free account for, but if I wanted to run all of my operations from there, then I would need to deploy all of the assets for the lambdas and whatnot there as well
+  - For the time being I've altered the "Execution Mode" at app.terraform.io to be "local" instead of "remote", read more on terraform execution modes [here](https://developer.hashicorp.com/terraform/cloud-docs/run/remote-operations#remote-operations-1)

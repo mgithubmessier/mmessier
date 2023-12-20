@@ -1,6 +1,6 @@
 # sets up the s3 bucket that will receive the archive of the lambda function archive and its dependencies
 resource "aws_s3_bucket" "experience_service_authorizer_lambda_bucket" {
-  bucket = "experience-service-authorizer-bucket"
+  bucket        = "experience-service-authorizer-bucket"
   force_destroy = true
 }
 
@@ -9,7 +9,7 @@ data "archive_file" "experience_service_authorizer" {
 
   source_dir  = "${path.module}/../../dist/experience-service"
   output_path = "${path.module}/../../dist/experience-service-authorizer.zip"
-  excludes    = ["service"] 
+  excludes    = ["service"]
 }
 
 resource "aws_s3_object" "experience_service_authorizer" {
@@ -37,7 +37,7 @@ resource "aws_lambda_function" "experience_service_authorizer" {
   role = aws_iam_role.experience_service_authorizer_lambda_exec.arn
   environment {
     variables = {
-      EXPERIENCE_API_KEY = var.EXPERIENCE_API_KEY        
+      EXPERIENCE_API_KEY = var.EXPERIENCE_API_KEY
     }
   }
 }

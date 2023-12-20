@@ -39,7 +39,7 @@ export const handler: Handler = (
 
   const API_KEY = process.env.EXPERIENCE_API_KEY || '';
   if (event.type === 'REQUEST') {
-    const authorization = event.headers.authorization;
+    const authorization = event.identitySource[0];
     if (authorization === API_KEY) {
       callback(null, generatePolicy('user', 'Allow', event.routeArn));
     } else {

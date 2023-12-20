@@ -9,9 +9,9 @@ resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
   identity_sources                  = ["$request.header.Authorization"]
   name                              = "experience-service-authorizer"
   authorizer_payload_format_version = "2.0"
-  authorizer_result_ttl_in_seconds = 300
-  enable_simple_responses = false
-  authorizer_uri = data.aws_lambda_function.experience_service_authorizer_lambda.invoke_arn
+  authorizer_result_ttl_in_seconds  = 300
+  enable_simple_responses           = false
+  authorizer_uri                    = data.aws_lambda_function.experience_service_authorizer_lambda.invoke_arn
 }
 
 # sets up API Gateway 
@@ -63,27 +63,19 @@ resource "aws_apigatewayv2_integration" "experience_service_authorizer" {
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GET" {
-  api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
+  api_id             = aws_apigatewayv2_api.experience_service_api_gateway.id
   authorization_type = "CUSTOM"
-  route_key = "GET /experiences"
-  target    = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
-  authorizer_id = aws_apigatewayv2_authorizer.experience_service_authorizer.id
+  route_key          = "GET /experiences"
+  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.experience_service_authorizer.id
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GETONE" {
-  api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
+  api_id             = aws_apigatewayv2_api.experience_service_api_gateway.id
   authorization_type = "CUSTOM"
-  route_key = "GET /experiences/{experienceID}"
-  target    = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
-  authorizer_id = aws_apigatewayv2_authorizer.experience_service_authorizer.id
-}
-
-resource "aws_apigatewayv2_route" "experience_service_AUTH" {
-  api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
-  authorization_type = "CUSTOM"
-  route_key = "ANY /{proxy+}"
-  target    = "integrations/${aws_apigatewayv2_integration.experience_service_authorizer.id}"
-  authorizer_id = aws_apigatewayv2_authorizer.experience_service_authorizer.id
+  route_key          = "GET /experiences/{experienceID}"
+  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.experience_service_authorizer.id
 }
 
 resource "aws_cloudwatch_log_group" "api_gw" {
