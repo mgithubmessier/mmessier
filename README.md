@@ -13,12 +13,8 @@
 
   - APIs to enable
 
-    - Create DynamoDB table, anything under 25GB is free!
-      - resume information
-      - project information
     - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
       - Throttle that lambda
-    - Standup the website inside of AWS via some sort of server and see if that server can then reach other to other endpoints internally without having to leave the VPC it is running on
     - ChatGPT Lambda
       - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
       - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
@@ -50,25 +46,23 @@
   - https://github.com/vercel/next.js/issues/35822
   - https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-strict-mode
 
+## Servic Layer
+
+- Currently we are using an API Gateway with a customer lambda authorizer which authenticates the requests to our experience service lambda, the experience service lambda then access dynamodb and return the contents of the requested experiences
+- The following AWS diagram generally depicts the patter
+  - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
+
+### Service Layer Future
+
+- A VPC would be better because we could ditch the API Gateway and the authorization lambda and hit the experience service lambda directly with our NextJS app if they are on the same VPC
+  - The current blocker on this is that the VPC in AWS is likely going to cost far too much
+  - https://aws.amazon.com/blogs/mobile/accessing-resources-in-a-amazon-virtual-private-cloud-amazon-vpc-from-next-js-api-routes/
+
 ## App Deployment
 
 - We currently deploy using AWS Amplify, tied to a specific github branch, `application/mmessier`
 
-  - AWS has permissions to get updates on commits to that branch and then will run the pipeline to deploy it
-  - In the future, I may want to take that CI/CD pipeline back and run it in github actions, and then just do an amplify deploy via terraform
-  - I could probably target a new branch `production/mmessier` after this, so that I can deploy to different environments potentially
+### App Deployment Future
 
-- This diagram/ article is ideally what would be set up
-
-  - https://aws.amazon.com/blogs/mobile/accessing-resources-in-a-amazon-virtual-private-cloud-amazon-vpc-from-next-js-api-routes/
-    - Could be great for a future idea, but I think the VPC would cost too much
-
-- Instead the infrastructure will be:
-  1. API Gateway
-  - We'll want to take a look at rate limiting here, to some kind of really low number -- like one request every second or something
-  - We'll also want to allowlist only the arn of my amplify resource, if that's possible for the API Gateway
-  2. Lambda
-  - This lambda will be pretty straightforward, just a simple DynamoDB lookup to start with
-  - Then, I'll add an endpoint to add items to it that has an api_token that locks it -- one that I'll store in an env variable in AWS and that I'll hit
-  - It'd be cool if the lambda code could live on this repository along with a terraform script that deploys it
-  3. DynamoDB
+- AWS has permissions to get updates on commits to that branch and then will run the pipeline to deploy it
+- In the future, I may want to take that CI/CD pipeline back and run it in github actions, and then just do an amplify deploy via terraform

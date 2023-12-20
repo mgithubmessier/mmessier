@@ -35,9 +35,11 @@ resource "aws_lambda_function" "experience_service_authorizer" {
   source_code_hash = data.archive_file.experience_service_authorizer.output_base64sha256
 
   role = aws_iam_role.experience_service_authorizer_lambda_exec.arn
-  # environment {
-    
-  # }
+  environment {
+    variables = {
+      EXPERIENCE_API_KEY = var.EXPERIENCE_API_KEY        
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "experience_service_authorizer" {

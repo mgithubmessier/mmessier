@@ -1,6 +1,6 @@
 import {
   Handler,
-  APIGatewayAuthorizerEvent,
+  APIGatewayRequestAuthorizerEventV2,
   APIGatewayAuthorizerCallback,
   PolicyDocument,
   APIGatewayAuthorizerResult,
@@ -31,19 +31,19 @@ const generatePolicy = (
 };
 
 export const handler: Handler = (
-  event: APIGatewayAuthorizerEvent,
+  event: APIGatewayRequestAuthorizerEventV2,
   _,
   callback: APIGatewayAuthorizerCallback
 ) => {
   console.log('Received event:', JSON.stringify(event, null, 2));
 
-  const API_KEY = process.env.EXPERIENCE_API_KEY;
+  const API_KEY = process.env.EXPERIENCE_API_KEY || '';
   if (event.type === 'REQUEST') {
-    const authorization = event.headers.Authorization;
+    const authorization = event.headers.authorization;
     if (authorization === API_KEY) {
-      callback(null, generatePolicy('user', 'Allow', event.methodArn));
+      callback(null, generatePolicy('user', 'Allow', event.routeArn));
     } else {
-      callback(null, generatePolicy('user', 'Deny', event.methodArn));
+      callback(null, generatePolicy('user', 'Deny', event.routeArn));
     }
   } else {
     callback('Error: Invalid token');
