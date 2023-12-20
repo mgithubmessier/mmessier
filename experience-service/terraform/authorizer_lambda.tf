@@ -62,3 +62,29 @@ resource "aws_iam_role" "experience_service_authorizer_lambda_exec" {
     ]
   })
 }
+
+# provides the experience service lambda with cloudwatch access
+resource "aws_iam_policy" "experience_service_authorizer_cloudwatch_policy" {
+  name        = "cloudwatch-matthewmessier.com-experience-service-authorizer"
+  path        = "/"
+  description = "Giving this lambda access to read and write cloudwatch logs"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Effect = "Allow"
+        Resource : "arn:aws:logs:*:*:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "experience_service_authorizer_cloudwatch_policy" {
+  role       = aws_iam_role.experience_service_authorizer_lambda_exec.name
+  policy_arn = aws_iam_policy.experience_service_authorizer_cloudwatch_policy.arn
+}

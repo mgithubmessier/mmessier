@@ -60,7 +60,7 @@ resource "aws_iam_role" "experience_service_lambda_exec" {
 }
 
 # provides the experience service lambda with dynamo access
-resource "aws_iam_policy" "dynamodb_policy" {
+resource "aws_iam_policy" "experience_service_dynamodb_policy" {
   name        = "dynamodb-matthewmessier.com-experiences"
   path        = "/"
   description = "Giving this lambda access to read from the experiences table in dynamodb"
@@ -77,12 +77,33 @@ resource "aws_iam_policy" "dynamodb_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_dynamoroles" {
+resource "aws_iam_role_policy_attachment" "experience_service_dynamodb_policy" {
   role       = aws_iam_role.experience_service_lambda_exec.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+  policy_arn = aws_iam_policy.experience_service_dynamodb_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_policy" {
+# provides the experience service lambda with cloudwatch access
+resource "aws_iam_policy" "experience_service_cloudwatch_policy" {
+  name        = "cloudwatch-matthewmessier.com-experience-service"
+  path        = "/"
+  description = "Giving this lambda access to read and write cloudwatch logs"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Effect = "Allow"
+        Resource : "arn:aws:logs:*:*:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "experience_service_cloudwatch_policy" {
   role       = aws_iam_role.experience_service_lambda_exec.name
-  policy_arn = aws_iam_policy.dynamodb_policy.arn
+  policy_arn = aws_iam_policy.experience_service_cloudwatch_policy.arn
 }
