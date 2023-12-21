@@ -19,6 +19,7 @@ resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
 resource "aws_apigatewayv2_api" "experience_service_api_gateway" {
   name          = "experience_service_api_gateway"
   protocol_type = "HTTP"
+
 }
 
 resource "aws_apigatewayv2_stage" "experience_service_api_gateway" {
@@ -26,6 +27,12 @@ resource "aws_apigatewayv2_stage" "experience_service_api_gateway" {
 
   name        = "experience_service_stage"
   auto_deploy = true
+
+  # these are pretty brutal limits, but I just want to make sure this API never gets abused
+  default_route_settings {
+    throttling_burst_limit = 5
+    throttling_rate_limit  = 5
+  }
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gw.arn
