@@ -20,8 +20,8 @@ export const ExperienceClient = ({ experiences }: ExperienceClientProps) => {
           const isEven = index % 2 === 0;
           return (
             <Link
-              key={experience.id}
-              href={`/experience/${experience.id}`}
+              key={experience.startDate}
+              href={`/experience/${experience.startDate}`}
               style={styles.dynamic?.alternatingLink(isEven)}
             >
               <Button

@@ -2,6 +2,7 @@ import { ExperienceDetail } from '@mmessier/types';
 import { getExperience, getExperiences } from '../../../lib/getExperiences';
 
 import { ExperienceDetailsClient, SearchMap } from './page.client';
+import { compact } from 'lodash';
 
 const createSearchMap = (
   details: Array<ExperienceDetail>,
@@ -14,7 +15,7 @@ const createSearchMap = (
       const currentPath = `${path ? path + '.' : path}[${detailIndex}]`;
       if (detail.subDetails?.length) {
         createSearchMap(
-          detail.subDetails,
+          compact(detail.subDetails),
           `${currentPath}.subDetails`,
           searchMap
         );
@@ -57,13 +58,11 @@ const ExperienceDetails = async ({
   params: { experienceID },
 }: ExperienceDetailsProps) => {
   const experienceResponse = await getExperience(experienceID);
-  if (experienceResponse?.experience) {
-    const searchMap = createSearchMap(experienceResponse?.experience.details);
+  const experience = experienceResponse?.experiences?.[0];
+  if (experience) {
+    const searchMap = createSearchMap(compact(experience.details));
     return (
-      <ExperienceDetailsClient
-        experience={experienceResponse?.experience}
-        searchMap={searchMap}
-      />
+      <ExperienceDetailsClient experience={experience} searchMap={searchMap} />
     );
   }
   return null;
@@ -76,7 +75,7 @@ export const generateStaticParams = async () => {
   const experiencesResponse = await getExperiences();
   if (experiencesResponse?.experiences) {
     return experiencesResponse.experiences.map((experience) => ({
-      experienceID: experience.id,
+      experienceID: experience.startDate,
     }));
   }
   return [];

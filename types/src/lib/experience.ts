@@ -4,7 +4,7 @@ export type ExperienceDetail = {
 };
 
 export type Experience = {
-  id: string;
+  uuid: string;
   company: string;
   companyURL: string;
   title: string;
@@ -17,13 +17,10 @@ export type Experience = {
 };
 
 type BaseResponse = {
-  errors: Array<string>;
-};
-
-export type ExperienceGetByIdResponse = BaseResponse & {
-  experience: Experience;
+  error?: string | null;
+  next_page_key?: string | null;
 };
 
 export type ExperienceGetResponse = BaseResponse & {
-  experiences: Array<Experience>;
+  experiences?: Array<Experience>;
 };
