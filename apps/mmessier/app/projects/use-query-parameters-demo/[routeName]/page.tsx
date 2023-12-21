@@ -14,16 +14,12 @@ const UseQueryParameterDemoRoute = ({
 };
 
 export const generateStaticParams = () => {
-  const staticParams = [];
   if (DEMO_FORMS.length) {
-    for (let i = 0; i < DEMO_FORMS.length; i++) {
-      staticParams.push({ routeName: DEMO_FORMS[i] });
-    }
-    // return DEMO_FORMS.map((form) => ({
-    //   routeName: form,
-    // }));
+    return DEMO_FORMS.map((form) => ({
+      routeName: form,
+    }));
   }
-  return staticParams;
+  return [];
 };
 
 export default UseQueryParameterDemoRoute;
