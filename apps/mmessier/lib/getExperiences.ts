@@ -6,10 +6,13 @@ export const getExperiences = async (): Promise<
 > => {
   const headers = new Headers();
   headers.set('authorization', configuration.experienceAPIKey || '');
-  const response = await fetch(`${configuration.mmessierAPIHost}/experiences`, {
-    headers,
-    next: { revalidate: 60 },
-  });
+  const response = await fetch(
+    `${configuration.mmessierAPIHost}/experiences/`,
+    {
+      headers,
+      next: { revalidate: 60 },
+    }
+  );
   if (!response.ok) {
     // recommended by nextjs so that your component does not have to handle an error
     return undefined;
@@ -30,6 +33,7 @@ export const getExperience = async (
       next: { revalidate: 60 },
     }
   );
+
   if (!response.ok) {
     // recommended by nextjs so that your component does not have to handle an error
     return undefined;

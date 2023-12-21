@@ -46,7 +46,7 @@
   - https://github.com/vercel/next.js/issues/35822
   - https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-strict-mode
 
-## Servic Layer
+## Service Layer
 
 - Currently we are using an API Gateway with a custom lambda authorizer which authenticates the requests to our experience service lambda, the experience service lambda then access dynamodb and return the contents of the requested experiences
 - The following AWS diagram generally depicts the patter
@@ -57,6 +57,21 @@
 - A VPC would be better because we could ditch the API Gateway and the authorization lambda and hit the experience service lambda directly with our NextJS app if they are on the same VPC
   - The current blocker on this is that the VPC in AWS is likely going to cost far too much
   - https://aws.amazon.com/blogs/mobile/accessing-resources-in-a-amazon-virtual-private-cloud-amazon-vpc-from-next-js-api-routes/
+
+## Database Layer
+
+- DynamoDB is the cheapest way to pull off my currect way of doing things
+- We want to be using the `Query` operation, not the `Scan` operation, due to the difference in compute and expense
+- The difficulty is that `Query` requires that we always input a matching `Partition key`, and we cannot leverage the `Sort key` independently on a `Query`
+- The current setup is the following:
+  - A single Partition Key like, called `uuid` which share the name `matthewmessier.com-experiences`
+  - Many different Sort Keys `startDate`
+
+### Database Layer Future
+
+- Change the data column names and the name of the database itself for clarity
+  - `uuid` -> `entityName`
+  - `matthewmessier.com-experiences` -> `matthewmessier.com`
 
 ## App Deployment
 

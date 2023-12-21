@@ -22,23 +22,37 @@ export const handler: Handler = async (
   try {
     const getPromise = new Promise<Array<Experience>>((resolve, reject) => {
       if (event.pathParameters?.['experienceID']) {
-        dynamodb.getItem(
+        dynamodb.query(
           {
             TableName: tableName,
-            Key: {
-              uuid: {
-                S: event.pathParameters['experienceID'],
+            ExpressionAttributeNames: {
+              '#uuidName': 'uuid',
+              '#startDateName': 'startDate',
+            },
+            ExpressionAttributeValues: {
+              ':uuidValue': {
+                S: `matthewmessier.com-experiences`,
+              },
+              ':startDateValue': {
+                S: event.pathParameters?.['experienceID'],
               },
             },
+            KeyConditionExpression:
+              '#uuidName = :uuidValue AND #startDateName = :startDateValue',
+            Limit: 1,
           },
           (error, data) => {
             if (error) {
               reject(error);
             } else {
-              const experience = DynamoDB.Converter.unmarshall(
-                data.Item
-              ) as Experience;
-              resolve([experience]);
+              if (data.Items?.length) {
+                const experience = DynamoDB.Converter.unmarshall(
+                  data.Items[0]
+                ) as Experience;
+                resolve([experience]);
+              } else {
+                resolve([]);
+              }
             }
           }
         );
@@ -66,9 +80,24 @@ export const handler: Handler = async (
           }
         }
         const experiences: Array<Experience> = [];
-        dynamodb.scan(
+        dynamodb.query(
           {
             TableName: tableName,
+            ExpressionAttributeNames: {
+              '#startDateName': 'startDate',
+              '#uuidName': 'uuid',
+            },
+            ExpressionAttributeValues: {
+              ':startDateValue': {
+                S: new Date().toISOString(),
+              },
+              ':uuidValue': {
+                S: 'matthewmessier.com-experiences',
+              },
+            },
+            KeyConditionExpression:
+              '#startDateName <= :startDateValue AND #uuidName = :uuidValue',
+            ScanIndexForward: false,
             Limit: numberLimit,
             ExclusiveStartKey: pageKey,
           },

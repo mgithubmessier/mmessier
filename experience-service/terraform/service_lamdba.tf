@@ -1,6 +1,6 @@
 # sets up the s3 bucket that will receive the archive of the lambda function archive and its dependencies
 resource "aws_s3_bucket" "experience_service_lambda_bucket" {
-  bucket = "experience-service-bucket"
+  bucket        = "experience-service-bucket"
   force_destroy = true
 }
 
@@ -9,7 +9,7 @@ data "archive_file" "experience_service" {
 
   source_dir  = "${path.module}/../../dist/experience-service"
   output_path = "${path.module}/../../dist/experience-service.zip"
-  excludes    = ["authorizer"] 
+  excludes    = ["authorizer"]
 }
 
 resource "aws_s3_object" "experience_service" {
@@ -69,8 +69,8 @@ resource "aws_iam_policy" "experience_service_dynamodb_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = ["dynamodb:Scan", "dynamodb:GetItem"]
-        Effect = "Allow"
+        Action   = ["dynamodb:Scan", "dynamodb:Query"]
+        Effect   = "Allow"
         Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com-experiences"
       }
     ]
