@@ -12,7 +12,7 @@ type StaticStyle = {
 };
 
 type DynamicStyle = {
-  [y: string]: (...args) => CSSProperties;
+  [y: string]: (...args: any[]) => CSSProperties;
 };
 
 type SXStyle = {

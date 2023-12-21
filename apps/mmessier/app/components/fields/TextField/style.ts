@@ -1,5 +1,5 @@
-import { colors } from 'apps/mmessier/app/styles/colors';
-import { BasicStyle } from 'apps/mmessier/types';
+import { colors } from '../../../styles/colors';
+import { BasicStyle } from '@mmessier/types';
 
 export const styles: BasicStyle = {
   static: {

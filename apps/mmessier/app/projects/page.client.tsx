@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 
 import { basicStyles } from './styles';
 import Link from 'next/link';
+import { DEMO_FORMS } from './use-query-parameters-demo/[routeName]/constants';
 
 export const ProjectsClient = () => {
   return (
@@ -11,7 +12,7 @@ export const ProjectsClient = () => {
       <Typography variant="h2">Use Query Parameters</Typography>
       <Typography variant="h3">
         <Link
-          href="/projects/use-query-parameters-demo/form1"
+          href={`/projects/use-query-parameters-demo/${DEMO_FORMS[0]}`}
           style={basicStyles.static?.link}
         >
           Demo

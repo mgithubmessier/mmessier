@@ -1,7 +1,6 @@
 'use client';
 import {
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -13,6 +12,7 @@ import React from 'react';
 import { styles as uqpdStyles } from './styles';
 import { usePathname } from 'next/navigation';
 import { useStyles } from '../../hooks/useStyles';
+import { DEMO_FORMS } from './[routeName]/constants';
 
 type UseQueryParametersDemoProps = {
   children: React.ReactNode;
@@ -33,22 +33,21 @@ export const UseQueryParametersDemoClient = ({
       <FormControl variant="filled" style={styles.static?.selectContainer}>
         <InputLabel>Change the URL route</InputLabel>
         <Select variant="filled" style={styles.static?.select} value={pathname}>
-          <MenuItem value="/projects/use-query-parameters-demo/form1">
-            <Link
-              href="/projects/use-query-parameters-demo/form1"
-              style={styles.static?.link}
-            >
-              Form 1
-            </Link>
-          </MenuItem>
-          <MenuItem value="/projects/use-query-parameters-demo/form2">
-            <Link
-              href="/projects/use-query-parameters-demo/form2"
-              style={styles.static?.link}
-            >
-              Form 2
-            </Link>
-          </MenuItem>
+          {DEMO_FORMS.map((form) => {
+            return (
+              <MenuItem
+                value={`/projects/use-query-parameters-demo/${form}`}
+                key={form}
+              >
+                <Link
+                  href={`/projects/use-query-parameters-demo/${form}`}
+                  style={styles.static?.link}
+                >
+                  {form}
+                </Link>
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
       {children}

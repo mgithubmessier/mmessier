@@ -1,12 +1,15 @@
 import { configuration } from '../configuration/configuration';
-import { ExperienceGetByIdResponse, ExperienceGetResponse } from '../types';
+import { ExperienceGetResponse } from '@mmessier/types';
 
 export const getExperiences = async (): Promise<
   ExperienceGetResponse | undefined
 > => {
+  const headers = new Headers();
+  headers.set('authorization', configuration.experienceAPIKey || '');
   const response = await fetch(
-    `${configuration.mmessierAPIHost}/api/experiences`,
+    `${configuration.mmessierAPIHost}/experiences/`,
     {
+      headers,
       next: { revalidate: 60 },
     }
   );
@@ -20,11 +23,17 @@ export const getExperiences = async (): Promise<
 
 export const getExperience = async (
   experienceID: string
-): Promise<ExperienceGetByIdResponse | undefined> => {
+): Promise<ExperienceGetResponse | undefined> => {
+  const headers = new Headers();
+  headers.set('authorization', configuration.experienceAPIKey || '');
   const response = await fetch(
-    `${configuration.mmessierAPIHost}/api/experiences/${experienceID}`,
-    { next: { revalidate: 60 } }
+    `${configuration.mmessierAPIHost}/experiences/${experienceID}`,
+    {
+      headers,
+      next: { revalidate: 60 },
+    }
   );
+
   if (!response.ok) {
     // recommended by nextjs so that your component does not have to handle an error
     return undefined;

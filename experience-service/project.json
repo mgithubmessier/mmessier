@@ -14,6 +14,38 @@
       "options": {
         "jestConfig": "experience-service/jest.config.ts"
       }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/experience-service",
+        "main": "experience-service/src/index.ts",
+        "tsConfig": "experience-service/tsconfig.lib.json"
+      }
+    },
+    "dist-install": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "./dist/experience-service",
+        "command": "yarn"
+      }
+    },
+    "deploy": {
+      "dependsOn": ["dist-install"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "experience-service/terraform",
+        "command": "terraform apply -auto-approve"
+      }
+    },
+    "tf-init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "experience-service/terraform",
+        "command": "terraform init -auto-approve"
+      }
     }
   },
   "tags": []
