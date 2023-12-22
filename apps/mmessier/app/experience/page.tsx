@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 
 import { getExperiences } from '../../lib/getExperiences';
 import { ExperienceClient } from './page.client';
-import { NotFoundClient } from '../components/NotFound';
 
 export const metadata: Metadata = {
   title: 'Experience',
@@ -14,7 +13,7 @@ const Experience = async () => {
   if (experiencesResponse?.experiences) {
     return <ExperienceClient experiences={experiencesResponse.experiences} />;
   }
-  return <NotFoundClient />;
+  return null;
 };
 
 export default Experience;

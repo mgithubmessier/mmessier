@@ -66,7 +66,7 @@ const ExperienceDetails = async ({
       <ExperienceDetailsClient experience={experience} searchMap={searchMap} />
     );
   }
-  return <NotFoundClient />;
+  return null;
 };
 
 export default ExperienceDetails;

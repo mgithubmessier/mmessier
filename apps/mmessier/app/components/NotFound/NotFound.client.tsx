@@ -5,13 +5,19 @@ import { useStyles } from '../../hooks/useStyles';
 
 import { styles as notFoundStyles } from './NotFound.styles';
 
-export const NotFoundClient = () => {
+type NotFoundClientProps = {
+  title?: string;
+};
+
+export const NotFoundClient = ({
+  title = 'Page Not Found',
+}: NotFoundClientProps) => {
   const styles = useStyles(notFoundStyles);
 
   return (
     <div style={styles.static?.container}>
       <h2>
-        <Help /> Page Not Found
+        <Help /> {title}
       </h2>
     </div>
   );
