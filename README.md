@@ -3,7 +3,6 @@
 ## Summary
 
 - This is a react monorepo where I'll be:
-  - Publishing npm modules for anyone's use
   - Managing personal web application projects
   - Building up highly extensible component libraries
 
@@ -11,26 +10,48 @@
 
 - mmessier
 
-  - APIs to enable
+  - **We need a better way of handling terraform and services**
+    - Currently, we have:
+      - The experience service and its authorizer as deployable code
+      - The terraform module supporting the AWS configuration for the API Gateway, Lambdas, and Authorizer infrastructure
+    - In the future, we want
+      - The contact service, which will also share the authorizer that the experience service uses
+      - Additional routes defined under the API Gateway and the Lambda deployment logic for it
+    - What is wrong with our current structure
+      - We have the module named `experience-service`, but it should probably be something more abstract, akin to `AWS` or something
+        - This is because we have the issue that terraform only allows us to store its configuration in one directory
+          - We could do something with modules and child modules, but the shared configuration could get destroyed in one terraform state and then lost in another's state, so it's WAYYY simpler to keep them all in one directory
+    - Potential Solution
+      - Lift the terraform configuration files up into a new directory called `terraform` and have them refer to the other projects which only contain the deployable code
+      - We then add nx dependencies in the `terraform` project.json on the other services, splitting the deployable code out into:
+        - authorization-service
+        - experience-service
+        - contact-service
+      - It's important that we split them out because we only want to install the bare minimum dependencies that each one of them have
+  - **APIs to enable**
 
+    - We want a custom domain name that allows us to have APIs to be hit from it
+      - Can we do something like `api.matthewmessier.com`?
     - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
       - Throttle that lambda
     - ChatGPT Lambda
       - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
       - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
 
-  - For projects
+  - **For projects tab**
 
     - could add the drifting shapes animation in the background, maybe separate it out into its own library
       - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors they want to use in a sub-view
     - use query parameter hook
       - clean up this form a bit to be a clearer walkthrough
 
-  - Other tasks:
+  - **Other tasks**
     - Use the query parameter hook to manage the current page key for the experiences that you are on
       - As you iterate through DynamoDB pages, you should push them into the zustand state and remember how many pages that the client has already visited and allow them to go back to them
     - Use the query parameter hook to ingest locations from which guests come and visit your website
     - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
+    - We could bring in some of the abstract-server project to nx by using the go plugin
+      - https://github.com/nx-go/nx-go
 
 ## Principles
 
