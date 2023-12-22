@@ -11,6 +11,7 @@
 - mmessier
 
   - **We need a better way of handling terraform and services**
+
     - Currently, we have:
       - The experience service and its authorizer as deployable code
       - The terraform module supporting the AWS configuration for the API Gateway, Lambdas, and Authorizer infrastructure
@@ -28,12 +29,27 @@
         - experience-service
         - contact-service
       - It's important that we split them out because we only want to install the bare minimum dependencies that each one of them have
+
+  - **Contact Service**
+
+    - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
+
+      - Could use sendgrid's api, https://docs.sendgrid.com/for-developers/sending-email/api-getting-started
+      - Could use google's api, https://developers.google.com/gmail/api/guides/sending#python
+
+    - Requirements of the service:
+      - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
+      - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
+      - Add a character limit on the email that is in line with the costs of whatever email service you go with
+      - Sanitize any potential malicious content within text fields
+        - Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
+
   - **APIs to enable**
 
     - We want a custom domain name that allows us to have APIs to be hit from it
+
       - Can we do something like `api.matthewmessier.com`?
-    - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
-      - Throttle that lambda
+
     - ChatGPT Lambda
       - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
       - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
