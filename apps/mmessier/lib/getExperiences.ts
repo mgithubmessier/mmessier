@@ -7,7 +7,7 @@ export const getExperiences = async (): Promise<
   const headers = new Headers();
   headers.set('authorization', configuration.experienceAPIKey || '');
   const response = await fetch(
-    `${configuration.mmessierAPIHost}/experiences/`,
+    `${configuration.mmessierAPIHost}/experiences/list`,
     {
       headers,
       next: { revalidate: 60 },

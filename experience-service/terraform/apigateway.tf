@@ -70,8 +70,14 @@ resource "aws_apigatewayv2_integration" "experience_service_authorizer" {
   integration_method = "POST"
 }
 
-# counts as both the /experiences and the /experiences/{experinceID} route 
-# https://stackoverflow.com/questions/58346601/how-can-i-apply-an-authorizer-to-select-routes-in-my-api-gateway-proxy-integrati
+resource "aws_apigatewayv2_route" "experience_service_GETALL" {
+  api_id             = aws_apigatewayv2_api.experience_service_api_gateway.id
+  authorization_type = "CUSTOM"
+  route_key          = "GET /experiences/list"
+  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.experience_service_authorizer.id
+}
+
 resource "aws_apigatewayv2_route" "experience_service_GET" {
   api_id             = aws_apigatewayv2_api.experience_service_api_gateway.id
   authorization_type = "CUSTOM"
