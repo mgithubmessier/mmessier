@@ -27,6 +27,8 @@
       - clean up this form a bit to be a clearer walkthrough
 
   - Other tasks:
+    - Use the query parameter hook to manage the current page key for the experiences that you are on
+      - As you iterate through DynamoDB pages, you should push them into the zustand state and remember how many pages that the client has already visited and allow them to go back to them
     - Use the query parameter hook to ingest locations from which guests come and visit your website
     - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
 

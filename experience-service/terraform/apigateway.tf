@@ -10,7 +10,7 @@ resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
   name             = "experience-service-authorizer"
 
   authorizer_payload_format_version = "2.0"
-  authorizer_result_ttl_in_seconds  = 10
+  authorizer_result_ttl_in_seconds  = 0
   enable_simple_responses           = false
   authorizer_uri                    = data.aws_lambda_function.experience_service_authorizer_lambda.invoke_arn
 }
@@ -30,8 +30,8 @@ resource "aws_apigatewayv2_stage" "experience_service_api_gateway" {
 
   # these are pretty brutal limits, but I just want to make sure this API never gets abused
   default_route_settings {
-    throttling_burst_limit = 5
-    throttling_rate_limit  = 5
+    throttling_burst_limit = 10
+    throttling_rate_limit  = 10
   }
 
   access_log_settings {

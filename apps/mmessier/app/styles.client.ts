@@ -1,7 +1,7 @@
 import { Style, Breakpoint } from '@mmessier/types';
 import { colors } from './styles/colors';
 import { spacingLevel } from './styles/spacing';
-import { h1MedeiaQueries } from './styles/theme';
+import { h2MediaQueries } from './styles/fonts';
 
 const ImageSizing = {
   [Breakpoint.SMALL]: 50,
@@ -68,7 +68,7 @@ export const styles: Style = (breakpoint: Breakpoint) => {
     sx: {
       platformIcon: {
         color: colors.text.main,
-        ...h1MedeiaQueries,
+        ...h2MediaQueries,
       },
     },
   };

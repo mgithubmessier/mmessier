@@ -1,13 +1,9 @@
-import { Experience } from '@mmessier/types';
+import { Experience, ExperienceGetResponse } from '@mmessier/types';
 import { Handler, APIGatewayEvent, APIGatewayProxyCallback } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 import { isNumber } from 'lodash';
 
-type ExperienceServiceResponse = {
-  error?: string;
-  experiences?: Array<Experience>;
-  next_page_key?: string;
-};
+const PAGE_LIMIT = 20;
 
 export const handler: Handler = async (
   event: APIGatewayEvent,
@@ -75,8 +71,8 @@ export const handler: Handler = async (
         let numberLimit = 5;
         if (isNumber(stringLimit)) {
           numberLimit = Number(stringLimit);
-          if (numberLimit > 20) {
-            numberLimit = 20;
+          if (numberLimit > PAGE_LIMIT) {
+            numberLimit = PAGE_LIMIT;
           }
         }
         const experiences: Array<Experience> = [];
@@ -118,7 +114,7 @@ export const handler: Handler = async (
         );
       }
     });
-    const response: ExperienceServiceResponse = {
+    const response: ExperienceGetResponse = {
       experiences: await getPromise,
       next_page_key: null,
       error: null,

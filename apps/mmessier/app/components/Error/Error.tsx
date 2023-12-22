@@ -1,19 +1,21 @@
-import { Alert, Button, Typography } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
 
-import { ErrorContainer } from './Error.client';
+import { ErrorClient } from './Error.client';
+import { basicStyles } from './Error.styles';
 
 type ErrorProps = {
   title: string;
   message: string;
-  reset: () => void;
+  reset?: () => void;
 };
 
 export const ErrorPage = ({ message, title, reset }: ErrorProps) => {
   return (
-    <ErrorContainer>
+    <ErrorClient reset={reset}>
       <Typography variant="h2">{title}</Typography>
-      <Alert severity="error">{message}</Alert>
-      <Button onClick={reset}>Retry</Button>
-    </ErrorContainer>
+      <Alert sx={basicStyles.sx?.alert} severity="error">
+        {message}
+      </Alert>
+    </ErrorClient>
   );
 };

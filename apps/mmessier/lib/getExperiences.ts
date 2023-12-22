@@ -1,21 +1,29 @@
-import { configuration } from '../configuration/configuration';
 import { ExperienceGetResponse } from '@mmessier/types';
+import { configuration } from '../configuration/configuration';
+import { notFound } from 'next/navigation';
+import queryString from 'query-string';
 
-export const getExperiences = async (): Promise<
-  ExperienceGetResponse | undefined
-> => {
-  const headers = new Headers();
-  headers.set('authorization', configuration.experienceAPIKey || '');
+const headers = new Headers();
+headers.set('authorization', configuration.experienceAPIKey || '');
+
+export const getExperiences = async (
+  limit = 5
+): Promise<ExperienceGetResponse | undefined> => {
   const response = await fetch(
-    `${configuration.mmessierAPIHost}/experiences/list`,
+    `${configuration.mmessierAPIHost}/experiences/list?${queryString.stringify({
+      limit,
+    })}`,
     {
       headers,
       next: { revalidate: 60 },
     }
   );
   if (!response.ok) {
-    // recommended by nextjs so that your component does not have to handle an error
-    return undefined;
+    const errorResponse = await response.json();
+    if (errorResponse?.error) {
+      throw new Error(errorResponse?.error);
+    }
+    throw new Error('Server error');
   }
 
   return response.json();
@@ -24,8 +32,6 @@ export const getExperiences = async (): Promise<
 export const getExperience = async (
   experienceID: string
 ): Promise<ExperienceGetResponse | undefined> => {
-  const headers = new Headers();
-  headers.set('authorization', configuration.experienceAPIKey || '');
   const response = await fetch(
     `${configuration.mmessierAPIHost}/experiences/${experienceID}`,
     {
@@ -35,9 +41,18 @@ export const getExperience = async (
   );
 
   if (!response.ok) {
-    // recommended by nextjs so that your component does not have to handle an error
-    return undefined;
+    const errorResponse = await response.json();
+    if (errorResponse?.error) {
+      throw new Error(errorResponse?.error);
+    }
+    throw new Error(`Server error: ${JSON.stringify(errorResponse)}`);
   }
 
-  return response.json();
+  const experienceResponse: ExperienceGetResponse = await response.json();
+
+  if (experienceResponse.experiences?.length === 0) {
+    notFound();
+  }
+
+  return experienceResponse;
 };
