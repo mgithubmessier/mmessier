@@ -3,6 +3,7 @@ import { getExperience, getExperiences } from '../../../lib/getExperiences';
 
 import { ExperienceDetailsClient, SearchMap } from './page.client';
 import { compact } from 'lodash';
+import { NotFoundClient } from '../../components/NotFound';
 
 const createSearchMap = (
   details: Array<ExperienceDetail>,
@@ -65,7 +66,7 @@ const ExperienceDetails = async ({
       <ExperienceDetailsClient experience={experience} searchMap={searchMap} />
     );
   }
-  return null;
+  return <NotFoundClient />;
 };
 
 export default ExperienceDetails;

@@ -10,7 +10,7 @@ export const Error = ({
 }) => {
   return (
     <ErrorPage
-      title="Error loading experience details"
+      title="Error loading experience"
       message={error.message}
       reset={reset}
     />
