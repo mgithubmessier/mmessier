@@ -81,7 +81,7 @@ resource "aws_iam_role_policy_attachment" "experience_service_dynamodb_policy" {
   policy_arn = aws_iam_policy.experience_service_dynamodb_policy.arn
 }
 
-# provides the experience service lambda with cloudwatch access
+# provides the lambda with cloudwatch access
 resource "aws_iam_policy" "experience_service_cloudwatch_policy" {
   name        = "cloudwatch-matthewmessier.com-experience-service"
   path        = "/"

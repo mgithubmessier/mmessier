@@ -1,9 +1,6 @@
-import { Experience, ExperienceGetResponse } from '@mmessier/types';
+import { Contact, ContactPostResponse } from '@mmessier/types';
 import { Handler, APIGatewayEvent, APIGatewayProxyCallback } from 'aws-lambda';
-// import { DynamoDB } from 'aws-sdk';
-// import { isNumber } from 'lodash';
-
-const PAGE_LIMIT = 20;
+import sendgrid from '@sendgrid/mail';
 
 export const handler: Handler = async (
   event: APIGatewayEvent,
@@ -13,20 +10,28 @@ export const handler: Handler = async (
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
 
   try {
-    const response: ExperienceGetResponse = {
-      experiences: await getPromise,
-      next_page_key: null,
-      error: null,
-    };
-    if (nextPageKey) {
-      response.next_page_key = Buffer.from(
-        JSON.stringify(nextPageKey)
-      ).toString('base64');
+    if (event.httpMethod.toUpperCase() === 'POST') {
+      const contact: Contact = JSON.parse(event.body);
+
+      sendgrid.setApiKey(process.env.SENDGRID_SENDER_API_KEY);
+
+      await sendgrid.send({
+        from: contact.email,
+        to: process.env.PERSONAL_EMAIL,
+        subject: `MATTHEWMESSIER.COM / ${contact.firstName} ${contact.lastName}`,
+        text: contact.message,
+      });
+
+      const response: ContactPostResponse = {
+        contact,
+        error: null,
+      };
+
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(response),
+      });
     }
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(response),
-    });
   } catch (e) {
     const error: Error = e as Error;
     callback(null, {

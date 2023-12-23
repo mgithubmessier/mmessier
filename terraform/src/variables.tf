@@ -12,3 +12,11 @@ variable "AUTHORIZER_API_KEY" {
   description = "This is the API key that is used as the authorizer lambda"
 }
 
+variable "SENDGRID_SENDER_API_KEY" {
+  type = string
+}
+
+variable "PERSONAL_EMAIL" {
+  type = string
+}
+

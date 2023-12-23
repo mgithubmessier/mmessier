@@ -3,8 +3,8 @@ data "aws_lambda_function" "authorizer_service_lambda" {
   function_name = aws_lambda_function.authorizer_service.function_name
 }
 
-resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
-  api_id           = aws_apigatewayv2_api.experience_service_api_gateway.id
+resource "aws_apigatewayv2_authorizer" "authorizer" {
+  api_id           = aws_apigatewayv2_api.api_gateway.id
   authorizer_type  = "REQUEST"
   identity_sources = ["$request.header.Authorization"]
   name             = "experience-service-authorizer"
@@ -16,16 +16,16 @@ resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
 }
 
 # sets up API Gateway 
-resource "aws_apigatewayv2_api" "experience_service_api_gateway" {
-  name          = "experience_service_api_gateway"
+resource "aws_apigatewayv2_api" "api_gateway" {
+  name          = "matthewmessier_api_gateway"
   protocol_type = "HTTP"
 
 }
 
-resource "aws_apigatewayv2_stage" "experience_service_api_gateway" {
-  api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
+resource "aws_apigatewayv2_stage" "api_gateway" {
+  api_id = aws_apigatewayv2_api.api_gateway.id
 
-  name        = "experience_service_stage"
+  name        = "mmessier-api"
   auto_deploy = true
 
   # these are pretty brutal limits, but I just want to make sure this API never gets abused
@@ -53,41 +53,59 @@ resource "aws_apigatewayv2_stage" "experience_service_api_gateway" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "experience_service" {
-  api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
-
-  integration_uri    = aws_lambda_function.experience_service.invoke_arn
-  integration_type   = "AWS_PROXY"
-  integration_method = "POST"
-}
-
 
 resource "aws_apigatewayv2_integration" "authorizer_service" {
-  api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
+  api_id = aws_apigatewayv2_api.api_gateway.id
 
   integration_uri    = aws_lambda_function.authorizer_service.invoke_arn
   integration_type   = "AWS_PROXY"
   integration_method = "POST"
 }
 
+# Experience Service Integration and route declaration
+resource "aws_apigatewayv2_integration" "experience_service" {
+  api_id = aws_apigatewayv2_api.api_gateway.id
+
+  integration_uri    = aws_lambda_function.experience_service.invoke_arn
+  integration_type   = "AWS_PROXY"
+  integration_method = "POST"
+}
+
 resource "aws_apigatewayv2_route" "experience_service_GETALL" {
-  api_id             = aws_apigatewayv2_api.experience_service_api_gateway.id
+  api_id             = aws_apigatewayv2_api.api_gateway.id
   authorization_type = "CUSTOM"
   route_key          = "GET /experiences/list"
   target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.experience_service_authorizer.id
+  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GET" {
-  api_id             = aws_apigatewayv2_api.experience_service_api_gateway.id
+  api_id             = aws_apigatewayv2_api.api_gateway.id
   authorization_type = "CUSTOM"
   route_key          = "GET /experiences/{experienceID}"
   target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.experience_service_authorizer.id
+  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
+}
+
+# Contact Service Integration and route declaration
+resource "aws_apigatewayv2_integration" "contact_service" {
+  api_id = aws_apigatewayv2_api.api_gateway.id
+
+  integration_uri    = aws_lambda_function.contact_service.invoke_arn
+  integration_type   = "AWS_PROXY"
+  integration_method = "POST"
+}
+
+resource "aws_apigatewayv2_route" "contact_service_POST" {
+  api_id             = aws_apigatewayv2_api.api_gateway.id
+  authorization_type = "CUSTOM"
+  route_key          = "POST /contact"
+  target             = "integrations/${aws_apigatewayv2_integration.contact_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
 }
 
 resource "aws_cloudwatch_log_group" "api_gw" {
-  name = "/aws/api_gw/${aws_apigatewayv2_api.experience_service_api_gateway.name}"
+  name = "/aws/api_gw/${aws_apigatewayv2_api.api_gateway.name}"
 
   retention_in_days = 1
 }
@@ -98,7 +116,7 @@ resource "aws_lambda_permission" "allow_experience_service_execution" {
   function_name = aws_lambda_function.experience_service.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_apigatewayv2_api.experience_service_api_gateway.execution_arn}/*/*"
+  source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
 }
 
 
@@ -108,5 +126,5 @@ resource "aws_lambda_permission" "allow_authorizer_service_execution" {
   function_name = aws_lambda_function.authorizer_service.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_apigatewayv2_api.experience_service_api_gateway.execution_arn}/*/*"
+  source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
 }

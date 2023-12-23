@@ -1,4 +1,4 @@
-import { BaseResponse } from './response';
+import { BaseGetResponse } from './response';
 
 export type ExperienceDetail = {
   detail: string;
@@ -17,6 +17,6 @@ export type Experience = {
   keyTerms: Array<string>;
 };
 
-export type ExperienceGetResponse = BaseResponse & {
+export type ExperienceGetResponse = BaseGetResponse & {
   experiences?: Array<Experience>;
 };

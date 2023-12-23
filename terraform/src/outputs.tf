@@ -7,7 +7,7 @@ output "function_name" {
 output "stage_url" {
   description = "Base URL for API Gateway stage."
 
-  value = aws_apigatewayv2_stage.experience_service_api_gateway.invoke_url
+  value = aws_apigatewayv2_stage.api_gateway.invoke_url
 }
 
 output "AUTHORIZER_API_KEY" {
