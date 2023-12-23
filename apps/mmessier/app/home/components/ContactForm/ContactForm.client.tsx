@@ -8,8 +8,9 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { Send } from '@mui/icons-material';
+import { configuration } from '../../../../configuration';
 
-export type FormData = {
+type FormData = {
   email: string;
   firstName: string;
   lastName: string;
@@ -23,16 +24,31 @@ const schema = yup.object({
   message: yup.string().required(),
 });
 
-type ContactFormClientProps = {
-  onSubmit: (formData: FormData) => void;
-};
-
-export const ContactFormClient = ({ onSubmit }: ContactFormClientProps) => {
+export const ContactFormClient = () => {
   const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
   const { control, handleSubmit } = useForm<FormData>({
     resolver,
   });
+
+  const onSubmit = async (formData: FormData) => {
+    console.log(formData);
+    try {
+      const response = await fetch(`${configuration.mmessierAPIHost}/contact`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+          Authorization: configuration.authorizerAPIKey || '',
+        },
+        body: JSON.stringify(formData),
+      });
+      const responseBody = await response.json();
+      console.log('responseBody', responseBody);
+    } catch (e) {
+      const error = e as Error;
+      console.error('Encountered error submitting POST request', error);
+    }
+  };
 
   return (
     <div style={styles.static?.container}>
