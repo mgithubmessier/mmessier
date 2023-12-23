@@ -37,7 +37,7 @@ export const handler: Handler = (
 ) => {
   console.log('Received event:', JSON.stringify(event, null, 2));
 
-  const API_KEY = process.env.EXPERIENCE_API_KEY || '';
+  const API_KEY = process.env.AUTHORIZER_API_KEY || '';
   if (event.type === 'REQUEST') {
     const authorization = event.identitySource[0];
     if (authorization === API_KEY) {

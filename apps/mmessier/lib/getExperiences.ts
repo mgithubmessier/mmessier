@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import queryString from 'query-string';
 
 const headers = new Headers();
-headers.set('authorization', configuration.experienceAPIKey || '');
+headers.set('authorization', configuration.authorizerAPIKey || '');
 
 export const getExperiences = async (
   limit = 5
@@ -23,7 +23,7 @@ export const getExperiences = async (
     if (errorResponse?.error) {
       throw new Error(errorResponse?.error);
     }
-    throw new Error('Server error');
+    throw new Error(`Server error: ${JSON.stringify(errorResponse)}`);
   }
 
   return response.json();

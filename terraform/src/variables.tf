@@ -7,8 +7,8 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-variable "EXPERIENCE_API_KEY" {
-    type        = string
-    description = "This is the API key that is used as the authorization for experiences"
+variable "AUTHORIZER_API_KEY" {
+  type        = string
+  description = "This is the API key that is used as the authorizer lambda"
 }
-  
+

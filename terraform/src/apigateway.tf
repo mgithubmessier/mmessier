@@ -1,6 +1,6 @@
 # Authorizer lambda
-data "aws_lambda_function" "experience_service_authorizer_lambda" {
-  function_name = aws_lambda_function.experience_service_authorizer.function_name
+data "aws_lambda_function" "authorizer_service_lambda" {
+  function_name = aws_lambda_function.authorizer_service.function_name
 }
 
 resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
@@ -12,7 +12,7 @@ resource "aws_apigatewayv2_authorizer" "experience_service_authorizer" {
   authorizer_payload_format_version = "2.0"
   authorizer_result_ttl_in_seconds  = 0
   enable_simple_responses           = false
-  authorizer_uri                    = data.aws_lambda_function.experience_service_authorizer_lambda.invoke_arn
+  authorizer_uri                    = data.aws_lambda_function.authorizer_service_lambda.invoke_arn
 }
 
 # sets up API Gateway 
@@ -62,10 +62,10 @@ resource "aws_apigatewayv2_integration" "experience_service" {
 }
 
 
-resource "aws_apigatewayv2_integration" "experience_service_authorizer" {
+resource "aws_apigatewayv2_integration" "authorizer_service" {
   api_id = aws_apigatewayv2_api.experience_service_api_gateway.id
 
-  integration_uri    = aws_lambda_function.experience_service_authorizer.invoke_arn
+  integration_uri    = aws_lambda_function.authorizer_service.invoke_arn
   integration_type   = "AWS_PROXY"
   integration_method = "POST"
 }
@@ -102,10 +102,10 @@ resource "aws_lambda_permission" "allow_experience_service_execution" {
 }
 
 
-resource "aws_lambda_permission" "allow_experience_service_authorizer_execution" {
+resource "aws_lambda_permission" "allow_authorizer_service_execution" {
   statement_id  = "AllowExecutionFromAPIGateway_ExperienceServiceAuthorizer"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.experience_service_authorizer.function_name
+  function_name = aws_lambda_function.authorizer_service.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.experience_service_api_gateway.execution_arn}/*/*"

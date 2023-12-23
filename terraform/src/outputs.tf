@@ -10,6 +10,6 @@ output "stage_url" {
   value = aws_apigatewayv2_stage.experience_service_api_gateway.invoke_url
 }
 
-output "EXPERIENCE_API_KEY" {
-  value = var.EXPERIENCE_API_KEY
+output "AUTHORIZER_API_KEY" {
+  value = var.AUTHORIZER_API_KEY
 }

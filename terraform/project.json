@@ -1,0 +1,29 @@
+{
+  "name": "terraform",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "terraform/src",
+  "projectType": "library",
+  "targets": {
+    "apply": {
+      "dependsOn": [
+        {
+          "projects": ["experience-service"],
+          "target": "dist-install"
+        }
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "terraform/src",
+        "command": "terraform apply -auto-approve"
+      }
+    },
+    "init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "terraform/src",
+        "command": "terraform init"
+      }
+    }
+  },
+  "tags": []
+}
