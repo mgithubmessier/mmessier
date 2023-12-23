@@ -16,10 +16,10 @@ export const handler: Handler = async (
       sendgrid.setApiKey(process.env.SENDGRID_SENDER_API_KEY);
 
       await sendgrid.send({
-        from: contact.email,
+        from: process.env.SENDGRID_SINGLE_SENDER_EMAIL,
         to: process.env.PERSONAL_EMAIL,
         subject: `MATTHEWMESSIER.COM / ${contact.firstName} ${contact.lastName}`,
-        text: contact.message,
+        text: `From Email: ${contact.email}\n\n${contact.message}`,
       });
 
       const response: ContactPostResponse = {

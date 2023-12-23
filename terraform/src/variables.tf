@@ -20,3 +20,7 @@ variable "PERSONAL_EMAIL" {
   type = string
 }
 
+variable "SENDGRID_SINGLE_SENDER_EMAIL" {
+  type = string
+}
+

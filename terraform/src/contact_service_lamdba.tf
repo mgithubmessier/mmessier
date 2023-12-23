@@ -36,8 +36,9 @@ resource "aws_lambda_function" "contact_service" {
 
   environment {
     variables = {
-      PERSONAL_EMAIL          = var.PERSONAL_EMAIL,
-      SENDGRID_SENDER_API_KEY = var.SENDGRID_SENDER_API_KEY
+      PERSONAL_EMAIL               = var.PERSONAL_EMAIL,
+      SENDGRID_SENDER_API_KEY      = var.SENDGRID_SENDER_API_KEY
+      SENDGRID_SINGLE_SENDER_EMAIL = var.SENDGRID_SINGLE_SENDER_EMAIL
     }
   }
 }
