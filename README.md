@@ -10,26 +10,9 @@
 
 - mmessier
 
-  - **We need a better way of handling terraform and services**
-
-    - Currently, we have:
-      - The experience service and its authorizer as deployable code
-      - The terraform module supporting the AWS configuration for the API Gateway, Lambdas, and Authorizer infrastructure
-    - In the future, we want
-      - The contact service, which will also share the authorizer that the experience service uses
-      - Additional routes defined under the API Gateway and the Lambda deployment logic for it
-    - What is wrong with our current structure
-      - We have the module named `experience-service`, but it should probably be something more abstract, akin to `AWS` or something
-        - This is because we have the issue that terraform only allows us to store its configuration in one directory
-          - We could do something with modules and child modules, but the shared configuration could get destroyed in one terraform state and then lost in another's state, so it's WAYYY simpler to keep them all in one directory
-    - Potential Solution
-      - Lift the terraform configuration files up into a new directory called `terraform` and have them refer to the other projects which only contain the deployable code
-      - We then add nx dependencies in the `terraform` project.json on the other services, splitting the deployable code out into:
-        - authorization-service
-        - experience-service
-        - contact-service
-      - It's important that we split them out because we only want to install the bare minimum dependencies that each one of them have
-
+  - MOVE getExperiences back into an /api/route.ts handler
+    - It's important to keep them consistent, since the GETs automatically run upon launch of a page, I didn't observe this issue before
+    - The issue being that when you make POST, PATCH, PUT, DELETE requests, those are imperative user actions, therefore they are propagated from the client side, and in order for those to stay secure, we need to use the built-in API routing logic
   - **Contact Service**
 
     - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
@@ -77,7 +60,7 @@
   - UI
     - /component/component.client.tsx
   - DataAccess
-    - /lib/entity.ts
+    - /api/route.ts
 
 ## Next.js Gotchas
 

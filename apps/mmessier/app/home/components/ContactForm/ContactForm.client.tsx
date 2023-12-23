@@ -1,16 +1,15 @@
 'use client';
 
-import { Button, IconButton, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useStyles } from '../../../hooks/useStyles';
 import { styles as contactFormStyles } from './styles.client';
 import { useYupResolver } from '../../../hooks/useYupResolver';
 import * as yup from 'yup';
-import { phoneNumberValidator } from '../../../utilities/yup';
 import { useForm } from 'react-hook-form';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { Send } from '@mui/icons-material';
 
-type FormData = {
+export type FormData = {
   email: string;
   firstName: string;
   lastName: string;
@@ -24,16 +23,16 @@ const schema = yup.object({
   message: yup.string().required(),
 });
 
-export const ContactForm = () => {
+type ContactFormClientProps = {
+  onSubmit: (formData: FormData) => void;
+};
+
+export const ContactFormClient = ({ onSubmit }: ContactFormClientProps) => {
   const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
   const { control, handleSubmit } = useForm<FormData>({
     resolver,
   });
-
-  const onSubmit = (formData: FormData) => {
-    console.log(formData);
-  };
 
   return (
     <div style={styles.static?.container}>
