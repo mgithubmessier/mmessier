@@ -17,17 +17,18 @@
   - Determine how you want to retrieve the client's IP responsibly and freely, ideally there is a well-known company that offers a free API
     - Cloudflare is an option, but it returns plain text
       - https://www.cloudflare.com/cdn-cgi/trace
+  - Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
+
   - **Contact Service**
 
     - Will be using sendgrid's API since they allow up to 100 free emails / day
 
     - Requirements of the service:
-      - Track how many successful executions of the service have occurred in a given calendar day and return an error if that many are exceeded
+      - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
       - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
       - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
       - Add a character limit on the email that is in line with the costs of whatever email service you go with
       - Sanitize any potential malicious content within text fields
-        - Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
 
   - **APIs to enable**
 

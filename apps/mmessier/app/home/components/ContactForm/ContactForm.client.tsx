@@ -61,20 +61,28 @@ export const ContactFormClient = () => {
         type="email"
         containerStyle={styles.static?.inputContainer}
       />
-      <RHFTextField
-        control={control}
-        name="firstName"
-        label="First Name"
-        containerStyle={styles.static?.inputContainer}
-        required
-      />
-      <RHFTextField
-        control={control}
-        name="lastName"
-        label="Last Name"
-        containerStyle={styles.static?.inputContainer}
-        required
-      />
+      <div style={styles.static?.nameContainer}>
+        <RHFTextField
+          control={control}
+          name="firstName"
+          label="First Name"
+          containerStyle={{
+            ...styles.static?.inputContainer,
+            ...styles.static?.firstNameField,
+          }}
+          required
+        />
+        <RHFTextField
+          control={control}
+          name="lastName"
+          label="Last Name"
+          containerStyle={{
+            ...styles.static?.inputContainer,
+            ...styles.static?.lastNameField,
+          }}
+          required
+        />
+      </div>
       <RHFTextField
         control={control}
         name="message"
