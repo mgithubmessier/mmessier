@@ -110,6 +110,7 @@ resource "aws_cloudwatch_log_group" "api_gw" {
   retention_in_days = 1
 }
 
+# Peermissioning the API Gateway to call the Lambdas associated with each route
 resource "aws_lambda_permission" "allow_experience_service_execution" {
   statement_id  = "AllowExecutionFromAPIGateway_ExperienceService"
   action        = "lambda:InvokeFunction"
@@ -121,9 +122,18 @@ resource "aws_lambda_permission" "allow_experience_service_execution" {
 
 
 resource "aws_lambda_permission" "allow_authorizer_service_execution" {
-  statement_id  = "AllowExecutionFromAPIGateway_ExperienceServiceAuthorizer"
+  statement_id  = "AllowExecutionFromAPIGateway_AuthorizerService"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.authorizer_service.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "allow_contact_service_execution" {
+  statement_id  = "AllowExecutionFromAPIGateway_ContactService"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.contact_service.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
