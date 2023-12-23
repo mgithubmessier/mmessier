@@ -7,7 +7,7 @@
     "apply": {
       "dependsOn": [
         {
-          "projects": ["experience-service"],
+          "projects": ["experience-service", "authorizer-service"],
           "target": "dist-install"
         }
       ],

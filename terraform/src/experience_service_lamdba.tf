@@ -9,7 +9,6 @@ data "archive_file" "experience_service" {
 
   source_dir  = "${path.module}/../../dist/experience-service"
   output_path = "${path.module}/../../dist/experience-service.zip"
-  excludes    = ["authorizer"]
 }
 
 resource "aws_s3_object" "experience_service" {
@@ -59,7 +58,7 @@ resource "aws_iam_role" "experience_service_lambda_exec" {
   })
 }
 
-# provides the experience service lambda with dynamo access
+# provides the lambda with dynamo access
 resource "aws_iam_policy" "experience_service_dynamodb_policy" {
   name        = "dynamodb-matthewmessier.com-experiences"
   path        = "/"

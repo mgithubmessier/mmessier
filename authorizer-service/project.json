@@ -1,7 +1,7 @@
 {
-  "name": "experience-service",
+  "name": "authorizer-service",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "experience-service/src",
+  "sourceRoot": "authorizer-service/src",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -12,23 +12,23 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "experience-service/jest.config.ts"
+        "jestConfig": "authorizer-service/jest.config.ts"
       }
     },
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/experience-service",
-        "main": "experience-service/src/index.ts",
-        "tsConfig": "experience-service/tsconfig.lib.json"
+        "outputPath": "dist/authorizer-service",
+        "main": "authorizer-service/src/index.ts",
+        "tsConfig": "authorizer-service/tsconfig.lib.json"
       }
     },
     "dist-install": {
       "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "./dist/experience-service",
+        "cwd": "./dist/authorizer-service",
         "command": "yarn"
       }
     }

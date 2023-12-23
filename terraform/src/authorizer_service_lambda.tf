@@ -7,15 +7,14 @@ resource "aws_s3_bucket" "authorizer_service_lambda_bucket" {
 data "archive_file" "authorizer_service" {
   type = "zip"
 
-  source_dir  = "${path.module}/../../dist/experience-service"
-  output_path = "${path.module}/../../dist/experience-service-authorizer.zip"
-  excludes    = ["service"]
+  source_dir  = "${path.module}/../../dist/authorizer-service"
+  output_path = "${path.module}/../../dist/authorizer-service.zip"
 }
 
 resource "aws_s3_object" "authorizer_service" {
   bucket = aws_s3_bucket.authorizer_service_lambda_bucket.id
 
-  key    = "experience-service-authorizer.zip"
+  key    = "authorizer-service.zip"
   source = data.archive_file.authorizer_service.output_path
 
   etag = filemd5(data.archive_file.authorizer_service.output_path)
@@ -65,9 +64,9 @@ resource "aws_iam_role" "authorizer_service_lambda_exec" {
   })
 }
 
-# provides the experience service lambda with cloudwatch access
+# provides the lambda with cloudwatch access
 resource "aws_iam_policy" "authorizer_service_cloudwatch_policy" {
-  name        = "cloudwatch-matthewmessier.com-experience-service-authorizer-service"
+  name        = "cloudwatch-matthewmessier.com-authorizer-service"
   path        = "/"
   description = "Giving this lambda access to read and write cloudwatch logs"
 
