@@ -106,12 +106,6 @@
   - A single Partition Key like, called `uuid` which share the name `matthewmessier.com-experiences`
   - Many different Sort Keys `startDate`
 
-### Database Layer Future
-
-- Change the data column names and the name of the database itself for clarity
-  - `uuid` -> `entityName`
-  - `matthewmessier.com-experiences` -> `matthewmessier.com`
-
 ## App Deployment
 
 - We currently deploy using AWS Amplify, tied to a specific github branch, `application/mmessier`

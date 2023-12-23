@@ -70,7 +70,7 @@ resource "aws_iam_policy" "experience_service_dynamodb_policy" {
       {
         Action   = ["dynamodb:Scan", "dynamodb:Query"]
         Effect   = "Allow"
-        Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com-experiences"
+        Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com"
       }
     ]
   })

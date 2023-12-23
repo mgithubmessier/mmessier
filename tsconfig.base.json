@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@mmessier/authorizer-service": ["authorizer-service/src/index.ts"],
+      "@mmessier/contact-service": ["contact-service/src/index.ts"],
       "@mmessier/experience-service": ["experience-service/src/index.ts"],
       "@mmessier/types": ["types/src/index.ts"],
       "@mmessier/use-query-parameters": ["use-query-parameters/src/index.ts"]
