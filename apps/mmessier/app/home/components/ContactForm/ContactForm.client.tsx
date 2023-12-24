@@ -1,21 +1,15 @@
 'use client';
 
+import { ContactPostRequest, ContactPostResponse } from '@mmessier/types';
+import { Send } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+
 import { useStyles } from '../../../hooks/useStyles';
 import { styles as contactFormStyles } from './styles.client';
 import { useYupResolver } from '../../../hooks/useYupResolver';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
-import { Send } from '@mui/icons-material';
-import { configuration } from '../../../../configuration';
-
-type FormData = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  message: string;
-};
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -27,23 +21,24 @@ const schema = yup.object({
 export const ContactFormClient = () => {
   const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<ContactPostRequest>({
     resolver,
   });
 
-  const onSubmit = async (formData: FormData) => {
+  const onSubmit = async (formData: ContactPostRequest) => {
     console.log(formData);
     try {
-      const response = await fetch(`${configuration.mmessierAPIHost}/contact`, {
+      const response = await fetch('api/contact', {
         method: 'POST',
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-          Authorization: configuration.authorizerAPIKey || '',
-        },
         body: JSON.stringify(formData),
       });
-      const responseBody = await response.json();
-      console.log('responseBody', responseBody);
+      if (!response.ok) {
+        const responseBody: ContactPostResponse = await response.json();
+        if (responseBody.error) {
+          throw new Error(responseBody.error);
+        }
+        throw new Error('Encountered error trying to contact');
+      }
     } catch (e) {
       const error = e as Error;
       console.error('Encountered error submitting POST request', error);

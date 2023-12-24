@@ -13,7 +13,8 @@
   - MOVE getExperiences back into an /api/route.ts handler
     - It's important to keep them consistent, since the GETs automatically run upon launch of a page, I didn't observe this issue before
     - The issue being that when you make POST, PATCH, PUT, DELETE requests, those are imperative user actions, therefore they are propagated from the client side, and in order for those to stay secure, we need to use the built-in API routing logic
-  - Determine how you want to handle authentication with imperative requests
+  - Determine how you want to handle authentication on nextjs api routes
+    - https://next-auth.js.org/tutorials/securing-pages-and-api-routes#securing-api-routes
   - Determine how you want to retrieve the client's IP responsibly and freely, ideally there is a well-known company that offers a free API
     - Cloudflare is an option, but it returns plain text
       - https://www.cloudflare.com/cdn-cgi/trace
@@ -64,6 +65,9 @@
     - /component/component.client.tsx
   - DataAccess
     - /api/route.ts
+    - Some GET requests should not be put behind these routes, specifically the ones we are using to statically render server-side components
+      - This is because we cannot make requests to the app we are building itself
+      - So in those cases, we hit the API directly from the server side component and not through the next js api routes itself
 
 ## Next.js Gotchas
 

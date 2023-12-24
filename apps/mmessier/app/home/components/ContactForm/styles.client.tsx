@@ -15,6 +15,9 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     },
     nameContainer: {
       display: 'flex',
+      flexDirection: [Breakpoint.SMALL, Breakpoint.MEDIUM].includes(breakpoint)
+        ? 'column'
+        : 'row',
     },
     firstNameField: {
       flex: 1,
