@@ -95,6 +95,10 @@
   - Many different Sort Keys `sortedUniqueId`
     - ex.) for experience service, this is an ISO date representing the start date of each experience `"2023-12-24T00:00:00.000Z"`
 
+### Database Layer Future
+
+- Get the schema for the DynamoDB table stored in a terraform file and associate it with the other existing scripts instead of hardcoding its ARN
+
 ## App Deployment
 
 - We currently deploy using AWS Amplify, tied to a specific github branch, `application/mmessier`
