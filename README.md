@@ -10,24 +10,22 @@
 
 - mmessier
 
-  - MOVE getExperiences back into an /api/route.ts handler
-    - It's important to keep them consistent, since the GETs automatically run upon launch of a page, I didn't observe this issue before
-    - The issue being that when you make POST, PATCH, PUT, DELETE requests, those are imperative user actions, therefore they are propagated from the client side, and in order for those to stay secure, we need to use the built-in API routing logic
-  - Determine how you want to handle authentication on nextjs api routes
-    - https://next-auth.js.org/tutorials/securing-pages-and-api-routes#securing-api-routes
+  - The issue being that when you make POST, PATCH, PUT, DELETE requests, those are imperative user actions, therefore they are propagated from the client side, and in order for those to stay secure, we need to use the built-in API routing logic
+    - Determine how you want to handle authentication on nextjs api routes
+      - https://next-auth.js.org/tutorials/securing-pages-and-api-routes#securing-api-routes
   - Determine how you want to retrieve the client's IP responsibly and freely, ideally there is a well-known company that offers a free API
     - Cloudflare is an option, but it returns plain text
       - https://www.cloudflare.com/cdn-cgi/trace
   - Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
+  - Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
+  - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
 
   - **Contact Service**
 
     - Will be using sendgrid's API since they allow up to 100 free emails / day
-
     - Requirements of the service:
       - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
       - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
-      - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
       - Add a character limit on the email that is in line with the costs of whatever email service you go with
       - Sanitize any potential malicious content within text fields
 
@@ -78,7 +76,7 @@
 ## Service Layer
 
 - Currently we are using an API Gateway with a custom lambda authorizer which authenticates the requests to our experience service lambda, the experience service lambda then access dynamodb and return the contents of the requested experiences
-- The following AWS diagram generally depicts the patter
+- The following AWS diagram generally depicts the pattern
   - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
 
 ### Service Layer Future
@@ -90,11 +88,12 @@
 ## Database Layer
 
 - DynamoDB is the cheapest way to pull off my currect way of doing things
-- We want to be using the `Query` operation, not the `Scan` operation, due to the difference in compute and expense
-- The difficulty is that `Query` requires that we always input a matching `Partition key`, and we cannot leverage the `Sort key` independently on a `Query`
-- The current setup is the following:
-  - A single Partition Key like, called `uuid` which share the name `matthewmessier.com-experiences`
-  - Many different Sort Keys `startDate`
+- Always use the `Query` operation over the `Scan` operation, due to the difference in compute and expense
+- The current DynamoDB schema is as follows:
+  - A single Partition Key like, called `entityName`
+    - ex.) for experience service, this is `"experience"`
+  - Many different Sort Keys `sortedUniqueId`
+    - ex.) for experience service, this is an ISO date representing the start date of each experience `"2023-12-24T00:00:00.000Z"`
 
 ## App Deployment
 
