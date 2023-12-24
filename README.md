@@ -8,51 +8,55 @@
 
 ## Application TODOs
 
-- mmessier
+- In general, the app will block you from being able to perform any imperative (based off a user interaction with a web component) HTTP requests until you sign in
+- This means we should have some sort of AuthenticationWrapper component that wraps and blocks things like:
+  - the contact form until the individual authenticates with a supported form of SSO
+  - the paginator on the experiences page
+- Determine how you want to retrieve the client's IP responsibly and freely, ideally there is a well-known company that offers a free API
+  - Cloudflare is an option, but it returns plain text
+    - https://www.cloudflare.com/cdn-cgi/trace
+  - Maybe one of the SSO Providers will give that to us as well
+- Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
+- Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
+- Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
+- We want a custom domain name that allows us to have APIs to be hit from it
 
-  - The issue being that when you make POST, PATCH, PUT, DELETE requests, those are imperative user actions, therefore they are propagated from the client side, and in order for those to stay secure, we need to use the built-in API routing logic
-    - Determine how you want to handle authentication on nextjs api routes
-      - https://next-auth.js.org/tutorials/securing-pages-and-api-routes#securing-api-routes
-  - Determine how you want to retrieve the client's IP responsibly and freely, ideally there is a well-known company that offers a free API
-    - Cloudflare is an option, but it returns plain text
-      - https://www.cloudflare.com/cdn-cgi/trace
-  - Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
-  - Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
-  - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
+  - Can we do something like `api.matthewmessier.com`?
 
-  - **Contact Service**
+- **SSO Service**
 
-    - Will be using sendgrid's API since they allow up to 100 free emails / day
-    - Requirements of the service:
-      - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
-      - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
-      - Add a character limit on the email that is in line with the costs of whatever email service you go with
-      - Sanitize any potential malicious content within text fields
+  - handles Google, LinkedIn, or Github SSO
 
-  - **APIs to enable**
+- **Contact Service**
 
-    - We want a custom domain name that allows us to have APIs to be hit from it
+  - Uses sendgrid's API since they allow up to 100 free emails / day
+  - Requirements of the service:
+    - Sends an email to my personal email account with the message and contact information of the person reaching out
+    - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
+    - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
+    - Add a character limit on the email that is in line with the costs of whatever email service you go with
+    - Sanitize any potential malicious content within text fields
 
-      - Can we do something like `api.matthewmessier.com`?
+- **For projects tab**
 
-    - ChatGPT Lambda
-      - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
-      - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
+  - could add the drifting shapes animation in the background, maybe separate it out into its own library
+    - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors they want to use in a sub-view
+  - use query parameter hook
+    - clean up this form a bit to be a clearer walkthrough
 
-  - **For projects tab**
+- **GenAI Service**
 
-    - could add the drifting shapes animation in the background, maybe separate it out into its own library
-      - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors they want to use in a sub-view
-    - use query parameter hook
-      - clean up this form a bit to be a clearer walkthrough
+  - ChatGPT Lambda
+    - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
+    - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
 
-  - **Other tasks**
-    - Use the query parameter hook to manage the current page key for the experiences that you are on
-      - As you iterate through DynamoDB pages, you should push them into the zustand state and remember how many pages that the client has already visited and allow them to go back to them
-    - Use the query parameter hook to ingest locations from which guests come and visit your website
-    - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
-    - We could bring in some of the abstract-server project to nx by using the go plugin
-      - https://github.com/nx-go/nx-go
+- **Other tasks**
+  - Use the query parameter hook to manage the current page key for the experiences that you are on
+    - As you iterate through DynamoDB pages, you should push them into the zustand state and remember how many pages that the client has already visited and allow them to go back to them
+  - Use the query parameter hook to ingest locations from which guests come and visit your website
+  - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
+  - We could bring in some of the abstract-server project to nx by using the go plugin
+    - https://github.com/nx-go/nx-go
 
 ## Principles
 
