@@ -8,6 +8,7 @@
       "dependsOn": [
         {
           "projects": [
+            "authentication-service",
             "experience-service",
             "authorizer-service",
             "contact-service"

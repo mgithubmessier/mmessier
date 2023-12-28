@@ -104,6 +104,21 @@ resource "aws_apigatewayv2_route" "contact_service_POST" {
   authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
 }
 
+# Authentication Service Integration and route declaration
+resource "aws_apigatewayv2_integration" "authentication_service" {
+  api_id = aws_apigatewayv2_api.api_gateway.id
+
+  integration_uri    = aws_lambda_function.authentication_service.invoke_arn
+  integration_type   = "AWS_PROXY"
+  integration_method = "POST"
+}
+
+resource "aws_apigatewayv2_route" "authentication_service_POST" {
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "POST /authenticate"
+  target    = "integrations/${aws_apigatewayv2_integration.authentication_service.id}"
+}
+
 resource "aws_cloudwatch_log_group" "api_gw" {
   name = "/aws/api_gw/${aws_apigatewayv2_api.api_gateway.name}"
 
@@ -134,6 +149,15 @@ resource "aws_lambda_permission" "allow_contact_service_execution" {
   statement_id  = "AllowExecutionFromAPIGateway_ContactService"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.contact_service.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "allow_authentication_service_execution" {
+  statement_id  = "AllowExecutionFromAPIGateway_AuthenticationService"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.authentication_service.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"

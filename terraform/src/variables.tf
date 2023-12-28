@@ -24,3 +24,7 @@ variable "SENDGRID_SINGLE_SENDER_EMAIL" {
   type = string
 }
 
+variable "AUTHENTICATION_JWT_SECRET" {
+  type = string
+}
+

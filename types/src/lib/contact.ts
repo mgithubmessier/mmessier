@@ -16,5 +16,5 @@ export type ContactPostRequest = {
   contact: Contact;
 };
 export type ContactPostResponse = BasePostResponse & {
-  contact: Contact;
+  contact?: Contact;
 };

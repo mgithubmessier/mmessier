@@ -1,5 +1,9 @@
 import { Experience, ExperienceGetResponse } from '@mmessier/types';
-import { Handler, APIGatewayEvent, APIGatewayProxyCallback } from 'aws-lambda';
+import {
+  Handler,
+  APIGatewayEvent,
+  APIGatewayProxyCallbackV2,
+} from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 import { isNumber, omit } from 'lodash';
 
@@ -13,7 +17,7 @@ type DynamoExperience = Experience & {
 export const handler: Handler = async (
   event: APIGatewayEvent,
   _,
-  callback: APIGatewayProxyCallback
+  callback: APIGatewayProxyCallbackV2
 ) => {
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
 

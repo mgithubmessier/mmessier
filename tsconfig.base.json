@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mmessier/authentication-service": [
+        "authentication-service/src/index.ts"
+      ],
       "@mmessier/authorizer-service": ["authorizer-service/src/index.ts"],
       "@mmessier/contact-service": ["contact-service/src/index.ts"],
       "@mmessier/experience-service": ["experience-service/src/index.ts"],

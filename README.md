@@ -8,14 +8,6 @@
 
 ## Application TODOs
 
-- In general, the app will block you from being able to perform any imperative (based off a user interaction with a web component) HTTP requests until you sign in
-- This means we should have some sort of AuthenticationWrapper component that wraps and blocks things like:
-  - the contact form until the individual authenticates with a supported form of SSO
-  - the paginator on the experiences page
-- Determine how you want to retrieve the client's IP responsibly and freely, ideally there is a well-known company that offers a free API
-  - Cloudflare is an option, but it returns plain text
-    - https://www.cloudflare.com/cdn-cgi/trace
-  - Maybe one of the SSO Providers will give that to us as well
 - Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
 - Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
 - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
@@ -23,9 +15,17 @@
 
   - Can we do something like `api.matthewmessier.com`?
 
-- **SSO Service**
+- **Authentication Service**
 
-  - handles Google, LinkedIn, or Github SSO
+  - This lambda accepts an unauthenticated request with an IP address as its payload
+
+- **Authentication Service TODO**
+
+  - The nextjs app should also validate that the request header's IP matches the one attached in the body prior to firing the request to the lambda
+  - We need to have a shared function in another library with the logic to verify the contents of the JWT in other services
+    - This is because we do not want to re-invoke the authentication lambda simply because of separation of concerns
+    - Only the Contact Service needs to implement this because it is a request that must be fired from cient components and cannot be hidden from view
+    - We may also need to do this for paginating the experience contents, so we may scrap the whole concept of pre-rendering the experiences in general
 
 - **Contact Service**
 

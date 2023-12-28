@@ -4,19 +4,50 @@ import { styles as layoutStyles } from './styles.client';
 import { QueryParameterProvider } from '@mmessier/use-query-parameters';
 
 import { useStyles } from './hooks/useStyles';
-import { IconButton, Paper, Typography } from '@mui/material';
+import { CircularProgress, IconButton, Paper, Typography } from '@mui/material';
 import { Navbar } from './components/Navbar/Navbar';
 import { DriftingShapesClient } from './components/DriftingShapes/DriftingShapes.client';
 import { GitHub, LinkedIn } from '@mui/icons-material';
 import Image from 'next/image';
+import { useAuthorizationState } from './zustand/AuthorizationState/AuthorizationState';
+import { useEffect } from 'react';
+import {
+  AuthenticationPostRequest,
+  AuthenticationPostResponse,
+} from '@mmessier/types';
 
 type LayoutClientProps = {
   children: React.ReactNode;
   commitHash?: string;
+  ip: string;
 };
 
-export const LayoutClient = ({ children, commitHash }: LayoutClientProps) => {
+export const LayoutClient = ({
+  children,
+  commitHash,
+  ip,
+}: LayoutClientProps) => {
+  const authorizationState = useAuthorizationState();
   const styles = useStyles(layoutStyles);
+
+  useEffect(() => {
+    const asyncFunc = async () => {
+      const body: AuthenticationPostRequest = {
+        ip,
+      };
+      const response = await fetch('/api/authenticate', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      const responseBody: AuthenticationPostResponse = await response.json();
+      if (responseBody.token) {
+        authorizationState.setToken(responseBody.token);
+      }
+    };
+    if (!authorizationState.token && ip) {
+      asyncFunc();
+    }
+  }, [authorizationState.token, ip]);
 
   return (
     <body style={styles.static?.body}>
@@ -35,7 +66,15 @@ export const LayoutClient = ({ children, commitHash }: LayoutClientProps) => {
             <Typography variant="h1">Matthew Messier</Typography>
           </div>
           <Navbar />
-          <Paper style={styles.static?.childContainer}>{children}</Paper>
+          <Paper style={styles.static?.childContainer}>
+            {!authorizationState.token ? (
+              <div style={styles.static?.loadingContainer}>
+                <CircularProgress size="4rem" />
+              </div>
+            ) : (
+              children
+            )}
+          </Paper>
           <div style={styles.static?.platformIconContainer}>
             <a
               target="_blank"
