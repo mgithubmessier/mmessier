@@ -7,14 +7,8 @@ import {
   APIGatewayProxyCallbackV2,
   Handler,
 } from 'aws-lambda';
-import {
-  sign,
-  // verify
-} from 'jsonwebtoken';
-
-const isValidIP = (ip: string) => {
-  return Boolean(ip.match(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/));
-};
+import { sign } from 'jsonwebtoken';
+import { isValidIP } from '@mmessier/service-utilities';
 
 const createJWTSessionToken = (ip: string, secret: string) => {
   if (secret) {
@@ -31,24 +25,6 @@ const createJWTSessionToken = (ip: string, secret: string) => {
   }
   throw new Error('The server encountered a problem signing your request');
 };
-
-// const verifyJWTSessionToken = (token: string, ip: string, secret: string) => {
-//   if (token && process.env.mmessierNextJSJWTSecret) {
-//     let decoded;
-//     try {
-//       decoded = verify(token, configuration.mmessierNextJSJWTSecret);
-//     } catch (e) {
-//       throw new Error('The server could not verify your request');
-//     }
-//     if (typeof decoded !== 'string') {
-//       if (ip === decoded.sub && isValidIP(decoded.sub || '')) {
-//         return true;
-//       }
-//       throw new Error('The request is invalid');
-//     }
-//   }
-//   throw new Error('The server encountered a problem verifying your request');
-// };
 
 export const handler: Handler = async (
   event: APIGatewayEvent,

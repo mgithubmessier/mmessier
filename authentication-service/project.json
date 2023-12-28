@@ -19,6 +19,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "external": "none",
         "outputPath": "dist/authentication-service",
         "main": "authentication-service/src/index.ts",
         "tsConfig": "authentication-service/tsconfig.lib.json"

@@ -26,7 +26,6 @@ export const ContactFormClient = () => {
   });
 
   const onSubmit = async (formData: ContactPostRequest) => {
-    console.log(formData);
     try {
       const response = await fetch('api/contact', {
         method: 'POST',
