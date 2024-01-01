@@ -13,5 +13,19 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     button: {
       marginTop: spacingLevel(2, breakpoint),
     },
+    nameContainer: {
+      display: 'flex',
+      flexDirection: [Breakpoint.SMALL, Breakpoint.MEDIUM].includes(breakpoint)
+        ? 'column'
+        : 'row',
+    },
+    firstNameField: {
+      flex: 1,
+      marginRight: spacingLevel(0.5, breakpoint),
+    },
+    lastNameField: {
+      flex: 1,
+      marginLeft: spacingLevel(0.5, breakpoint),
+    },
   },
 });

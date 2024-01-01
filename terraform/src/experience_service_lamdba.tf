@@ -9,7 +9,6 @@ data "archive_file" "experience_service" {
 
   source_dir  = "${path.module}/../../dist/experience-service"
   output_path = "${path.module}/../../dist/experience-service.zip"
-  excludes    = ["authorizer"]
 }
 
 resource "aws_s3_object" "experience_service" {
@@ -59,7 +58,7 @@ resource "aws_iam_role" "experience_service_lambda_exec" {
   })
 }
 
-# provides the experience service lambda with dynamo access
+# provides the lambda with dynamo access
 resource "aws_iam_policy" "experience_service_dynamodb_policy" {
   name        = "dynamodb-matthewmessier.com-experiences"
   path        = "/"
@@ -71,7 +70,7 @@ resource "aws_iam_policy" "experience_service_dynamodb_policy" {
       {
         Action   = ["dynamodb:Scan", "dynamodb:Query"]
         Effect   = "Allow"
-        Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com-experiences"
+        Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com"
       }
     ]
   })
@@ -82,7 +81,7 @@ resource "aws_iam_role_policy_attachment" "experience_service_dynamodb_policy" {
   policy_arn = aws_iam_policy.experience_service_dynamodb_policy.arn
 }
 
-# provides the experience service lambda with cloudwatch access
+# provides the lambda with cloudwatch access
 resource "aws_iam_policy" "experience_service_cloudwatch_policy" {
   name        = "cloudwatch-matthewmessier.com-experience-service"
   path        = "/"

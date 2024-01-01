@@ -4,19 +4,52 @@ import { styles as layoutStyles } from './styles.client';
 import { QueryParameterProvider } from '@mmessier/use-query-parameters';
 
 import { useStyles } from './hooks/useStyles';
-import { IconButton, Paper, Typography } from '@mui/material';
+import {
+  Alert,
+  CircularProgress,
+  IconButton,
+  Paper,
+  Snackbar,
+  Typography,
+} from '@mui/material';
 import { Navbar } from './components/Navbar/Navbar';
 import { DriftingShapesClient } from './components/DriftingShapes/DriftingShapes.client';
 import { GitHub, LinkedIn } from '@mui/icons-material';
 import Image from 'next/image';
+import { useAuthorizationState } from './zustand/AuthorizationState/AuthorizationState';
+import { useEffect } from 'react';
+import { AuthenticationPostResponse } from '@mmessier/types';
+import { useSnackbarState } from './zustand/SnackbarState/SnackbarState';
 
 type LayoutClientProps = {
   children: React.ReactNode;
   commitHash?: string;
+  ip: string;
 };
 
-export const LayoutClient = ({ children, commitHash }: LayoutClientProps) => {
+export const LayoutClient = ({
+  children,
+  commitHash,
+  ip,
+}: LayoutClientProps) => {
+  const snackbarState = useSnackbarState();
+  const authorizationState = useAuthorizationState();
   const styles = useStyles(layoutStyles);
+
+  useEffect(() => {
+    const asyncFunc = async () => {
+      const response = await fetch('/api/authenticate', {
+        method: 'POST',
+      });
+      const responseBody: AuthenticationPostResponse = await response.json();
+      if (responseBody.token) {
+        authorizationState.setToken(responseBody.token);
+      }
+    };
+    if (!authorizationState.token && ip) {
+      asyncFunc();
+    }
+  }, [authorizationState.token, ip]);
 
   return (
     <body style={styles.static?.body}>
@@ -35,7 +68,15 @@ export const LayoutClient = ({ children, commitHash }: LayoutClientProps) => {
             <Typography variant="h1">Matthew Messier</Typography>
           </div>
           <Navbar />
-          <Paper style={styles.static?.childContainer}>{children}</Paper>
+          <Paper style={styles.static?.childContainer}>
+            {!authorizationState.token ? (
+              <div style={styles.static?.loadingContainer}>
+                <CircularProgress size="4rem" />
+              </div>
+            ) : (
+              children
+            )}
+          </Paper>
           <div style={styles.static?.platformIconContainer}>
             <a
               target="_blank"
@@ -56,6 +97,11 @@ export const LayoutClient = ({ children, commitHash }: LayoutClientProps) => {
           </div>
         </div>
       </QueryParameterProvider>
+      <Snackbar open={snackbarState.open}>
+        <Alert severity={snackbarState.variant || 'success'}>
+          {snackbarState.message}
+        </Alert>
+      </Snackbar>
     </body>
   );
 };

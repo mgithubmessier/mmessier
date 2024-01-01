@@ -1,6 +1,6 @@
 import { basicStyles } from './styles';
 import { Metadata } from 'next';
-import { ContactForm } from './components/ContactForm/ContactForm.client';
+import { ContactForm } from './components/ContactForm/ContactForm';
 import { About } from './components/About/About';
 
 export const metadata: Metadata = {

@@ -1,18 +1,27 @@
 import { Experience, ExperienceGetResponse } from '@mmessier/types';
-import { Handler, APIGatewayEvent, APIGatewayProxyCallback } from 'aws-lambda';
+import {
+  Handler,
+  APIGatewayEvent,
+  APIGatewayProxyCallbackV2,
+} from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
-import { isNumber } from 'lodash';
+import { isNumber, omit } from 'lodash';
 
 const PAGE_LIMIT = 20;
+
+type DynamoExperience = Experience & {
+  sortedUniqueId: string; // startDate
+  entityName: string; // "experience"
+};
 
 export const handler: Handler = async (
   event: APIGatewayEvent,
   _,
-  callback: APIGatewayProxyCallback
+  callback: APIGatewayProxyCallbackV2
 ) => {
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
 
-  const tableName = 'matthewmessier.com-experiences';
+  const tableName = 'matthewmessier.com';
   const dynamodb = new DynamoDB({ apiVersion: '2012-08-10' });
   let nextPageKey: DynamoDB.Key | undefined;
   try {
@@ -22,19 +31,19 @@ export const handler: Handler = async (
           {
             TableName: tableName,
             ExpressionAttributeNames: {
-              '#uuidName': 'uuid',
-              '#startDateName': 'startDate',
+              '#entityName': 'entityName',
+              '#sortedUniqueIdName': 'sortedUniqueId',
             },
             ExpressionAttributeValues: {
-              ':uuidValue': {
-                S: `matthewmessier.com-experiences`,
+              ':entityNameValue': {
+                S: `experience`,
               },
-              ':startDateValue': {
+              ':sortedUniqueIdValue': {
                 S: event.pathParameters?.['experienceID'],
               },
             },
             KeyConditionExpression:
-              '#uuidName = :uuidValue AND #startDateName = :startDateValue',
+              '#entityName = :entityNameValue AND #sortedUniqueIdName = :sortedUniqueIdValue',
             Limit: 1,
           },
           (error, data) => {
@@ -44,8 +53,13 @@ export const handler: Handler = async (
               if (data.Items?.length) {
                 const experience = DynamoDB.Converter.unmarshall(
                   data.Items[0]
-                ) as Experience;
-                resolve([experience]);
+                ) as DynamoExperience;
+                resolve([
+                  {
+                    ...omit(experience, ['sortedUniqueId']),
+                    startDate: experience.sortedUniqueId,
+                  },
+                ]);
               } else {
                 resolve([]);
               }
@@ -61,6 +75,7 @@ export const handler: Handler = async (
               Buffer.from(base64PageKey, 'base64').toString('utf-8')
             );
           } catch (e) {
+            console.log(`Error: ${JSON.stringify(e, null, 2)}`);
             return reject(
               new Error('Could not parse pageKey from query parameters')
             );
@@ -80,19 +95,19 @@ export const handler: Handler = async (
           {
             TableName: tableName,
             ExpressionAttributeNames: {
-              '#startDateName': 'startDate',
-              '#uuidName': 'uuid',
+              '#sortedUniqueIdName': 'sortedUniqueId',
+              '#entityName': 'entityName',
             },
             ExpressionAttributeValues: {
-              ':startDateValue': {
+              ':sortedUniqueIdValue': {
                 S: new Date().toISOString(),
               },
-              ':uuidValue': {
-                S: 'matthewmessier.com-experiences',
+              ':entityNameValue': {
+                S: 'experience',
               },
             },
             KeyConditionExpression:
-              '#startDateName <= :startDateValue AND #uuidName = :uuidValue',
+              '#sortedUniqueIdName <= :sortedUniqueIdValue AND #entityName = :entityNameValue',
             ScanIndexForward: false,
             Limit: numberLimit,
             ExclusiveStartKey: pageKey,
@@ -104,8 +119,11 @@ export const handler: Handler = async (
               data.Items?.forEach(function (item) {
                 const experience = DynamoDB.Converter.unmarshall(
                   item
-                ) as Experience;
-                experiences.push(experience);
+                ) as DynamoExperience;
+                experiences.push({
+                  ...omit(experience, ['sortedUniqueId']),
+                  startDate: experience.sortedUniqueId,
+                });
               });
               nextPageKey = data.LastEvaluatedKey;
               resolve(experiences);
@@ -129,6 +147,7 @@ export const handler: Handler = async (
       body: JSON.stringify(response),
     });
   } catch (e) {
+    console.log(`Error: ${JSON.stringify(e, null, 2)}`);
     const error: Error = e as Error;
     callback(null, {
       statusCode: 500,

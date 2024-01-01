@@ -60,6 +60,12 @@ export const styles: Style = (breakpoint: Breakpoint) => {
         flex: 1,
         zIndex: 2,
       },
+      loadingContainer: {
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
       platformIconContainer: {
         display: 'flex',
         alignItems: 'center',

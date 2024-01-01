@@ -1,4 +1,4 @@
-const UseQueryParametersDemo = () => {
+const Page = () => {
   return null;
 };
-export default UseQueryParametersDemo;
+export default Page;

@@ -15,7 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mmessier/authentication-service": [
+        "authentication-service/src/index.ts"
+      ],
+      "@mmessier/authorizer-service": ["authorizer-service/src/index.ts"],
+      "@mmessier/contact-service": ["contact-service/src/index.ts"],
       "@mmessier/experience-service": ["experience-service/src/index.ts"],
+      "@mmessier/service-utilities": ["service-utilities/src/index.ts"],
       "@mmessier/types": ["types/src/index.ts"],
       "@mmessier/use-query-parameters": ["use-query-parameters/src/index.ts"]
     }

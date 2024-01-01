@@ -1,0 +1,30 @@
+{
+  "name": "service-utilities",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "service-utilities/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "service-utilities/jest.config.ts"
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/service-utilities",
+        "main": "service-utilities/src/index.ts",
+        "tsConfig": "service-utilities/tsconfig.lib.json",
+        "assets": ["service-utilities/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

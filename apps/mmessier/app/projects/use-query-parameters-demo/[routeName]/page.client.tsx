@@ -11,6 +11,7 @@ import {
 
 import { styles as uqpdStyles } from './style';
 import { useStyles } from '../../../hooks/useStyles';
+import { ReactNode } from 'react';
 
 type UseQueryParametersDemoRouteClientProps = {
   formName: string;

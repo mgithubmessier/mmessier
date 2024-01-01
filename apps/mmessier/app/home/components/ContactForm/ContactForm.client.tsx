@@ -1,21 +1,17 @@
 'use client';
 
-import { Button, IconButton, Typography } from '@mui/material';
+import { ContactPostRequest, ContactPostResponse } from '@mmessier/types';
+import { Send } from '@mui/icons-material';
+import { Button, Typography } from '@mui/material';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+
 import { useStyles } from '../../../hooks/useStyles';
 import { styles as contactFormStyles } from './styles.client';
 import { useYupResolver } from '../../../hooks/useYupResolver';
-import * as yup from 'yup';
-import { phoneNumberValidator } from '../../../utilities/yup';
-import { useForm } from 'react-hook-form';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
-import { Send } from '@mui/icons-material';
-
-type FormData = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  message: string;
-};
+import { useAuthorizationState } from '../../../zustand/AuthorizationState/AuthorizationState';
+import { useSnackbarState } from '../../../zustand/SnackbarState/SnackbarState';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -24,15 +20,43 @@ const schema = yup.object({
   message: yup.string().required(),
 });
 
-export const ContactForm = () => {
+export const ContactFormClient = () => {
+  const snackbarState = useSnackbarState();
+  const authorizationState = useAuthorizationState();
   const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<ContactPostRequest>({
     resolver,
   });
 
-  const onSubmit = (formData: FormData) => {
-    console.log(formData);
+  const onSubmit = async (formData: ContactPostRequest) => {
+    try {
+      const response = await fetch('api/contact', {
+        method: 'POST',
+        headers: {
+          authorization: authorizationState.token || '',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        const responseBody: ContactPostResponse = await response.json();
+        if (responseBody.error) {
+          throw new Error(responseBody.error);
+        }
+        throw new Error('Encountered error trying to contact');
+      }
+      snackbarState.setOpen({
+        message: 'Successfully sent contact information',
+        timeoutMS: 6000,
+        variant: 'success',
+      });
+    } catch (e) {
+      snackbarState.setOpen({
+        message: 'Failed to send contact information',
+        timeoutMS: 6000,
+        variant: 'error',
+      });
+    }
   };
 
   return (
@@ -46,20 +70,28 @@ export const ContactForm = () => {
         type="email"
         containerStyle={styles.static?.inputContainer}
       />
-      <RHFTextField
-        control={control}
-        name="firstName"
-        label="First Name"
-        containerStyle={styles.static?.inputContainer}
-        required
-      />
-      <RHFTextField
-        control={control}
-        name="lastName"
-        label="Last Name"
-        containerStyle={styles.static?.inputContainer}
-        required
-      />
+      <div style={styles.static?.nameContainer}>
+        <RHFTextField
+          control={control}
+          name="firstName"
+          label="First Name"
+          containerStyle={{
+            ...styles.static?.inputContainer,
+            ...styles.static?.firstNameField,
+          }}
+          required
+        />
+        <RHFTextField
+          control={control}
+          name="lastName"
+          label="Last Name"
+          containerStyle={{
+            ...styles.static?.inputContainer,
+            ...styles.static?.lastNameField,
+          }}
+          required
+        />
+      </div>
       <RHFTextField
         control={control}
         name="message"

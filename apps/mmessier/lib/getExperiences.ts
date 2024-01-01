@@ -3,9 +3,6 @@ import { configuration } from '../configuration/configuration';
 import { notFound } from 'next/navigation';
 import queryString from 'query-string';
 
-const headers = new Headers();
-headers.set('authorization', configuration.experienceAPIKey || '');
-
 export const getExperiences = async (
   limit = 5
 ): Promise<ExperienceGetResponse | undefined> => {
@@ -14,7 +11,9 @@ export const getExperiences = async (
       limit,
     })}`,
     {
-      headers,
+      headers: {
+        Authorization: configuration.authorizerAPIKey || '',
+      },
       next: { revalidate: 60 },
     }
   );
@@ -23,7 +22,7 @@ export const getExperiences = async (
     if (errorResponse?.error) {
       throw new Error(errorResponse?.error);
     }
-    throw new Error('Server error');
+    throw new Error(`Server error: ${JSON.stringify(errorResponse)}`);
   }
 
   return response.json();
@@ -35,7 +34,9 @@ export const getExperience = async (
   const response = await fetch(
     `${configuration.mmessierAPIHost}/experiences/${experienceID}`,
     {
-      headers,
+      headers: {
+        Authorization: configuration.authorizerAPIKey || '',
+      },
       next: { revalidate: 60 },
     }
   );

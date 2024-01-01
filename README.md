@@ -3,34 +3,37 @@
 ## Summary
 
 - This is a react monorepo where I'll be:
-  - Publishing npm modules for anyone's use
   - Managing personal web application projects
   - Building up highly extensible component libraries
 
 ## Application TODOs
 
-- mmessier
+- Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
+- Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
+- We want a custom domain name that allows us to have APIs to be hit from it
 
-  - APIs to enable
+  - Can we do something like `api.matthewmessier.com`?
 
-    - Decide on an API to send emails to yourself containing the sender email and the content of their message, then set up a lambda that can execute that
-      - Throttle that lambda
-    - ChatGPT Lambda
-      - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
-      - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
+- **For projects tab**
 
-  - For projects
+  - could add the drifting shapes animation in the background, maybe separate it out into its own library
+    - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors and shapes they want to use in a sub-view
+  - use query parameter hook
+    - clean up this form a bit to be a clearer walkthrough
 
-    - could add the drifting shapes animation in the background, maybe separate it out into its own library
-      - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors they want to use in a sub-view
-    - use query parameter hook
-      - clean up this form a bit to be a clearer walkthrough
+- **GenAI Service**
 
-  - Other tasks:
-    - Use the query parameter hook to manage the current page key for the experiences that you are on
-      - As you iterate through DynamoDB pages, you should push them into the zustand state and remember how many pages that the client has already visited and allow them to go back to them
-    - Use the query parameter hook to ingest locations from which guests come and visit your website
-    - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
+  - ChatGPT Lambda
+    - Hit ChatGPT on landing of each page and stream the response in real time to the UI asking it to summarize the contents on the experience
+    - Make sure to put a throttle on your API token here through OpenAI if they offer that in case some bad actor keeps reloading your page -- cap it at like a dollar per month or something super low
+
+- **Other tasks**
+  - Use the query parameter hook to manage the current page key for the experiences that you are on
+    - As you iterate through DynamoDB pages, you should push them into the zustand state and remember how many pages that the client has already visited and allow them to go back to them
+  - Use the query parameter hook to ingest locations from which guests come and visit your website
+  - It may be interesting to personalize the experience of the site in some way based on the location the user came from, or have a database or serve that gets incremented based on the source
+  - We could bring in some of the abstract-server project to nx by using the go plugin
+    - https://github.com/nx-go/nx-go
 
 ## Principles
 
@@ -40,7 +43,10 @@
   - UI
     - /component/component.client.tsx
   - DataAccess
-    - /lib/entity.ts
+    - /api/route.ts
+    - Some GET requests should not be put behind these routes, specifically the ones we are using to statically render server-side components
+      - This is because we cannot make requests to the app we are building itself
+      - So in those cases, we hit the API directly from the server side component and not through the next js api routes itself
 
 ## Next.js Gotchas
 
@@ -51,8 +57,34 @@
 ## Service Layer
 
 - Currently we are using an API Gateway with a custom lambda authorizer which authenticates the requests to our experience service lambda, the experience service lambda then access dynamodb and return the contents of the requested experiences
-- The following AWS diagram generally depicts the patter
+- The following AWS diagram generally depicts the pattern
+
   - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
+
+- **Authentication Service**
+
+  - This lambda accepts an unauthenticated request with an IP address that is automatically filled into the `x-forwarded-for` header
+  - it then generates a JWT token for use that is associated with that IP address and expires after 30 minutes
+
+- **Authorization Service**
+
+  - This lambda accepts either the `AUTHORIZER_API_KEY` or a valid JWT generated by the Authentication Service in order to pass authentication
+
+- **Experience Service**
+
+  - Uses the static API key for authentication instead of a JWT
+  - This is so that the server can statically render experiences so that no additional requests need to be made
+
+- **Contact Service**
+
+  - Uses sendgrid's API since they allow up to 100 free emails / day
+  - Requirements of the service:
+    - Sends an email to my personal email account with the message and contact information of the person reaching out
+    - TODO
+      - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
+      - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
+      - Add a character limit on the email that is in line with the costs of whatever email service you go with
+      - Sanitize any potential malicious content within text fields
 
 ### Service Layer Future
 
@@ -63,17 +95,16 @@
 ## Database Layer
 
 - DynamoDB is the cheapest way to pull off my currect way of doing things
-- We want to be using the `Query` operation, not the `Scan` operation, due to the difference in compute and expense
-- The difficulty is that `Query` requires that we always input a matching `Partition key`, and we cannot leverage the `Sort key` independently on a `Query`
-- The current setup is the following:
-  - A single Partition Key like, called `uuid` which share the name `matthewmessier.com-experiences`
-  - Many different Sort Keys `startDate`
+- Always use the `Query` operation over the `Scan` operation, due to the difference in compute and expense
+- The current DynamoDB schema is as follows:
+  - A single Partition Key like, called `entityName`
+    - ex.) for experience service, this is `"experience"`
+  - Many different Sort Keys `sortedUniqueId`
+    - ex.) for experience service, this is an ISO date representing the start date of each experience `"2023-12-24T00:00:00.000Z"`
 
 ### Database Layer Future
 
-- Change the data column names and the name of the database itself for clarity
-  - `uuid` -> `entityName`
-  - `matthewmessier.com-experiences` -> `matthewmessier.com`
+- Get the schema for the DynamoDB table stored in a terraform file and associate it with the other existing scripts instead of hardcoding its ARN
 
 ## App Deployment
 
