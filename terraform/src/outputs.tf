@@ -9,7 +9,3 @@ output "stage_url" {
 
   value = aws_apigatewayv2_stage.api_gateway.invoke_url
 }
-
-output "AUTHORIZER_API_KEY" {
-  value = var.AUTHORIZER_API_KEY
-}

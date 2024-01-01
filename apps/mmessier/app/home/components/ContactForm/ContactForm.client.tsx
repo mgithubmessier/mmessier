@@ -10,6 +10,7 @@ import { useStyles } from '../../../hooks/useStyles';
 import { styles as contactFormStyles } from './styles.client';
 import { useYupResolver } from '../../../hooks/useYupResolver';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
+import { useAuthorizationState } from '../../../zustand/AuthorizationState/AuthorizationState';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -19,6 +20,7 @@ const schema = yup.object({
 });
 
 export const ContactFormClient = () => {
+  const authorizationState = useAuthorizationState();
   const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
   const { control, handleSubmit } = useForm<ContactPostRequest>({
@@ -29,6 +31,9 @@ export const ContactFormClient = () => {
     try {
       const response = await fetch('api/contact', {
         method: 'POST',
+        headers: {
+          authorization: authorizationState.token || '',
+        },
         body: JSON.stringify(formData),
       });
       if (!response.ok) {

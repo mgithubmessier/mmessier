@@ -4,17 +4,14 @@ import { BreakpointListener } from './components/BreakpointListener/BreakpointLi
 import { LayoutClient } from './layout.client';
 import { configuration } from '../configuration/configuration';
 
-import { headers } from 'next/headers';
+import { getClientIPAddress } from './utilities/ip';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const ip =
-    process.env.NODE_ENV === 'development'
-      ? '121.0.0.1'
-      : headers().get('x-forwarded-for') || '';
+  const ip = getClientIPAddress();
 
   return (
     <ThemeProvider theme={theme}>

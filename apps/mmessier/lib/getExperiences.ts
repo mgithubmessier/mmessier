@@ -11,9 +11,9 @@ export const getExperiences = async (
       limit,
     })}`,
     {
-      headers: {
-        Authorization: configuration.authorizerAPIKey || '',
-      },
+      // headers: {
+      //   Authorization: configuration.authorizerAPIKey || '',
+      // },
       next: { revalidate: 60 },
     }
   );
@@ -34,9 +34,9 @@ export const getExperience = async (
   const response = await fetch(
     `${configuration.mmessierAPIHost}/experiences/${experienceID}`,
     {
-      headers: {
-        Authorization: configuration.authorizerAPIKey || '',
-      },
+      // headers: {
+      //   Authorization: configuration.authorizerAPIKey || '',
+      // },
       next: { revalidate: 60 },
     }
   );

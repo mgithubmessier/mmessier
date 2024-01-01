@@ -19,6 +19,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "external": "none",
         "outputPath": "dist/authorizer-service",
         "main": "authorizer-service/src/index.ts",
         "tsConfig": "authorizer-service/tsconfig.lib.json"

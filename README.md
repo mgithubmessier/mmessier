@@ -27,6 +27,10 @@
     - Only the Contact Service needs to implement this because it is a request that must be fired from cient components and cannot be hidden from view
     - We may also need to do this for paginating the experience contents, so we may scrap the whole concept of pre-rendering the experiences in general
 
+- **Experience Service**
+
+  - Add authorizer API to this and authenticate via a different means with maybe a different authorizing lambda where it just checks the secret like before, instead of parsing and checking an authentication JWT like the existing one
+
 - **Contact Service**
 
   - Uses sendgrid's API since they allow up to 100 free emails / day

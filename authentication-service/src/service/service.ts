@@ -1,7 +1,4 @@
-import {
-  AuthenticationPostRequest,
-  AuthenticationPostResponse,
-} from '@mmessier/types';
+import { AuthenticationPostResponse } from '@mmessier/types';
 import {
   APIGatewayEvent,
   APIGatewayProxyCallbackV2,
@@ -36,8 +33,10 @@ export const handler: Handler = async (
 
   try {
     if (event.httpMethod.toUpperCase() === 'POST') {
-      const auth: AuthenticationPostRequest = JSON.parse(event.body);
-      const token = createJWTSessionToken(auth.ip, secret);
+      const token = createJWTSessionToken(
+        event.headers['X-Forwarded-For'],
+        secret
+      );
       const response: AuthenticationPostResponse = {
         token,
       };

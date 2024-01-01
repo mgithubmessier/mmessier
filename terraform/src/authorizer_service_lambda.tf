@@ -36,7 +36,7 @@ resource "aws_lambda_function" "authorizer_service" {
   role = aws_iam_role.authorizer_service_lambda_exec.arn
   environment {
     variables = {
-      AUTHORIZER_API_KEY = var.AUTHORIZER_API_KEY
+      AUTHENTICATION_JWT_SECRET = var.AUTHENTICATION_JWT_SECRET
     }
   }
 }

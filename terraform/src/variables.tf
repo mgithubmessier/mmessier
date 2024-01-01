@@ -7,11 +7,6 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-variable "AUTHORIZER_API_KEY" {
-  type        = string
-  description = "This is the API key that is used as the authorizer lambda"
-}
-
 variable "SENDGRID_SENDER_API_KEY" {
   type = string
 }

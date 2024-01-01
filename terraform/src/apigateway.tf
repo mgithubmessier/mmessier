@@ -30,8 +30,8 @@ resource "aws_apigatewayv2_stage" "api_gateway" {
 
   # these are pretty brutal limits, but I just want to make sure this API never gets abused
   default_route_settings {
-    throttling_burst_limit = 10
-    throttling_rate_limit  = 10
+    throttling_burst_limit = 3
+    throttling_rate_limit  = 3
   }
 
   access_log_settings {
@@ -72,19 +72,15 @@ resource "aws_apigatewayv2_integration" "experience_service" {
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GETALL" {
-  api_id             = aws_apigatewayv2_api.api_gateway.id
-  authorization_type = "CUSTOM"
-  route_key          = "GET /experiences/list"
-  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "GET /experiences/list"
+  target    = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GET" {
-  api_id             = aws_apigatewayv2_api.api_gateway.id
-  authorization_type = "CUSTOM"
-  route_key          = "GET /experiences/{experienceID}"
-  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "GET /experiences/{experienceID}"
+  target    = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
 }
 
 # Contact Service Integration and route declaration
