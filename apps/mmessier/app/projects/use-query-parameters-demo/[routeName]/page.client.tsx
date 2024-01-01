@@ -11,6 +11,7 @@ import {
 
 import { styles as uqpdStyles } from './style';
 import { useStyles } from '../../../hooks/useStyles';
+import { ReactNode } from 'react';
 
 type UseQueryParametersDemoRouteClientProps = {
   formName: string;
@@ -56,7 +57,7 @@ export const UseQueryParameterDemoRouteClient = ({
           variant="filled"
           style={styles.static?.select}
           value={queryParameters?.param2 || []}
-          onChange={(_, arg2: any) => {
+          onChange={(_, arg2: ReactNode) => {
             const value: string = arg2.props.value;
             const index = param2.indexOf(value);
             if (index > -1) {

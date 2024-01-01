@@ -18,7 +18,7 @@
 - **For projects tab**
 
   - could add the drifting shapes animation in the background, maybe separate it out into its own library
-    - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors they want to use in a sub-view
+    - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors and shapes they want to use in a sub-view
   - use query parameter hook
     - clean up this form a bit to be a clearer walkthrough
 
