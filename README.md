@@ -8,7 +8,6 @@
 
 ## Application TODOs
 
-- Add a validator for react-hook-form that detects: any links/ domains, javascript, or SQL
 - Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
 - Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
 - We want a custom domain name that allows us to have APIs to be hit from it

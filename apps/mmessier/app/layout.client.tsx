@@ -4,17 +4,22 @@ import { styles as layoutStyles } from './styles.client';
 import { QueryParameterProvider } from '@mmessier/use-query-parameters';
 
 import { useStyles } from './hooks/useStyles';
-import { CircularProgress, IconButton, Paper, Typography } from '@mui/material';
+import {
+  Alert,
+  CircularProgress,
+  IconButton,
+  Paper,
+  Snackbar,
+  Typography,
+} from '@mui/material';
 import { Navbar } from './components/Navbar/Navbar';
 import { DriftingShapesClient } from './components/DriftingShapes/DriftingShapes.client';
 import { GitHub, LinkedIn } from '@mui/icons-material';
 import Image from 'next/image';
 import { useAuthorizationState } from './zustand/AuthorizationState/AuthorizationState';
 import { useEffect } from 'react';
-import {
-  AuthenticationPostRequest,
-  AuthenticationPostResponse,
-} from '@mmessier/types';
+import { AuthenticationPostResponse } from '@mmessier/types';
+import { useSnackbarState } from './zustand/SnackbarState/SnackbarState';
 
 type LayoutClientProps = {
   children: React.ReactNode;
@@ -27,17 +32,14 @@ export const LayoutClient = ({
   commitHash,
   ip,
 }: LayoutClientProps) => {
+  const snackbarState = useSnackbarState();
   const authorizationState = useAuthorizationState();
   const styles = useStyles(layoutStyles);
 
   useEffect(() => {
     const asyncFunc = async () => {
-      const body: AuthenticationPostRequest = {
-        ip,
-      };
       const response = await fetch('/api/authenticate', {
         method: 'POST',
-        body: JSON.stringify(body),
       });
       const responseBody: AuthenticationPostResponse = await response.json();
       if (responseBody.token) {
@@ -95,6 +97,11 @@ export const LayoutClient = ({
           </div>
         </div>
       </QueryParameterProvider>
+      <Snackbar open={snackbarState.open}>
+        <Alert severity={snackbarState.variant || 'success'}>
+          {snackbarState.message}
+        </Alert>
+      </Snackbar>
     </body>
   );
 };

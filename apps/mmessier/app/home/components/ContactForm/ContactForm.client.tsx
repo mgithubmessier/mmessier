@@ -11,6 +11,7 @@ import { styles as contactFormStyles } from './styles.client';
 import { useYupResolver } from '../../../hooks/useYupResolver';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { useAuthorizationState } from '../../../zustand/AuthorizationState/AuthorizationState';
+import { useSnackbarState } from '../../../zustand/SnackbarState/SnackbarState';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -20,6 +21,7 @@ const schema = yup.object({
 });
 
 export const ContactFormClient = () => {
+  const snackbarState = useSnackbarState();
   const authorizationState = useAuthorizationState();
   const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
@@ -43,9 +45,17 @@ export const ContactFormClient = () => {
         }
         throw new Error('Encountered error trying to contact');
       }
+      snackbarState.setOpen({
+        message: 'Successfully sent contact information',
+        timeoutMS: 6000,
+        variant: 'success',
+      });
     } catch (e) {
-      const error = e as Error;
-      console.error('Encountered error submitting POST request', error);
+      snackbarState.setOpen({
+        message: 'Failed to send contact information',
+        timeoutMS: 6000,
+        variant: 'error',
+      });
     }
   };
 
