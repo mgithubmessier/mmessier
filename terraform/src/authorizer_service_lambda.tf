@@ -37,6 +37,7 @@ resource "aws_lambda_function" "authorizer_service" {
   environment {
     variables = {
       AUTHENTICATION_JWT_SECRET = var.AUTHENTICATION_JWT_SECRET
+      AUTHORIZER_API_KEY        = var.AUTHORIZER_API_KEY
     }
   }
 }

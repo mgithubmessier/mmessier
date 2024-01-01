@@ -72,15 +72,19 @@ resource "aws_apigatewayv2_integration" "experience_service" {
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GETALL" {
-  api_id    = aws_apigatewayv2_api.api_gateway.id
-  route_key = "GET /experiences/list"
-  target    = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  api_id             = aws_apigatewayv2_api.api_gateway.id
+  authorization_type = "CUSTOM"
+  route_key          = "GET /experiences/list"
+  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
 }
 
 resource "aws_apigatewayv2_route" "experience_service_GET" {
-  api_id    = aws_apigatewayv2_api.api_gateway.id
-  route_key = "GET /experiences/{experienceID}"
-  target    = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  api_id             = aws_apigatewayv2_api.api_gateway.id
+  authorization_type = "CUSTOM"
+  route_key          = "GET /experiences/{experienceID}"
+  target             = "integrations/${aws_apigatewayv2_integration.experience_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
 }
 
 # Contact Service Integration and route declaration

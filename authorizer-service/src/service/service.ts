@@ -17,13 +17,16 @@ export const handler: Handler = (
 
   if (event.type === 'REQUEST') {
     const authorization = event.identitySource[0];
+    if (authorization === process.env.AUTHORIZER_API_KEY) {
+      return callback(null, generatePolicy('user', 'Allow', event.routeArn));
+    }
     try {
       verifyJWTSessionToken(
         authorization,
         event.headers['x-forwarded-for'],
         process.env.AUTHENTICATION_JWT_SECRET
       );
-      callback(null, generatePolicy('user', 'Allow', event.routeArn));
+      return callback(null, generatePolicy('user', 'Allow', event.routeArn));
     } catch (e) {
       callback(null, generatePolicy('user', 'Deny', event.routeArn));
     }

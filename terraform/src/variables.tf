@@ -23,3 +23,7 @@ variable "AUTHENTICATION_JWT_SECRET" {
   type = string
 }
 
+variable "AUTHORIZER_API_KEY" {
+  type = string
+}
+
