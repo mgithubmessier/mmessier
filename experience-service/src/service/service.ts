@@ -75,7 +75,7 @@ export const handler: Handler = async (
               Buffer.from(base64PageKey, 'base64').toString('utf-8')
             );
           } catch (e) {
-            console.log(`Error: ${JSON.stringify(e, null, 2)}`);
+            console.error(`Error: ${JSON.stringify(e, null, 2)}`);
             return reject(
               new Error('Could not parse pageKey from query parameters')
             );
@@ -147,7 +147,7 @@ export const handler: Handler = async (
       body: JSON.stringify(response),
     });
   } catch (e) {
-    console.log(`Error: ${JSON.stringify(e, null, 2)}`);
+    console.error(`Error: ${JSON.stringify(e, null, 2)}`);
     const error: Error = e as Error;
     callback(null, {
       statusCode: 500,

@@ -46,7 +46,7 @@ export const handler: Handler = async (
       });
     }
   } catch (e) {
-    console.log(`Error: ${JSON.stringify(e, null, 2)}`);
+    console.error(`Error: ${JSON.stringify(e, null, 2)}`);
     const error: Error = e as Error;
     const response: AuthenticationPostResponse = {
       error: error.message,

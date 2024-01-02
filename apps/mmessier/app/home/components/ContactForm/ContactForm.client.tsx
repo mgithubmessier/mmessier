@@ -2,7 +2,7 @@
 
 import { ContactPostRequest, ContactPostResponse } from '@mmessier/types';
 import { Send } from '@mui/icons-material';
-import { Button, Typography } from '@mui/material';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 
@@ -12,6 +12,7 @@ import { useYupResolver } from '../../../hooks/useYupResolver';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { useAuthorizationState } from '../../../zustand/AuthorizationState/AuthorizationState';
 import { useSnackbarState } from '../../../zustand/SnackbarState/SnackbarState';
+import { useEffect, useState } from 'react';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -28,6 +29,35 @@ export const ContactFormClient = () => {
   const { control, handleSubmit } = useForm<ContactPostRequest>({
     resolver,
   });
+  const [loading, setLoading] = useState(true);
+  const [doesContactExist, setDoesContactExist] = useState(false);
+
+  useEffect(() => {
+    const asyncFunc = async () => {
+      try {
+        const response = await fetch('api/contact', {
+          method: 'GET',
+          headers: {
+            authorization: authorizationState.token || '',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Problem getting contact');
+        }
+        const body = await response.json();
+        setDoesContactExist(Boolean(body.contacts?.length));
+      } catch (e) {
+        snackbarState.setOpen({
+          message: 'Failed to retrieve existing contact information',
+          timeoutMS: 6000,
+          variant: 'error',
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    asyncFunc();
+  }, []);
 
   const onSubmit = async (formData: ContactPostRequest) => {
     try {
@@ -58,6 +88,25 @@ export const ContactFormClient = () => {
       });
     }
   };
+
+  if (loading) {
+    return (
+      <div style={styles.static?.container}>
+        <CircularProgress />
+      </div>
+    );
+  }
+  if (doesContactExist) {
+    return (
+      <div style={styles.static?.container}>
+        <Typography variant="h2">Contact</Typography>
+        <Typography style={styles.static?.text}>
+          Thank you for contacting me! I&apos;ll get back to as soon as
+          possible!
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div style={styles.static?.container}>

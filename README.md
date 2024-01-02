@@ -114,6 +114,7 @@
 
 ### Database Layer Future
 
+- https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/dynamodb/
 - Get the schema for the DynamoDB table stored in a terraform file and associate it with the other existing scripts instead of hardcoding its ARN
 
 ## App Deployment

@@ -104,6 +104,15 @@ resource "aws_apigatewayv2_route" "contact_service_POST" {
   authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
 }
 
+
+resource "aws_apigatewayv2_route" "contact_service_GET" {
+  api_id             = aws_apigatewayv2_api.api_gateway.id
+  authorization_type = "CUSTOM"
+  route_key          = "GET /contact"
+  target             = "integrations/${aws_apigatewayv2_integration.contact_service.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.authorizer.id
+}
+
 # Authentication Service Integration and route declaration
 resource "aws_apigatewayv2_integration" "authentication_service" {
   api_id = aws_apigatewayv2_api.api_gateway.id

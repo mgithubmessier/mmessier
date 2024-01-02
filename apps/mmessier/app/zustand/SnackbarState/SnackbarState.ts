@@ -35,7 +35,7 @@ export const useSnackbarState = create<SnackbarState>()(
         snackbarTimeout = setTimeout(() => {
           set(initialSnackbarState);
         }, timeoutMS);
-        return set({ open: true, message });
+        return set({ open: true, message, variant });
       },
     };
   })
