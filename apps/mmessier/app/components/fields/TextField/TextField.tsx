@@ -58,6 +58,7 @@ export const RHFTextField = ({ control, name, ...rest }: RHFTextFieldProps) => {
       onChange={field.onChange}
       error={Boolean(fieldState.error)}
       helperText={fieldState.error?.message}
+      value={field.value}
     />
   );
 };

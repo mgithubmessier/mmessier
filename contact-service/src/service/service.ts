@@ -44,6 +44,9 @@ const putContact = async (
       lastName: {
         S: contact.lastName,
       },
+      message: {
+        S: contact.message,
+      },
     };
     const input: PutItemInput = {
       TableName: 'matthewmessier.com',

@@ -1,6 +1,11 @@
 'use client';
 
-import { ContactPostRequest, ContactPostResponse } from '@mmessier/types';
+import {
+  Contact,
+  ContactGetResponse,
+  ContactPostRequest,
+  ContactPostResponse,
+} from '@mmessier/types';
 import { Send } from '@mui/icons-material';
 import { Button, CircularProgress, Typography } from '@mui/material';
 import * as yup from 'yup';
@@ -12,7 +17,7 @@ import { useYupResolver } from '../../../hooks/useYupResolver';
 import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { useAuthorizationState } from '../../../zustand/AuthorizationState/AuthorizationState';
 import { useSnackbarState } from '../../../zustand/SnackbarState/SnackbarState';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -20,47 +25,24 @@ const schema = yup.object({
   lastName: yup.string().required(),
   message: yup.string().required(),
 });
-
-export const ContactFormClient = () => {
+type ContactFormProps = {
+  contact: Contact | null;
+  setContact: Dispatch<SetStateAction<Contact | null>>;
+};
+const ContactForm = ({ contact, setContact }: ContactFormProps) => {
   const snackbarState = useSnackbarState();
-  const authorizationState = useAuthorizationState();
-  const styles = useStyles(contactFormStyles);
   const resolver = useYupResolver(schema);
-  const { control, handleSubmit } = useForm<ContactPostRequest>({
+  const authorizationState = useAuthorizationState();
+  const { control, handleSubmit } = useForm({
     resolver,
+    defaultValues: contact || {},
   });
-  const [loading, setLoading] = useState(true);
-  const [doesContactExist, setDoesContactExist] = useState(false);
+  const styles = useStyles(contactFormStyles);
+  const [isContacting, setIsContacting] = useState(false);
 
-  useEffect(() => {
-    const asyncFunc = async () => {
-      try {
-        const response = await fetch('api/contact', {
-          method: 'GET',
-          headers: {
-            authorization: authorizationState.token || '',
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Problem getting contact');
-        }
-        const body = await response.json();
-        setDoesContactExist(Boolean(body.contacts?.length));
-      } catch (e) {
-        snackbarState.setOpen({
-          message: 'Failed to retrieve existing contact information',
-          timeoutMS: 6000,
-          variant: 'error',
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    asyncFunc();
-  }, []);
-
-  const onSubmit = async (formData: ContactPostRequest) => {
+  const onSubmit = async (formData) => {
     try {
+      setIsContacting(true);
       const response = await fetch('api/contact', {
         method: 'POST',
         headers: {
@@ -75,6 +57,7 @@ export const ContactFormClient = () => {
         }
         throw new Error('Encountered error trying to contact');
       }
+      setContact(formData);
       snackbarState.setOpen({
         message: 'Successfully sent contact information',
         timeoutMS: 6000,
@@ -86,32 +69,16 @@ export const ContactFormClient = () => {
         timeoutMS: 6000,
         variant: 'error',
       });
+    } finally {
+      setIsContacting(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div style={styles.static?.container}>
-        <CircularProgress />
-      </div>
-    );
-  }
-  if (doesContactExist) {
-    return (
-      <div style={styles.static?.container}>
-        <Typography variant="h2">Contact</Typography>
-        <Typography style={styles.static?.text}>
-          Thank you for contacting me! I&apos;ll get back to as soon as
-          possible!
-        </Typography>
-      </div>
-    );
-  }
 
   return (
     <div style={styles.static?.container}>
       <Typography variant="h2">Contact</Typography>
       <RHFTextField
+        disabled={Boolean(contact)}
         control={control}
         name="email"
         label="Email"
@@ -121,6 +88,7 @@ export const ContactFormClient = () => {
       />
       <div style={styles.static?.nameContainer}>
         <RHFTextField
+          disabled={Boolean(contact)}
           control={control}
           name="firstName"
           label="First Name"
@@ -131,6 +99,7 @@ export const ContactFormClient = () => {
           required
         />
         <RHFTextField
+          disabled={Boolean(contact)}
           control={control}
           name="lastName"
           label="Last Name"
@@ -142,22 +111,84 @@ export const ContactFormClient = () => {
         />
       </div>
       <RHFTextField
+        disabled={Boolean(contact)}
         control={control}
         name="message"
-        label="Message"
+        label="Message, 500 character limit"
         containerStyle={styles.static?.inputContainer}
         required
         multiline
         minRows={2}
+        inputProps={{
+          maxLength: 500,
+        }}
       />
-      <Button
-        onClick={handleSubmit(onSubmit)}
-        variant="contained"
-        endIcon={<Send />}
-        style={styles.static?.button}
-      >
-        Contact Matt
-      </Button>
+      {contact ? (
+        <Typography style={styles.static?.text}>
+          Thank you for contacting me! I&apos;ll get back to as soon as
+          possible!
+        </Typography>
+      ) : (
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          variant="outlined"
+          endIcon={<Send />}
+          style={styles.static?.button}
+        >
+          {isContacting ? <CircularProgress size={'1.5rem'} /> : 'Contact Matt'}
+        </Button>
+      )}
     </div>
   );
+};
+
+export const ContactFormClient = () => {
+  const snackbarState = useSnackbarState();
+  const authorizationState = useAuthorizationState();
+  const styles = useStyles(contactFormStyles);
+
+  const [loading, setLoading] = useState(true);
+  const [contact, setContact] = useState<Contact | null>(null);
+
+  useEffect(() => {
+    const asyncFunc = async () => {
+      try {
+        const response = await fetch('api/contact', {
+          method: 'GET',
+          headers: {
+            authorization: authorizationState.token || '',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Problem getting contact');
+        }
+        const body: ContactGetResponse = await response.json();
+
+        if (body.contacts.length) {
+          setContact(body.contacts[0]);
+        }
+      } catch (e) {
+        snackbarState.setOpen({
+          message: 'Failed to retrieve existing contact information',
+          timeoutMS: 6000,
+          variant: 'error',
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    asyncFunc();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={styles.static?.container}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  console.log('CONTACT!', contact);
+
+  return <ContactForm contact={contact} setContact={setContact} />;
 };
