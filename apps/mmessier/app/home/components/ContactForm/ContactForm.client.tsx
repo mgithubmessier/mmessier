@@ -3,7 +3,6 @@
 import {
   Contact,
   ContactGetResponse,
-  ContactPostRequest,
   ContactPostResponse,
 } from '@mmessier/types';
 import { Send } from '@mui/icons-material';
