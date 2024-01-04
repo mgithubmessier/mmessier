@@ -111,6 +111,9 @@ export const handler: Handler = async (
   try {
     if (event.httpMethod.toUpperCase() === 'POST') {
       const contact: Contact = JSON.parse(event.body);
+      if (contact.message?.length > 200) {
+        contact.message = contact.message.slice(0, 200);
+      }
 
       sendgrid.setApiKey(process.env.SENDGRID_SENDER_API_KEY);
 

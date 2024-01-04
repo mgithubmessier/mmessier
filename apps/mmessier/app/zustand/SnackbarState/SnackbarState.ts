@@ -10,7 +10,7 @@ export type SnackbarState = {
   setOpen: (params: SetOpenParameters) => void;
 };
 
-type SetOpenParameters = {
+export type SetOpenParameters = {
   timeoutMS: number;
   message: string;
   variant?: Variant;

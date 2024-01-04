@@ -20,6 +20,7 @@ import { useAuthorizationState } from './zustand/AuthorizationState/Authorizatio
 import { useEffect } from 'react';
 import { AuthenticationPostResponse } from '@mmessier/types';
 import { useSnackbarState } from './zustand/SnackbarState/SnackbarState';
+import { makeRequest } from './utilities/makeRequest.client';
 
 type LayoutClientProps = {
   children: React.ReactNode;
@@ -38,12 +39,18 @@ export const LayoutClient = ({
 
   useEffect(() => {
     const asyncFunc = async () => {
-      const response = await fetch('/api/authenticate', {
+      const response = await makeRequest<AuthenticationPostResponse>({
         method: 'POST',
+        failure: {
+          message: 'Failed to authenticate, please try again in a few minutes',
+          timeoutMS: 6000,
+          variant: 'error',
+        },
+        url: '/api/authenticate',
       });
-      const responseBody: AuthenticationPostResponse = await response.json();
-      if (responseBody.token) {
-        authorizationState.setToken(responseBody.token);
+
+      if (response?.token) {
+        authorizationState.setToken(response.token);
       }
     };
     if (!authorizationState.token && ip) {

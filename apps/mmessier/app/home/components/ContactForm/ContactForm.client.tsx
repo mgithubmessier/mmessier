@@ -17,6 +17,7 @@ import { RHFTextField } from '../../../components/fields/TextField/TextField';
 import { useAuthorizationState } from '../../../zustand/AuthorizationState/AuthorizationState';
 import { useSnackbarState } from '../../../zustand/SnackbarState/SnackbarState';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { makeRequest } from '../../../utilities/makeRequest.client';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -29,48 +30,36 @@ type ContactFormProps = {
   setContact: Dispatch<SetStateAction<Contact | null>>;
 };
 const ContactForm = ({ contact, setContact }: ContactFormProps) => {
-  const snackbarState = useSnackbarState();
   const resolver = useYupResolver(schema);
   const authorizationState = useAuthorizationState();
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<Contact>({
     resolver,
     defaultValues: contact || {},
   });
   const styles = useStyles(contactFormStyles);
   const [isContacting, setIsContacting] = useState(false);
 
-  const onSubmit = async (formData) => {
-    try {
-      setIsContacting(true);
-      const response = await fetch('api/contact', {
-        method: 'POST',
-        headers: {
-          authorization: authorizationState.token || '',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        const responseBody: ContactPostResponse = await response.json();
-        if (responseBody.error) {
-          throw new Error(responseBody.error);
-        }
-        throw new Error('Encountered error trying to contact');
-      }
-      setContact(formData);
-      snackbarState.setOpen({
+  const onSubmit = async (formData: Contact) => {
+    setIsContacting(true);
+
+    const newContact = await makeRequest<ContactPostResponse>({
+      url: 'api/contact',
+      authorization: authorizationState.token || '',
+      success: {
         message: 'Successfully sent contact information',
         timeoutMS: 6000,
         variant: 'success',
-      });
-    } catch (e) {
-      snackbarState.setOpen({
+      },
+      failure: {
         message: 'Failed to send contact information',
         timeoutMS: 6000,
         variant: 'error',
-      });
-    } finally {
-      setIsContacting(false);
-    }
+      },
+      method: 'POST',
+      body: formData,
+    });
+
+    setContact(newContact?.contact || formData);
   };
 
   return (
@@ -142,7 +131,6 @@ const ContactForm = ({ contact, setContact }: ContactFormProps) => {
 };
 
 export const ContactFormClient = () => {
-  const snackbarState = useSnackbarState();
   const authorizationState = useAuthorizationState();
   const styles = useStyles(contactFormStyles);
 
@@ -151,30 +139,21 @@ export const ContactFormClient = () => {
 
   useEffect(() => {
     const asyncFunc = async () => {
-      try {
-        const response = await fetch('api/contact', {
-          method: 'GET',
-          headers: {
-            authorization: authorizationState.token || '',
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Problem getting contact');
-        }
-        const body: ContactGetResponse = await response.json();
-
-        if (body.contacts.length) {
-          setContact(body.contacts[0]);
-        }
-      } catch (e) {
-        snackbarState.setOpen({
+      const response = await makeRequest<ContactGetResponse>({
+        url: 'api/contact',
+        method: 'GET',
+        failure: {
           message: 'Failed to retrieve existing contact information',
           timeoutMS: 6000,
           variant: 'error',
-        });
-      } finally {
-        setLoading(false);
+        },
+        authorization: authorizationState.token || '',
+      });
+
+      if (response?.contacts.length) {
+        setContact(response?.contacts[0]);
       }
+      setLoading(false);
     };
     asyncFunc();
   }, []);
@@ -186,8 +165,6 @@ export const ContactFormClient = () => {
       </div>
     );
   }
-
-  console.log('CONTACT!', contact);
 
   return <ContactForm contact={contact} setContact={setContact} />;
 };
