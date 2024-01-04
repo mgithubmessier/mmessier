@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { Control, useController } from 'react-hook-form';
 
-import { styles } from './style';
+import { styles } from './styles';
 import { CSSProperties } from 'react';
 
 type TextFieldProps = MUITextFieldProps & {

@@ -20,6 +20,7 @@
       ],
       "@mmessier/authorizer-service": ["authorizer-service/src/index.ts"],
       "@mmessier/contact-service": ["contact-service/src/index.ts"],
+      "@mmessier/d3-visualizations": ["d3-visualizations/src/index.ts"],
       "@mmessier/experience-service": ["experience-service/src/index.ts"],
       "@mmessier/service-utilities": ["service-utilities/src/index.ts"],
       "@mmessier/types": ["types/src/index.ts"],
