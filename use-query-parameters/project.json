@@ -20,7 +20,7 @@
         "tsConfig": "use-query-parameters/tsconfig.lib.json",
         "project": "use-query-parameters/package.json",
         "entryFile": "use-query-parameters/src/index.ts",
-        "external": ["react", "react-dom", "@emotion/react/jsx-runtime"],
+        "external": ["react", "react-dom"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
         "compiler": "babel",
         "assets": [

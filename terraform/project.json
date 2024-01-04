@@ -1,0 +1,41 @@
+{
+  "name": "terraform",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "terraform/src",
+  "projectType": "library",
+  "targets": {
+    "apply": {
+      "dependsOn": [
+        {
+          "projects": [
+            "authentication-service",
+            "experience-service",
+            "authorizer-service",
+            "contact-service"
+          ],
+          "target": "dist-install"
+        }
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "terraform/src",
+        "command": "terraform apply -auto-approve"
+      }
+    },
+    "destroy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "terraform/src",
+        "command": "terraform destroy -auto-approve"
+      }
+    },
+    "init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "terraform/src",
+        "command": "terraform init"
+      }
+    }
+  },
+  "tags": []
+}

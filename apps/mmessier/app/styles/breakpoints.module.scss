@@ -1,0 +1,24 @@
+$small: 400;
+$medium: 600;
+
+@mixin small-styles {
+  @media (max-width: $small) { @content; }
+}
+@mixin medium-styles {
+  @media (max-width: $medium) { @content; }
+}
+
+/*
+.header-title {  
+   font-size: 2rem;  
+
+   @include for-phone-only {    
+      font-size: 1rem; 
+   }
+}
+*/
+
+:export {
+  small: $small;
+  medium: $medium;
+}

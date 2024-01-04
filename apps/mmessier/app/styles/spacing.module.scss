@@ -1,0 +1,9 @@
+$smallSpacing: 4;
+$mediumSpacing: 6;
+$defaultSpacing: 8;
+
+:export {
+  smallSpacing: $smallSpacing;
+  mediumSpacing: $mediumSpacing;
+  defaultSpacing: $defaultSpacing;
+}

@@ -7,20 +7,20 @@ export type QueryParameterHookSet = (key: string, value: any) => void;
 export type QueryParameterHookRemove = (key: string) => void;
 export type QueryParameterHookClear = () => void;
 
-export type QueryParameterHook = {
+export type QueryParameterHook<T> = {
   set: QueryParameterHookSet;
   remove: QueryParameterHookRemove;
   clear: QueryParameterHookClear;
-  queryParameters: any;
+  queryParameters: T;
 };
 
 /*
 Any component in the app can use this hook to read from 
 */
 // TODO - we may want to make subscription key something that cannot change or add the logic to detect when it changes and remove the old subscription key when it does
-export const useQueryParameters = (
+export function useQueryParameters<T>(
   subscriptionKey: string
-): QueryParameterHook => {
+): QueryParameterHook<T> {
   const subscriberID = useRef<string>(v4());
   const { _addSubscriber, _removeSubscriber, _set, _clear, _remove, _get } =
     useContext(QueryParameterContext);
@@ -36,7 +36,7 @@ export const useQueryParameters = (
   }, [subscriptionKey]);
 
   return {
-    set: (key: string, value: any) => {
+    set: (key: string, value: object) => {
       _set(subscriptionKey, key, value);
     },
     clear: () => {
@@ -45,6 +45,6 @@ export const useQueryParameters = (
     remove: (key: string) => {
       _remove(subscriptionKey, key);
     },
-    queryParameters: _get(subscriptionKey),
+    queryParameters: _get(subscriptionKey) as T,
   };
-};
+}

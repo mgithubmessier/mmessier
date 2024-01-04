@@ -1,0 +1,38 @@
+{
+  "name": "contact-service",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "contact-service/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "contact-service/jest.config.ts"
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "external": "none",
+        "outputPath": "dist/contact-service",
+        "main": "contact-service/src/index.ts",
+        "tsConfig": "contact-service/tsconfig.lib.json"
+      }
+    },
+    "dist-install": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "./dist/contact-service",
+        "command": "yarn"
+      }
+    }
+  },
+  "tags": []
+}
