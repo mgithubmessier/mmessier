@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { Button, Paper } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const drag = (simulation: d3.Simulation<d3.SimulationNodeDatum, undefined>) => {
   function dragstarted(event: any) {
@@ -263,11 +264,12 @@ export function ForceGraph({
   return (
     <div style={{ position: 'relative', minHeight: 50 }}>
       <Button
+        startIcon={hideGraph ? <Visibility /> : <VisibilityOff />}
         onClick={() => setHideGraph(!hideGraph)}
         variant="outlined"
-        style={{ position: 'absolute', top: 12, left: 12 }}
+        style={{ position: 'absolute', top: 12, left: 12, width: 100 }}
       >
-        {!hideGraph ? 'Hide Graph' : 'Show Graph'}
+        {hideGraph ? 'Show' : 'Hide'}
       </Button>
       {!hideGraph ? <Paper ref={containerRef} /> : null}
     </div>

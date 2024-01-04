@@ -12,6 +12,8 @@ import { useYupResolver } from '../../../hooks/useYupResolver';
 
 import { styles as forceGraphStyles } from './styles.client';
 import { useStyles } from '../../../hooks/useStyles';
+import { ArrowLeft } from '@mui/icons-material';
+import Link from 'next/link';
 
 type FormData = {
   nodeID: string;
@@ -20,10 +22,12 @@ type FormData = {
 
 const defaultNodes: NodeData[] = [
   {
-    id: 'NODE_ID_1',
+    id: 'NODE_1',
+    label: 'NODE_1',
   },
   {
-    id: 'NODE_ID_2',
+    id: 'NODE_2',
+    label: 'NODE_2',
   },
 ];
 
@@ -55,7 +59,7 @@ export const ForceGraphClient = () => {
 
   const onSubmit = (formData: FormData) => {
     const nodeID = formData.nodeID.replace(/ |!/g, '');
-    setNodes((n) => [...n, { id: nodeID }]);
+    setNodes((n) => [...n, { id: nodeID, label: nodeID }]);
     setLinks((l) => [
       ...l,
       ...formData.linkIDs.map((linkID) => ({
@@ -67,28 +71,39 @@ export const ForceGraphClient = () => {
   };
   return (
     <div>
-      <Typography variant="h2">Add Node to Graph</Typography>
-      <div style={styles.static?.formContainer}>
-        <RHFTextField
-          control={control}
-          name="nodeID"
-          label="Add a label"
-          containerStyle={styles.static?.field}
-        />
-        <RHFSelectField
-          label="Choose the nodes you want connected"
-          control={control}
-          name="linkIDs"
-          multiple
-          options={nodes.map((node) => ({ label: node.id, value: node.id }))}
-          containerStyle={styles.static?.field}
-        />
-        <Button onClick={handleSubmit(onSubmit)} variant="contained">
-          Add Node
-        </Button>
+      <Link href="/projects">
+        <Button startIcon={<ArrowLeft />}>Back to Projects</Button>
+      </Link>
+      <div style={styles.static?.flexContainer}>
+        <div>
+          <div style={styles.static?.formContainer}>
+            <Typography variant="h2">Add Node to Graph</Typography>
+            <RHFTextField
+              control={control}
+              name="nodeID"
+              label="Add a label"
+              containerStyle={styles.static?.field}
+            />
+            <RHFSelectField
+              label="Choose connections"
+              control={control}
+              name="linkIDs"
+              multiple
+              options={nodes.map((node) => ({
+                label: node.id,
+                value: node.id,
+              }))}
+              containerStyle={styles.static?.field}
+            />
+            <Button onClick={handleSubmit(onSubmit)} variant="contained">
+              Add Node
+            </Button>
+          </div>
+        </div>
+        <div>
+          <ForceGraph links={links} nodes={nodes} hiddenByDefault={false} />
+        </div>
       </div>
-      <Typography variant="h2">The Force Graph</Typography>
-      <ForceGraph links={links} nodes={nodes} hiddenByDefault={false} />
     </div>
   );
 };
