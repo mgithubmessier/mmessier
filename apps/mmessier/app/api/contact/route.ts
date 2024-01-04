@@ -17,3 +17,16 @@ export const POST = async (req: NextRequest) => {
     status: response.status,
   });
 };
+
+export const GET = async (req: NextRequest) => {
+  const response = await fetch(`${configuration.mmessierAPIHost}/contact`, {
+    method: 'GET',
+    headers: {
+      Authorization: req.headers.get('Authorization') || '',
+    },
+  });
+
+  return NextResponse.json(await response.json(), {
+    status: response.status,
+  });
+};

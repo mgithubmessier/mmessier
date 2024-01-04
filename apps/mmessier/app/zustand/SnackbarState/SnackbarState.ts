@@ -10,7 +10,7 @@ export type SnackbarState = {
   setOpen: (params: SetOpenParameters) => void;
 };
 
-type SetOpenParameters = {
+export type SetOpenParameters = {
   timeoutMS: number;
   message: string;
   variant?: Variant;
@@ -35,7 +35,7 @@ export const useSnackbarState = create<SnackbarState>()(
         snackbarTimeout = setTimeout(() => {
           set(initialSnackbarState);
         }, timeoutMS);
-        return set({ open: true, message });
+        return set({ open: true, message, variant });
       },
     };
   })

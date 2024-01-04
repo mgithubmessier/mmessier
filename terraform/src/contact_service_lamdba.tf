@@ -77,7 +77,7 @@ resource "aws_iam_policy" "contact_service_dynamodb_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action   = ["dynamodb:Scan", "dynamodb:Query"]
+        Action   = ["dynamodb:Scan", "dynamodb:Query", "dynamodb:PutItem", "dynamodb:DeleteItem"]
         Effect   = "Allow"
         Resource = "arn:aws:dynamodb:us-east-1:806003882405:table/matthewmessier.com"
       }

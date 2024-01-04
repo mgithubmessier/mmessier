@@ -6,13 +6,24 @@
   - Managing personal web application projects
   - Building up highly extensible component libraries
 
+## AWS Resources not documented in Terraform
+
+- AWS Amplify, manages the release pipeline and hosts the application
+- DynamoDB, hosts the data like contacts and experiences
+
 ## Application TODOs
 
-- Add a snackbar that gives feedback upon a POST, PATCH, PUT, or DELETE request
-- Whenever a user is viewing the contact section, check the contact database to see if they have sent an email within the last hour, if so, then show the contents of their email and show a different button element which is disabled and does not have an onclick handler (so that a user cannot manually undisable it)
+### Next Branch
+
+### Other TODOs
+
 - We want a custom domain name that allows us to have APIs to be hit from it
 
   - Can we do something like `api.matthewmessier.com`?
+
+- Contact Service
+
+  - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
 
 - **For projects tab**
 
@@ -81,10 +92,6 @@
   - Requirements of the service:
     - Sends an email to my personal email account with the message and contact information of the person reaching out
     - TODO
-      - Track how many successful executions of the service have occurred in a given calendar day and return an error if that exceeds 100, the free tier of sendgrid
-      - Whenever a user sends an email, drop their IP, and the details of their request in a database temporarily (for an hour)
-      - Add a character limit on the email that is in line with the costs of whatever email service you go with
-      - Sanitize any potential malicious content within text fields
 
 ### Service Layer Future
 
@@ -104,6 +111,7 @@
 
 ### Database Layer Future
 
+- https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/dynamodb/
 - Get the schema for the DynamoDB table stored in a terraform file and associate it with the other existing scripts instead of hardcoding its ARN
 
 ## App Deployment

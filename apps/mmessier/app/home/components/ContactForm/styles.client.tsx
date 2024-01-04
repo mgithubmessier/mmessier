@@ -1,5 +1,6 @@
 import { Breakpoint, Style } from '@mmessier/types';
 import { spacingLevel } from '../../../styles/spacing';
+import { colors } from '../../../styles/colors';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   dynamic: {},
@@ -26,6 +27,9 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     lastNameField: {
       flex: 1,
       marginLeft: spacingLevel(0.5, breakpoint),
+    },
+    text: {
+      color: colors.text.main,
     },
   },
 });
