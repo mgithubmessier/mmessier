@@ -25,6 +25,15 @@ export const ProjectsClient = () => {
         updates on changes to it across your entire application from any
         component at any time
       </Typography>
+      <Typography variant="h2">D3 - Force Graph</Typography>
+      <Typography variant="h3">
+        <Link
+          href={`/projects/d3-visualizations/force-graph`}
+          style={basicStyles.static?.link}
+        >
+          Demo
+        </Link>
+      </Typography>
       <Typography variant="h2">Abstract Server</Typography>
       <Typography variant="h3">Demo - Coming Soon</Typography>
       <div>
