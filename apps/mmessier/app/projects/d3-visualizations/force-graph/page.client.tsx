@@ -12,7 +12,7 @@ import { useYupResolver } from '../../../hooks/useYupResolver';
 
 import { styles as forceGraphStyles } from './styles.client';
 import { useStyles } from '../../../hooks/useStyles';
-import { ArrowLeft } from '@mui/icons-material';
+import { Add, ArrowLeft } from '@mui/icons-material';
 import Link from 'next/link';
 
 type FormData = {
@@ -95,7 +95,11 @@ export const ForceGraphClient = () => {
               }))}
               containerStyle={styles.static?.field}
             />
-            <Button onClick={handleSubmit(onSubmit)} variant="contained">
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              variant="contained"
+              startIcon={<Add />}
+            >
               Add Node
             </Button>
           </div>
