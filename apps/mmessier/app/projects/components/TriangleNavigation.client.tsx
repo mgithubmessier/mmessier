@@ -7,6 +7,13 @@ import { useStyles } from '../../hooks/useStyles';
 import { styles as triangleNavigationStyles } from './styles';
 import { useState } from 'react';
 
+/**
+ * TODO
+ * Add a responsive listener that looks at the parent container and determines when the flow triangles to the next line
+ * Allow content to be provided from the parent, maybe gifs or any react content generally that playback or just show
+ *
+ */
+
 type TriangleNavigationItemProps = {
   title: string;
   link: string;
