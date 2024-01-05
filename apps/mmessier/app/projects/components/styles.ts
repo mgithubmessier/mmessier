@@ -1,57 +1,86 @@
 import { Breakpoint, Style } from '@mmessier/types';
 import { colors } from '../../styles/colors';
+import { spacingLevel } from '../../styles/spacing';
 
-const MAX_SHAPE_SIDE = 250;
-const shortSide = MAX_SHAPE_SIDE / 2;
-const longSide = shortSide * 2;
-const CONTENT_WIDTH = MAX_SHAPE_SIDE / 2;
+export const getTriangleSideLength = (breakpoint: Breakpoint) => {
+  if (breakpoint === Breakpoint.DEFAULT) {
+    return 250;
+  }
+  if (breakpoint === Breakpoint.MEDIUM) {
+    return 225;
+  }
+  return 200;
+};
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
     container: {
+      flex: 1,
       display: 'flex',
+      flexDirection: 'column',
+    },
+    triangleRow: {
+      display: 'flex',
+      marginBottom: spacingLevel(3, breakpoint),
     },
     scaleUp: {
       transform: 'scale(1.2)',
     },
   },
   dynamic: {
-    triangleContent: (index: number) => ({
-      pointerEvents: 'all',
-      position: 'relative',
-      left: -MAX_SHAPE_SIDE / 2 + CONTENT_WIDTH / 2 + 10,
-      width: 100,
-      maxWidth: 100,
-      padding: 0,
-      top: index % 2 === 0 ? MAX_SHAPE_SIDE / 2 : 'unset',
-      bottom:
-        index % 2 === 0 ? 'unset' : MAX_SHAPE_SIDE / 2 + CONTENT_WIDTH / 2,
-    }),
+    triangleContent: (index: number, rowIndex: number) => {
+      const CONTENT_WIDTH = 100;
+      const CONTENT_HEIGHT = 80;
+      const isEvenColumn = index % 2 === 0;
+      const isEvenRow = rowIndex % 2 === 0;
+      const flip = isEvenRow ? isEvenColumn : !isEvenColumn;
+      const traingleSideLength = getTriangleSideLength(breakpoint);
+      const xOffset = -CONTENT_WIDTH / 2;
+      const yOffsetRaw = traingleSideLength / 2;
+      const yOffset = flip ? yOffsetRaw : -(yOffsetRaw + CONTENT_HEIGHT);
+      return {
+        pointerEvents: 'all',
+        width: CONTENT_WIDTH,
+        height: CONTENT_HEIGHT,
+        padding: 0,
+        transform: `translate(${xOffset}px, ${yOffset}px)`, // to account for the width & height of the text
+      };
+    },
 
-    triangleContainer: (index: number) => ({
-      pointerEvents: 'none',
-      transition: 'transform 0.5s',
-      padding: 0,
-      position: 'relative',
-      left: (-1 * index * MAX_SHAPE_SIDE) / 2,
-      width: 0,
-      height: 0,
-      borderLeft: `${shortSide}px solid transparent`,
-      borderRight: `${shortSide}px solid transparent`,
-      borderBottom:
-        index % 2 === 0
-          ? `${longSide}px solid ${
+    triangleContainer: (index: number, rowIndex: number) => {
+      const isEvenColumn = index % 2 === 0;
+      const isEvenRow = rowIndex % 2 === 0;
+      const flip = isEvenRow ? isEvenColumn : !isEvenColumn;
+
+      const traingleSideLength = getTriangleSideLength(breakpoint);
+      const shortSide = traingleSideLength / 2;
+      return {
+        pointerEvents: 'none',
+        margin: 0,
+        transition: 'transform 0.5s',
+        padding: 0,
+        position: 'relative',
+        left:
+          (-1 * index * traingleSideLength +
+            spacingLevel(6, breakpoint) * index) /
+          2,
+        width: 0,
+        height: 0,
+        borderLeft: `${shortSide}px solid transparent`,
+        borderRight: `${shortSide}px solid transparent`,
+        borderBottom: flip
+          ? `${traingleSideLength}px solid ${
               colors.alternating[index % colors.alternating.length]
                 .backgroundColor
             }`
           : 'unset',
-      borderTop:
-        index % 2 === 0
+        borderTop: flip
           ? 'unset'
-          : `${longSide}px solid ${
+          : `${traingleSideLength}px solid ${
               colors.alternating[index % colors.alternating.length]
                 .backgroundColor
             }`,
-    }),
+      };
+    },
   },
 });
