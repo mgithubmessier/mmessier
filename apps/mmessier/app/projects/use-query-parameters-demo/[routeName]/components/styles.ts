@@ -1,6 +1,6 @@
 import { BasicStyle, Breakpoint, Style } from '@mmessier/types';
-import { colors } from '../../styles/colors';
-import { spacingLevel } from '../../styles/spacing';
+import { colors } from '../../../../styles/colors';
+import { spacingLevel } from '../../../../styles/spacing';
 
 export const basicStyles: BasicStyle = {
   static: {

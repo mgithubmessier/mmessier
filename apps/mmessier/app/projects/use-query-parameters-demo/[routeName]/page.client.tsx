@@ -11,7 +11,7 @@ import {
 
 import { styles as uqpdStyles } from './style';
 import { useStyles } from '../../../hooks/useStyles';
-import { ReactNode } from 'react';
+import { UQPDFormContainer } from './components/FormContainer.client';
 
 type UseQueryParametersDemoRouteClientProps = {
   formName: string;
@@ -32,47 +32,49 @@ export const UseQueryParameterDemoRouteClient = ({
   const param2 = queryParameters?.param2 || [];
 
   return (
-    <div style={styles.static?.container}>
-      <Typography style={styles.static?.text}>
-        Change the following fields and watch the url keep up with the new data
-        you entered. Then feel free to navigate away from this page and come
-        back or even hit refresh while on this page, and then see that your data
-        has been preserved!
-      </Typography>
-      <TextField
-        style={styles.static?.inputContainer}
-        variant="filled"
-        value={param1}
-        onChange={(event) => {
-          set('param1', event.target.value);
-        }}
-        label="[param1] - Write any string"
-      />
-
-      <FormControl variant="filled" style={styles.static?.inputContainer}>
-        <InputLabel>[param2] - Select some options</InputLabel>
-        <Select
-          multiple
-          label="[param2] - Select some options"
+    <UQPDFormContainer>
+      <div style={styles.static?.container}>
+        <Typography style={styles.static?.text}>
+          Change the following fields and watch the url keep up with the new
+          data you entered. Then feel free to navigate away from this page and
+          come back or even hit refresh while on this page, and then see that
+          your data has been preserved!
+        </Typography>
+        <TextField
+          style={styles.static?.inputContainer}
           variant="filled"
-          style={styles.static?.select}
-          value={queryParameters?.param2 || []}
-          onChange={(_, arg2: any) => {
-            const value: string = arg2.props.value;
-            const index = param2.indexOf(value);
-            if (index > -1) {
-              param2.splice(index, 1);
-              set('param2', param2);
-            } else {
-              set('param2', [...param2, value]);
-            }
+          value={param1}
+          onChange={(event) => {
+            set('param1', event.target.value);
           }}
-        >
-          <MenuItem value="option1">Option 1</MenuItem>
-          <MenuItem value="option2">Option 2</MenuItem>
-          <MenuItem value="option3">Option 3</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
+          label="[param1] - Write any string"
+        />
+
+        <FormControl variant="filled" style={styles.static?.inputContainer}>
+          <InputLabel>[param2] - Select some options</InputLabel>
+          <Select
+            multiple
+            label="[param2] - Select some options"
+            variant="filled"
+            style={styles.static?.select}
+            value={queryParameters?.param2 || []}
+            onChange={(_, arg2: any) => {
+              const value: string = arg2.props.value;
+              const index = param2.indexOf(value);
+              if (index > -1) {
+                param2.splice(index, 1);
+                set('param2', param2);
+              } else {
+                set('param2', [...param2, value]);
+              }
+            }}
+          >
+            <MenuItem value="option1">Option 1</MenuItem>
+            <MenuItem value="option2">Option 2</MenuItem>
+            <MenuItem value="option3">Option 3</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+    </UQPDFormContainer>
   );
 };
