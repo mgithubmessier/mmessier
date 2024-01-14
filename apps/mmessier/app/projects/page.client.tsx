@@ -14,7 +14,7 @@ export const ProjectsClient = () => {
         {
           title: 'Use Query Parameters',
           link: `/projects/use-query-parameters-demo/${DEMO_FORMS[0]}`,
-          gifPath: '/use_query_paramters.gif',
+          gifPath: '/use_query_parameters.gif',
         },
         {
           title: 'Force Graph',

@@ -36,7 +36,7 @@ const TriangleNavigationItem = ({
     <Container
       style={{
         ...styles.dynamic?.triangleContainer(index, rowIndex),
-        ...(isHovering ? styles.dynamic?.scaleUp(gifPath) : {}),
+        ...(isHovering ? styles.static?.scaleUp : {}),
       }}
     >
       <Container
@@ -49,7 +49,18 @@ const TriangleNavigationItem = ({
         style={styles.dynamic?.triangleContent(index, rowIndex)}
       >
         <Link href={link}>
-          <Button style={{ width: '100%' }}>{title}</Button>
+          <Button
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundImage: isHovering ? `url(${gifPath})` : 'unset',
+              backgroundSize: '100%',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+            }}
+          >
+            {isHovering ? '' : title}
+          </Button>
         </Link>
       </Container>
     </Container>
@@ -77,10 +88,7 @@ const generateTriangleRows = (
   for (let rowIndex = page - 1; rowIndex < numRows; rowIndex++) {
     const startIndex = rowIndex * trianglesPerRow;
     triangleRows.push(
-      <div
-        style={styles.dynamic?.triangleRow(trianglesPerRow)}
-        key={`triangleRow-${rowIndex}`}
-      >
+      <div style={styles.static?.triangleRow} key={`triangleRow-${rowIndex}`}>
         {items
           .slice(startIndex, startIndex + trianglesPerRow)
           .map((item, index) => {

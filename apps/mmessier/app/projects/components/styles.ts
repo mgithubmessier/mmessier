@@ -25,21 +25,18 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       flexDirection: 'column',
       justifyContent: 'center',
     },
+    scaleUp: {
+      transform: 'scale(1.2)',
+    },
+    triangleRow: {
+      display: 'flex',
+      marginBottom: spacingLevel(3, breakpoint),
+    },
   },
   dynamic: {
-    scaleUp: (gifPath: string) => ({
-      transform: 'scale(1.2)',
-      background: gifPath ? `url('${gifPath}')` : 'none',
-    }),
-    triangleRow: (trianglesPerRow: number) => {
-      return {
-        display: 'flex',
-        marginBottom: spacingLevel(3, breakpoint),
-      };
-    },
     triangleContent: (index: number, rowIndex: number) => {
       const CONTENT_WIDTH = 100;
-      const CONTENT_HEIGHT = 80;
+      const CONTENT_HEIGHT = 100;
       const isEvenColumn = index % 2 === 0;
       const isEvenRow = rowIndex % 2 === 0;
       const flip = isEvenRow ? isEvenColumn : !isEvenColumn;
