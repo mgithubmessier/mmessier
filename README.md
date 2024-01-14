@@ -17,6 +17,7 @@
 
 ### Other TODOs
 
+- Figure out and fix the app flipping out when you visit a non-existant route like `/projectsasdasd`
 - We want a custom domain name that allows us to have APIs to be hit from it
 
   - Can we do something like `api.matthewmessier.com`?
@@ -27,12 +28,7 @@
 
 - **For projects tab**
 
-  - Should add an interlocking triangles display that wraps from row-to-row
-    - When you hover on a triangle, it grows a little bit an plays back a .gif that gets the user the gist of what the project is about
-  - could add the drifting shapes animation in the background, maybe separate it out into its own library
-    - might be cool if I add a visual boxes depicting how it works, maybe allowing someone to choose the colors and shapes they want to use in a sub-view
-  - use query parameter hook
-    - clean up this form a bit to be a clearer walkthrough
+  - could add the drifting shapes animation as one of them
 
 - **GenAI Service**
 

@@ -117,12 +117,12 @@ export const handler: Handler = async (
 
       sendgrid.setApiKey(process.env.SENDGRID_SENDER_API_KEY);
 
-      // await sendgrid.send({
-      //   from: process.env.SENDGRID_SINGLE_SENDER_EMAIL,
-      //   to: process.env.PERSONAL_EMAIL,
-      //   subject: `MATTHEWMESSIER.COM / ${contact.firstName} ${contact.lastName}`,
-      //   text: `From Email: ${contact.email}\n\n${contact.message}`,
-      // });
+      await sendgrid.send({
+        from: process.env.SENDGRID_SINGLE_SENDER_EMAIL,
+        to: process.env.PERSONAL_EMAIL,
+        subject: `MATTHEWMESSIER.COM / ${contact.firstName} ${contact.lastName}`,
+        text: `From Email: ${contact.email}\n\n${contact.message}`,
+      });
 
       const existingContact = await getContact(event);
       if (!existingContact.length) {

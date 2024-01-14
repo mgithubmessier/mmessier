@@ -13,12 +13,6 @@ terraform {
       version = "~> 2.4.0"
     }
   }
-  cloud {
-    organization = "mhashicorpmessier"
-    workspaces {
-      name = "mmessier-experience-service"
-    }
-  }
 }
 
 # declares cloud service provider

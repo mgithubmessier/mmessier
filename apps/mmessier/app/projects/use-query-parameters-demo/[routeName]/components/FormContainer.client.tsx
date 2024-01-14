@@ -1,5 +1,6 @@
 'use client';
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -9,22 +10,33 @@ import {
 import Link from 'next/link';
 import React from 'react';
 
-import { styles as uqpdStyles } from './styles';
+import { styles as uqpdStyles, basicStyles } from './styles';
 import { usePathname } from 'next/navigation';
-import { useStyles } from '../../hooks/useStyles';
-import { DEMO_FORMS } from './[routeName]/constants';
+import { useStyles } from '../../../../hooks/useStyles';
+import { DEMO_FORMS } from '../constants';
+import { ArrowLeft } from '@mui/icons-material';
 
-type UseQueryParametersDemoProps = {
+type UQPDFormContainerProps = {
   children: React.ReactNode;
 };
 
-export const UseQueryParametersDemoClient = ({
-  children,
-}: UseQueryParametersDemoProps) => {
+export const UQPDFormContainer = ({ children }: UQPDFormContainerProps) => {
   const pathname = usePathname();
   const styles = useStyles(uqpdStyles);
   return (
-    <>
+    <div style={basicStyles.static?.container}>
+      <Link href="/projects">
+        <Button startIcon={<ArrowLeft />}>Back to Projects</Button>
+      </Link>
+      <Typography variant="h2">Summary</Typography>
+
+      <Typography style={styles.static?.text}>
+        A react hook that is meant to make query parameter management an
+        extremely simple endeavor. You supply a &quot;subscription&quot; key and
+        then are able to set that key to any JSON serializable value and get
+        updates on changes to it across your entire application from any
+        component at any time
+      </Typography>
       <Typography variant="h2">Demo Form</Typography>
       <Typography style={styles.static?.text}>
         Change the URL route to erase the current form&apos;s query parameters
@@ -51,6 +63,6 @@ export const UseQueryParametersDemoClient = ({
         </Select>
       </FormControl>
       {children}
-    </>
+    </div>
   );
 };
