@@ -17,6 +17,7 @@
 
 ### Other TODOs
 
+- Figure out and fix the app flipping out when you visit a non-existant route like `/projectsasdasd`
 - We want a custom domain name that allows us to have APIs to be hit from it
 
   - Can we do something like `api.matthewmessier.com`?
