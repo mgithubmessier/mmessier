@@ -14,14 +14,17 @@ export const ProjectsClient = () => {
         {
           title: 'Use Query Parameters',
           link: `/projects/use-query-parameters-demo/${DEMO_FORMS[0]}`,
+          gifPath: '/use_query_paramters.gif',
         },
         {
           title: 'Force Graph',
           link: `/projects/d3-visualizations/force-graph`,
+          gifPath: '/force_graph.gif',
         },
         {
           title: 'Musiq.page',
           link: 'https://musiq.page',
+          gifPath: '/musiq_page.gif',
         },
       ]}
     />

@@ -25,12 +25,12 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       flexDirection: 'column',
       justifyContent: 'center',
     },
-
-    scaleUp: {
-      transform: 'scale(1.2)',
-    },
   },
   dynamic: {
+    scaleUp: (gifPath: string) => ({
+      transform: 'scale(1.2)',
+      background: gifPath ? `url('${gifPath}')` : 'none',
+    }),
     triangleRow: (trianglesPerRow: number) => {
       return {
         display: 'flex',
@@ -66,7 +66,8 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       return {
         pointerEvents: 'none',
         margin: 0,
-        transition: 'transform 0.3s',
+        transitionProperty: 'transform, background',
+        transitionDuration: '0.3s',
         padding: 0,
         position: 'relative',
         left:

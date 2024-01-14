@@ -18,6 +18,7 @@ const MAX_TRIANGLE_ROWS = 2;
 type TriangleNavigationItemProps = {
   title: string;
   link: string;
+  gifPath?: string;
   index?: number;
   rowIndex?: number;
 };
@@ -26,6 +27,7 @@ const TriangleNavigationItem = ({
   title,
   link,
   index,
+  gifPath,
   rowIndex,
 }: TriangleNavigationItemProps) => {
   const styles = useStyles(triangleNavigationStyles);
@@ -34,7 +36,7 @@ const TriangleNavigationItem = ({
     <Container
       style={{
         ...styles.dynamic?.triangleContainer(index, rowIndex),
-        ...(isHovering ? styles.static?.scaleUp : {}),
+        ...(isHovering ? styles.dynamic?.scaleUp(gifPath) : {}),
       }}
     >
       <Container
