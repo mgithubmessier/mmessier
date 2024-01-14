@@ -38,7 +38,7 @@ export const Responsive = ({
         onResize(rect);
       }
     }, throttleMS),
-    []
+    [onResize]
   );
 
   const handleResize = (rect: DOMRect | undefined) => {

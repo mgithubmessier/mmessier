@@ -15,19 +15,28 @@ export const getTriangleSideLength = (breakpoint: Breakpoint) => {
 export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
     container: {
-      flex: 1,
       display: 'flex',
       flexDirection: 'column',
+      flex: 1,
+      width: '100%',
     },
-    triangleRow: {
+    responsiveContainer: {
       display: 'flex',
-      marginBottom: spacingLevel(3, breakpoint),
+      flexDirection: 'column',
+      justifyContent: 'center',
     },
+
     scaleUp: {
       transform: 'scale(1.2)',
     },
   },
   dynamic: {
+    triangleRow: (trianglesPerRow: number) => {
+      return {
+        display: 'flex',
+        marginBottom: spacingLevel(3, breakpoint),
+      };
+    },
     triangleContent: (index: number, rowIndex: number) => {
       const CONTENT_WIDTH = 100;
       const CONTENT_HEIGHT = 80;
