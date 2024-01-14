@@ -57,7 +57,7 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
       return {
         pointerEvents: 'none',
         margin: 0,
-        transition: 'transform 0.5s',
+        transition: 'transform 0.3s',
         padding: 0,
         position: 'relative',
         left:

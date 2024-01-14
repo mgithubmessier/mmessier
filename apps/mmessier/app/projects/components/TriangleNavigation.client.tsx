@@ -66,7 +66,6 @@ export const TriangleNavigation = ({ items }: TriangleNavigationProps) => {
   const styles = triangleNavigationStyles(breakpoint);
   const [trianglesPerRow, setTrianglesPerRow] = useState(0);
   const onResize: OnResize = (rect, status) => {
-    console.log('ON RESIZE', rect, status);
     if (rect) {
       const PADDING_ESTIMATE = 20;
       // subtracting one because the triangles overlap each other's halves
