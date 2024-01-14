@@ -28,6 +28,15 @@ export const UQPDFormContainer = ({ children }: UQPDFormContainerProps) => {
       <Link href="/projects">
         <Button startIcon={<ArrowLeft />}>Back to Projects</Button>
       </Link>
+      <Typography variant="h2">Summary</Typography>
+
+      <Typography style={styles.static?.text}>
+        A react hook that is meant to make query parameter management an
+        extremely simple endeavor. You supply a &quot;subscription&quot; key and
+        then are able to set that key to any JSON serializable value and get
+        updates on changes to it across your entire application from any
+        component at any time
+      </Typography>
       <Typography variant="h2">Demo Form</Typography>
       <Typography style={styles.static?.text}>
         Change the URL route to erase the current form&apos;s query parameters

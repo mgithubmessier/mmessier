@@ -31,22 +31,6 @@ export const ProjectsClient = () => {
 // export const ProjectsClient = () => {
 //   return (
 //     <div>
-//       <Typography variant="h2">Use Query Parameters</Typography>
-//       <Typography variant="h3">
-//         <Link
-//           href={`/projects/use-query-parameters-demo/${DEMO_FORMS[0]}`}
-//           style={basicStyles.static?.link}
-//         >
-//           Demo
-//         </Link>
-//       </Typography>
-//       <Typography style={basicStyles.static?.text}>
-//         A react hook that is meant to make query parameter management an
-//         extremely simple endeavor. You supply a &quot;subscription&quot; key and
-//         then are able to set that key to any JSON serializable value and get
-//         updates on changes to it across your entire application from any
-//         component at any time
-//       </Typography>
 //       <Typography variant="h2">D3 - Force Graph</Typography>
 //       <Typography variant="h3">
 //         <Link

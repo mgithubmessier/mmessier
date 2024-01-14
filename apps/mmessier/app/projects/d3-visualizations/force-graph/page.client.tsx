@@ -74,6 +74,12 @@ export const ForceGraphClient = () => {
       <Link href="/projects">
         <Button startIcon={<ArrowLeft />}>Back to Projects</Button>
       </Link>
+      <Typography variant="h2">Summary</Typography>
+      <Typography style={styles.static?.text}>
+        Visualize data in a minimal and interactive directed graph. Perfect for
+        inheritance models, relational data, and much more!
+      </Typography>
+
       <div style={styles.static?.flexContainer}>
         <div>
           <div style={styles.static?.formContainer}>

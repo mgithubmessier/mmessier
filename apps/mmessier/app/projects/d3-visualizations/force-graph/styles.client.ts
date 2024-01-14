@@ -1,5 +1,6 @@
 import { Breakpoint, Style } from '@mmessier/types';
 import { spacingLevel } from '../../../styles/spacing';
+import { colors } from '../../../styles/colors';
 
 export const styles: Style = (breakpoint: Breakpoint) => ({
   static: {
@@ -17,6 +18,9 @@ export const styles: Style = (breakpoint: Breakpoint) => ({
     flexContainer: {
       display: 'flex',
       flexDirection: breakpoint === Breakpoint.DEFAULT ? 'row' : 'column',
+    },
+    text: {
+      color: colors.text.main,
     },
   },
 });
