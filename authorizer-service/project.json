@@ -1,0 +1,38 @@
+{
+  "name": "authorizer-service",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "authorizer-service/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "authorizer-service/jest.config.ts"
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "external": "none",
+        "outputPath": "dist/authorizer-service",
+        "main": "authorizer-service/src/index.ts",
+        "tsConfig": "authorizer-service/tsconfig.lib.json"
+      }
+    },
+    "dist-install": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "./dist/authorizer-service",
+        "command": "yarn"
+      }
+    }
+  },
+  "tags": []
+}

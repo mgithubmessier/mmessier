@@ -1,8 +1,9 @@
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+
 import { flatten, unflatten } from 'flat';
 import { isEmpty, omitBy } from 'lodash';
 import queryString from 'query-string';
 import React, { useEffect, useReducer } from 'react';
-import { useLocation, useNavigate } from 'react-router';
 
 import { QueryParameterContext } from '../context';
 import { reducer } from './reducer';
@@ -73,15 +74,15 @@ const _mapSubscriptionsToQueryParams = (
 
 export const QueryParameterProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const location = useLocation();
+  const searchParams = useSearchParams();
   useEffect(() => {
     const parsedQuery = unflatten(
-      queryString.parse(location.search)
+      queryString.parse(searchParams.toString())
     ) as InitialQueryParameters;
     const payload = Object.entries(parsedQuery).reduce(
       (
         acc: Subscriptions,
-        [subscriptionKey, value]: [string, any]
+        [subscriptionKey, value]: [string, object]
       ): Subscriptions => {
         if (value) {
           return {
@@ -103,7 +104,8 @@ export const QueryParameterProvider = ({ children }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const activeSubscriptions = _getActiveSubscriptions(state);
 
   useEffect(() => {
@@ -112,13 +114,14 @@ export const QueryParameterProvider = ({ children }: any) => {
         _mapSubscriptionsToQueryParams(activeSubscriptions)
       ) as object;
 
-      navigate(
-        `${location.pathname}?${queryString.stringify(flattened, {
-          encode: true,
-        })}`,
-        {
-          replace: true,
-        }
+      const searchParams = new URLSearchParams();
+      Object.entries(flattened).forEach(([key, value]: [string, string]) => {
+        searchParams.set(key, value);
+      });
+      const newQueryParameters = searchParams.toString();
+
+      router.replace(
+        `${pathname}${newQueryParameters ? `?${searchParams.toString()}` : ''}`
       );
       dispatch({ type: QueryParameterActionTypes.FINISHED_MUTATING });
     }

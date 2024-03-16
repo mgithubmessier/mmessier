@@ -1,0 +1,11 @@
+{
+  "name": "@mmessier/d3-visualizations",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "d3": "^7.8.5"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}
