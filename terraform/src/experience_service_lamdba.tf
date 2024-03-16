@@ -28,7 +28,7 @@ resource "aws_lambda_function" "experience_service" {
   s3_key    = aws_s3_object.experience_service.key
 
   runtime = "nodejs20.x"
-  handler = "src/service/index.handler"
+  handler = "index.handler"
 
   source_code_hash = data.archive_file.experience_service.output_base64sha256
 

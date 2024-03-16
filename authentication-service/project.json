@@ -16,21 +16,10 @@
       }
     },
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "external": "none",
-        "outputPath": "dist/authentication-service",
-        "main": "authentication-service/src/index.ts",
-        "tsConfig": "authentication-service/tsconfig.lib.json"
-      }
-    },
-    "dist-install": {
-      "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "./dist/authentication-service",
-        "command": "yarn"
+        "cwd": "authentication-service",
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/authentication-service --target node --minify"
       }
     }
   },

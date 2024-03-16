@@ -29,7 +29,7 @@ resource "aws_lambda_function" "authorizer_service" {
   s3_key    = aws_s3_object.authorizer_service.key
 
   runtime = "nodejs20.x"
-  handler = "src/service/index.handler"
+  handler = "index.handler"
 
   source_code_hash = data.archive_file.authorizer_service.output_base64sha256
 

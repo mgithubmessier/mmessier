@@ -16,21 +16,10 @@
       }
     },
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "external": "none",
-        "outputPath": "dist/experience-service",
-        "main": "experience-service/src/index.ts",
-        "tsConfig": "experience-service/tsconfig.lib.json"
-      }
-    },
-    "dist-install": {
-      "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "./dist/experience-service",
-        "command": "yarn"
+        "cwd": "experience-service",
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/experience-service --target node --minify"
       }
     }
   },

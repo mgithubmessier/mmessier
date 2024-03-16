@@ -16,21 +16,10 @@
       }
     },
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "external": "none",
-        "outputPath": "dist/authorizer-service",
-        "main": "authorizer-service/src/index.ts",
-        "tsConfig": "authorizer-service/tsconfig.lib.json"
-      }
-    },
-    "dist-install": {
-      "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "./dist/authorizer-service",
-        "command": "yarn"
+        "cwd": "authorizer-service",
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/authorizer-service --target node --minify"
       }
     }
   },
