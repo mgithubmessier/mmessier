@@ -16,21 +16,10 @@
       }
     },
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "external": "none",
-        "outputPath": "dist/contact-service",
-        "main": "contact-service/src/index.ts",
-        "tsConfig": "contact-service/tsconfig.lib.json"
-      }
-    },
-    "dist-install": {
-      "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "./dist/contact-service",
-        "command": "yarn"
+        "cwd": "contact-service",
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/contact-service --target node --minify"
       }
     }
   },

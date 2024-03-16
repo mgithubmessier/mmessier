@@ -13,20 +13,20 @@
             "authorizer-service",
             "contact-service"
           ],
-          "target": "dist-install"
+          "target": "build"
         }
       ],
       "executor": "nx:run-commands",
       "options": {
         "cwd": "terraform/src",
-        "command": "terraform apply -auto-approve"
+        "command": "terraform apply"
       }
     },
     "destroy": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "terraform/src",
-        "command": "terraform destroy -auto-approve"
+        "command": "terraform destroy"
       }
     },
     "init": {

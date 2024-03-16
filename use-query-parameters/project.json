@@ -12,26 +12,6 @@
         "lintFilePatterns": ["use-query-parameters/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/use-query-parameters",
-        "tsConfig": "use-query-parameters/tsconfig.lib.json",
-        "project": "use-query-parameters/package.json",
-        "entryFile": "use-query-parameters/src/index.ts",
-        "external": ["react", "react-dom"],
-        "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "babel",
-        "assets": [
-          {
-            "glob": "use-query-parameters/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
