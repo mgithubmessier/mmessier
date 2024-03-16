@@ -4,13 +4,17 @@ import {
   APIGatewayEvent,
   APIGatewayProxyCallbackV2,
 } from 'aws-lambda';
-import { DynamoDB } from 'aws-sdk';
+
+import {
+  DynamoDBClient,
+  PutItemCommand,
+  PutItemOutput,
+  QueryCommand,
+} from '@aws-sdk/client-dynamodb';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
+
 import { add } from 'date-fns';
 import sendgrid from '@sendgrid/mail';
-import {
-  PutItemInput,
-  PutItemInputAttributeMap,
-} from 'aws-sdk/clients/dynamodb';
 import { omit } from 'lodash';
 
 type DynamoContact = Contact & {
@@ -21,11 +25,12 @@ type DynamoContact = Contact & {
 const putContact = async (
   event: APIGatewayEvent,
   contact: Contact
-): Promise<DynamoDB.PutItemOutput> => {
-  const dynamodb = new DynamoDB({ apiVersion: '2012-08-10' });
+): Promise<PutItemOutput> => {
+  const client = new DynamoDBClient({ apiVersion: '2012-08-10' });
 
-  return new Promise((resolve, reject) => {
-    const item: PutItemInputAttributeMap = {
+  const command = new PutItemCommand({
+    TableName: 'matthewmessier.com',
+    Item: {
       entityName: {
         S: 'contact',
       },
@@ -47,58 +52,41 @@ const putContact = async (
       message: {
         S: contact.message,
       },
-    };
-    const input: PutItemInput = {
-      TableName: 'matthewmessier.com',
-      Item: item,
-    };
-    dynamodb.putItem(input, (error, data) => {
-      if (error) {
-        console.log(`DynamoError: ${JSON.stringify(error, null, 2)}`);
-        return reject('Failed to insert contact into dynamodb');
-      }
-      return resolve(data);
-    });
+    },
   });
+
+  return client.send(command);
 };
 
 const getContact = async (event: APIGatewayEvent): Promise<Array<Contact>> => {
-  const dynamodb = new DynamoDB({ apiVersion: '2012-08-10' });
+  const client = new DynamoDBClient({ apiVersion: '2012-08-10' });
 
-  return new Promise((resolve, reject) => {
-    dynamodb.query(
-      {
-        TableName: 'matthewmessier.com',
-        ExpressionAttributeNames: {
-          '#sortedUniqueIdName': 'sortedUniqueId',
-          '#entityName': 'entityName',
-        },
-        ExpressionAttributeValues: {
-          ':sortedUniqueIdValue': {
-            S: event.headers['X-Forwarded-For'],
-          },
-          ':entityNameValue': {
-            S: 'contact',
-          },
-        },
-        KeyConditionExpression:
-          '#sortedUniqueIdName = :sortedUniqueIdValue AND #entityName = :entityNameValue',
-        Limit: 1,
+  const command = new QueryCommand({
+    TableName: 'matthewmessier.com',
+    ExpressionAttributeNames: {
+      '#sortedUniqueIdName': 'sortedUniqueId',
+      '#entityName': 'entityName',
+    },
+    ExpressionAttributeValues: {
+      ':sortedUniqueIdValue': {
+        S: event.headers['X-Forwarded-For'],
       },
-      (error, data) => {
-        if (error) {
-          reject(error);
-        } else if (!data.Items.length) {
-          resolve([]);
-        } else {
-          const contact = DynamoDB.Converter.unmarshall(
-            data.Items[0]
-          ) as DynamoContact;
-          resolve([omit(contact, ['sortedUniqueId', 'entityName'])]);
-        }
-      }
-    );
+      ':entityNameValue': {
+        S: 'contact',
+      },
+    },
+    KeyConditionExpression:
+      '#sortedUniqueIdName = :sortedUniqueIdValue AND #entityName = :entityNameValue',
+    Limit: 1,
   });
+
+  const data = await client.send(command);
+
+  if (data.Items.length) {
+    const contact = unmarshall(data.Items[0]) as DynamoContact;
+    return [omit(contact, ['sortedUniqueId', 'entityName'])];
+  }
+  return [];
 };
 
 export const handler: Handler = async (
