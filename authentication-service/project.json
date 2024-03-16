@@ -19,7 +19,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "authentication-service",
-        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/authentication-service --target node --minify"
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/authentication-service --target node --minify && cp package.json ../dist/authentication-service/package.json"
       }
     }
   },

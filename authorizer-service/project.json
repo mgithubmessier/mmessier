@@ -19,7 +19,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "authorizer-service",
-        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/authorizer-service --target node --minify"
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/authorizer-service --target node --minify && cp package.json ../dist/authorizer-service/package.json"
       }
     }
   },

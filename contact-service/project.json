@@ -19,7 +19,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "contact-service",
-        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/contact-service --target node --minify"
+        "command": "bun build --entrypoints ./src/index.ts --outdir ../dist/contact-service --target node --minify && cp package.json ../dist/contact-service/package.json"
       }
     }
   },
